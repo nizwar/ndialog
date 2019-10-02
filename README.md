@@ -36,6 +36,6 @@ That's it, have fun 😀
 
 ## Screenshot
 <p align="center">
-  <a href="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s320/Screenshot_20191002_134440%255B1%255D.jpg"> <img src="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s200/Screenshot_20191002_134440%255B1%255D.jpg"/></a>  
+  <a href="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s2000/Screenshot_20191002_134440%255B1%255D.jpg"> <img src="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s320/Screenshot_20191002_134440%255B1%255D.jpg"/></a>  
 </p>  
 
