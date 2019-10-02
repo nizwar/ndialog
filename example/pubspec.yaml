@@ -1,0 +1,20 @@
+name: example
+description: Example for blurdialog 
+version: 1.0.0+1
+homepage: https://github.com/nizwar
+author: Nizwar <nizwar@merahputih.id>
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter  
+  ndialog:
+    path: ".."
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter 
+flutter: 
+  uses-material-design: true 
