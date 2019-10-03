@@ -170,18 +170,19 @@ class NDialog extends StatelessWidget {
               duration: Duration(milliseconds: 900),
               builder: (context, val) {
                 return Transform.scale(
-                  scale: val,
-                  child: Dialog(
-                    backgroundColor: backgroundColor,
-                    elevation: elevation,
-                    child: dialogChild,
-                    shape: borderRadius != null
-                        ? RoundedRectangleBorder(borderRadius: borderRadius)
-                        : shape ??
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                  ),
-                );
+                    scale: val,
+                    child: Card(
+                      margin: EdgeInsets.symmetric(horizontal: 32.0),
+                      child: dialogChild,
+                      clipBehavior: Clip.antiAlias,
+                      elevation: elevation,
+                      color: backgroundColor,
+                      shape: borderRadius != null
+                          ? RoundedRectangleBorder(borderRadius: borderRadius)
+                          : shape ??
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                    ));
               }),
         ]),
       ),
