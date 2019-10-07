@@ -1,6 +1,6 @@
 name: ndialog
 description: Dialog material widget with blur background and popup animation
-version: 1.1.0
+version: 1.2.0
 homepage: https://github.com/nizwar
 author: Nizwar <nizwar@merahputih.id>
 
@@ -9,9 +9,5 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter 
-  simple_animations: ^1.3.3
-
-dev_dependencies:
-  pedantic: ^1.8.0
-  test: ^1.6.0
+    sdk: flutter
+  simple_animations: ^1.3.3 

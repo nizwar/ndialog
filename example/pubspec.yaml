@@ -1,5 +1,5 @@
 name: example
-description: Example for blurdialog 
+description: Example for ndialog
 version: 1.0.0+1
 homepage: https://github.com/nizwar
 author: Nizwar <nizwar@merahputih.id>
@@ -9,12 +9,12 @@ environment:
 
 dependencies:
   flutter:
-    sdk: flutter  
+    sdk: flutter
   ndialog:
     path: ".."
 
 dev_dependencies:
   flutter_test:
-    sdk: flutter 
-flutter: 
-  uses-material-design: true 
+    sdk: flutter
+flutter:
+  uses-material-design: true

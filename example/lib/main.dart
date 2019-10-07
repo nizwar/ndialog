@@ -27,38 +27,93 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-          child: FlatButton(
-        color: Colors.blue,
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return NDialog(
-                  blur: 5,
-                  content:
-                      Text("Hi, This is the content of dialog that you click."),
-                  title: Text("NDialog"),
-                  actions: <Widget>[
-                    FlatButton(
-                      padding: EdgeInsets.only(),
-                      child: Text("You"),
-                      onPressed: () {},
-                    ),
-                    FlatButton(
-                      padding: EdgeInsets.only(),
-                      child: Text("Are"),
-                      onPressed: () {},
-                    ),
-                    FlatButton(
-                      padding: EdgeInsets.only(),
-                      child: Text("Awesome"),
-                      onPressed: () {},
-                    ),
-                  ],
-                );
-              });
-        },
-        child: Text("Click Me :)", style: TextStyle(color: Colors.white)),
+          child: Column(
+        children: <Widget>[
+          FlatButton(
+            color: Colors.blue,
+            onPressed: () async {
+              ProgressDialog progressDialog = ProgressDialog(context,
+                  dialogStyle: DialogStyle(onDismiss: () {
+                print("Do something onDismiss");
+              }));
+              progressDialog.setMessage(
+                  Text("Please Wait, Injecting your phone with my virus"));
+              progressDialog.setTitle(Text("Loading"));
+              progressDialog.show();
+
+              await Future.delayed(Duration(seconds: 5));
+
+              progressDialog.setMessage(Text("I mean, virus of love :*"));
+              progressDialog.setTitle(Text("Just Kidding"));
+
+              await Future.delayed(Duration(seconds: 5));
+
+              progressDialog.dismiss();
+            },
+            child:
+                Text("Progress Dialog", style: TextStyle(color: Colors.white)),
+          ),
+          SizedBox(
+            width: 10.0,
+          ),
+          FlatButton(
+            color: Colors.blue,
+            onPressed: () async {
+              await ProgressDialog.future(context,
+                  future: Future.delayed(Duration(seconds: 5)),
+                  onProgressError: (error) {
+                print("Do something onProgressError");
+              }, onProgressFinish: (data) {
+                print("Do something onProgressFinish");
+              }, onProgressCancel: () {
+                print("Do something onProgressCancel");
+              },
+                  message: Text("Please Wait"),
+                  cancelText: Text("Batal"),
+                  title: Text("Loging in"),
+                  dialogStyle: DialogStyle(
+                      onDismiss: () {
+                        print("Do something onDismiss");
+                      },
+                      barrierDismissable: true));
+            },
+            child: Text("Progress Dialog Future",
+                style: TextStyle(color: Colors.white)),
+          ),
+          SizedBox(
+            width: 10.0,
+          ),
+          FlatButton(
+            color: Colors.blue,
+            onPressed: () async {
+              await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return NDialog(
+                      dialogStyle: DialogStyle(
+                          onDismiss: () {}, barrierDismissable: true),
+                      title: Text("Hi, This is NDialog"),
+                      content: Text("And here is your content, hoho... "),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("You"),
+                          onPressed: () {},
+                        ),
+                        FlatButton(
+                          child: Text("Are"),
+                          onPressed: () {},
+                        ),
+                        FlatButton(
+                          child: Text("Awesome"),
+                          onPressed: () {},
+                        )
+                      ],
+                    );
+                  });
+            },
+            child: Text("Show Dialog", style: TextStyle(color: Colors.white)),
+          ),
+        ],
       )),
     );
   }

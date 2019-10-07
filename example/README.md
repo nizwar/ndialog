@@ -1,16 +1,89 @@
-# example
+# Example
+This library have 2 Dialog : NDialog and ProgressDialog
+Now you have to use DialogStyle to custom your dialog
 
-A new Flutter project.
+## NDialog 
 
-## Getting Started
+``` dart
+await showDialog(
+  context: context,
+  builder: (context) {
+    return NDialog(
+      dialogStyle: DialogStyle(
+        blur: 3,
+        onDismiss: () {}, 
+        barrierDismissable: true
+      ),
+      title: Text("Hi, This is NDialog"),
+      content: Text("And here your content, hoho... "),
+      actions: <Widget>[
+        FlatButton(
+          child: Text("You"),
+          onPressed: () {},
+        ),
+        FlatButton(
+          child: Text("Are"),
+          onPressed: () {},
+        ),
+        FlatButton(
+          child: Text("Awesome"),
+          onPressed: () {},
+        )
+      ],
+    );
+  }
+);
+```
 
-This project is a starting point for a Flutter application.
+## ProgressDialog
 
-A few resources to get you started if this is your first Flutter project:
+``` dart
+ProgressDialog progressDialog = ProgressDialog(context, 
+  message:Text("This is the message"), 
+  title:Text("This is the title")
+);
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+//You can set Message using this function
+progressDialog.setTitle(Text("Loading"));
+progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+progressDialog.show();
+
+await Future.delayed(Duration(seconds: 5));
+
+//Progress Dialog already show? don't worry, you can change the message :D
+progressDialog.setTitle(Text("Just Kidding"));
+progressDialog.setMessage(Text("I mean, virus of love :*"));
+
+await Future.delayed(Duration(seconds: 5));
+
+progressDialog.dismiss();
+```
+
+Psstt...i make ProgressDialog realy fun...
+Just using future, this function will show ProgressDialog until future (param) reach the end, you can handle the operation too!
+
+``` dart
+await ProgressDialog.future(context,
+  future: Future.delayed(Duration(seconds: 5)),
+  onProgressError: (error){
+    //Error here
+  },
+  onProgressFinish: (data){
+    //Everything setup
+  },
+  onProgressCancel: () {
+    print("Do something onProgressCancel");
+  },
+  message: Text("Please Wait"),
+  cancelText: Text("Batal"),
+  title: Text("Waiting for delay"), 
+  dialogStyle: DialogStyle(
+    onDismiss: () {
+      print("Do something onDismiss");
+    },
+    barrierDismissable: true
+  )
+);
+```
+
