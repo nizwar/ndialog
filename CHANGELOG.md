@@ -1,3 +1,7 @@
+## [1.2.1] - 07 Oct 2019 
+
+- Fix ProgressDialog bug and layouting
+
 ## [1.2.0] - 07 Oct 2019 
 
 - Add ProgressDialog

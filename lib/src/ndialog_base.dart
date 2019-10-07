@@ -259,7 +259,7 @@ class ProgressDialog {
       DialogStyle dialogStyle,
       OnProgressError onProgressError,
       OnProgressFinish onProgressFinish,
-      @required OnProgressCancel onProgressCancel,
+      OnProgressCancel onProgressCancel,
       Widget message,
       Widget title,
       Widget cancelText,
@@ -270,9 +270,12 @@ class ProgressDialog {
         title: title,
         dialogStyle: dialogStyle,
         progressWidget: progressWidget,
-        cancelText: cancelText, onCancel: () {
-      if (onProgressCancel != null) onProgressCancel = onProgressCancel();
-    });
+        cancelText: cancelText,
+        onCancel: onProgressCancel != null
+            ? () {
+                onProgressCancel();
+              }
+            : null);
 
     pDialog.show();
 
@@ -342,8 +345,10 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
     EdgeInsetsGeometry msgPadding = titleDialog == null
         ? EdgeInsets.all(15.0)
         : widget.onCancel == null
-            ? EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0)
-            : widget.dialogStyle.contentPadding;
+            ? widget.dialogStyle.contentPadding == null
+                ? EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0)
+                : widget.dialogStyle.contentPadding
+            : EdgeInsets.fromLTRB(15.0, 0, 15.0, 0);
 
     return NDialog(
       title: titleDialog,
@@ -401,7 +406,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
           ? []
           : [
               Padding(
-                padding: const EdgeInsets.only(right: 5.0),
+                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
                 child: ButtonBar(
                     buttonHeight: 40.0,
                     buttonPadding: EdgeInsets.only(),
