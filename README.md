@@ -1,7 +1,5 @@
 # NDialog 
-[![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp;[![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp;[![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)
-
-[![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp;[![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/ndialog#-example-tab-)
+[![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/fork)&nbsp;[![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp;[![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)&nbsp;[![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp;[![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/ndialog#-example-tab-)
 
 Custom dialog with blur background and popup animation and ProgressDialog with native style, Made with love by [Moch. Nizwar Syafuan](https://fb.com/nizwar.richardo) ❤
 
