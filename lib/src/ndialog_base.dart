@@ -7,8 +7,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations/controlled_animation.dart';
 
-///Simple dialog with blur background and popup animations
+///Simple dialog with blur background and popup animations, use DialogStyle to custom it
 class NDialog extends StatelessWidget {
+  ///Custom progress dialog style
   final DialogStyle dialogStyle;
 
   ///The (optional) title of the dialog is displayed in a large font at the top of the dialog.
@@ -169,8 +170,12 @@ class NDialog extends StatelessWidget {
   }
 }
 
+///Simple progress dialog with blur background and popup animations, use DialogStyle to custom it
 class ProgressDialog {
+  ///The context
   final BuildContext context;
+
+  ///Custom progress dialog style
   final DialogStyle dialogStyle;
 
   ///The (optional) title of the progress dialog is displayed in a large font at the top of the dialog.
@@ -319,14 +324,16 @@ class _ProgressDialogWidget extends StatefulWidget {
 
   @override
   _ProgressDialogWidgetState createState() {
-    if (_dialogWidgetState == null)
+    if (_dialogWidgetState == null) {
       _dialogWidgetState = _ProgressDialogWidgetState();
+    }
     return _dialogWidgetState;
   }
 
   _ProgressDialogWidgetState getDialogState() {
-    if (_dialogWidgetState == null)
+    if (_dialogWidgetState == null) {
       _dialogWidgetState = _ProgressDialogWidgetState();
+    }
     return _dialogWidgetState;
   }
 }
@@ -359,15 +366,17 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
           barrierDismissable: widget.dialogStyle.barrierDismissable,
           borderRadius:
               widget.dialogStyle.borderRadius ?? BorderRadius.circular(2.0),
-          contentPadding: msgPadding,
+          contentPadding: msgPadding ?? EdgeInsets.symmetric(horizontal: 20.0),
           contentTextStyle: widget.dialogStyle.contentTextStyle,
           elevation: widget.dialogStyle.elevation,
           semanticsLabel: widget.dialogStyle.semanticsLabel,
           shape: widget.dialogStyle.shape,
-          titlePadding: widget.dialogStyle.titlePadding,
+          titlePadding: widget.dialogStyle.titlePadding ??
+              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
           onDismiss: () {
-            if (widget.dialogStyle.onDismiss != null)
+            if (widget.dialogStyle.onDismiss != null) {
               widget.dialogStyle.onDismiss();
+            }
             if (widget.onCancel != null) widget.onCancel();
           },
           titleTextStyle: widget.dialogStyle.titleTextStyle),
@@ -405,21 +414,22 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
       actions: widget.onCancel == null
           ? []
           : [
-              Padding(
+              Container(
                 padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
-                child: ButtonBar(
-                    buttonHeight: 40.0,
-                    buttonPadding: EdgeInsets.only(),
-                    children: [
-                      FlatButton(
-                        padding: EdgeInsets.only(),
-                        onPressed: () {
-                          if (widget.onCancel != null) widget.onCancel();
-                          Navigator.pop(context);
-                        },
-                        child: widget.cancelText ?? Text("Cancel"),
-                      ),
-                    ]),
+                alignment: Alignment.centerRight,
+                child: FlatButton(
+                  padding: EdgeInsets.only(),
+                  highlightColor: Colors.white.withOpacity(.3),
+                  splashColor: Theme.of(context).accentColor.withOpacity(.2),
+                  onPressed: () {
+                    if (widget.onCancel != null) widget.onCancel();
+                    Navigator.pop(context);
+                  },
+                  child: DefaultTextStyle(
+                    child: widget.cancelText ?? Text("Cancel"),
+                    style: TextStyle(color: Theme.of(context).accentColor),
+                  ),
+                ),
               )
             ],
     );

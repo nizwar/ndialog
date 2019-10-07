@@ -1,13 +1,15 @@
 # NDialog 
-[![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/fork)&nbsp;[![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp;[![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)&nbsp;[![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp;[![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/ndialog#-example-tab-)
+[![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/fork)&nbsp; [![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp; [![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)&nbsp; [![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp; [![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/ndialog#-example-tab-)
 
 Custom dialog with blur background and popup animation and ProgressDialog with native style, Made with love by [Moch. Nizwar Syafuan](https://fb.com/nizwar.richardo) ❤
 
 ## Let's Code!
+
 This library have 2 Dialog : NDialog and ProgressDialog
 Now you have to use DialogStyle to custom your dialog
 
 ### NDialog 
+
 ``` dart
 await showDialog(
   context: context,
@@ -40,6 +42,7 @@ await showDialog(
 ```
 
 ### ProgressDialog
+
 ``` dart
 ProgressDialog progressDialog = ProgressDialog(context, 
   message:Text("This is the message"), 
@@ -86,9 +89,11 @@ await ProgressDialog.future(context,
   )
 );
 ```
+
 That's it, have fun 😀
 
 ## Screenshot
+
 <p align="center">
   <a href="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s2000/Screenshot_20191002_134440%255B1%255D.jpg"> <img src="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s320/Screenshot_20191002_134440%255B1%255D.jpg"/></a> 
   <a href="https://1.bp.blogspot.com/-8ybIrlaNxeA/XZrBLCTxE6I/AAAAAAAAGzA/CpRWabOtuTAibsXhu_Oi8ZzjJIQo18X1wCLcBGAsYHQ/s2000/Screenshot_20191007_113509.jpg"> <img src="https://1.bp.blogspot.com/-8ybIrlaNxeA/XZrBLCTxE6I/AAAAAAAAGzA/CpRWabOtuTAibsXhu_Oi8ZzjJIQo18X1wCLcBGAsYHQ/s320/Screenshot_20191007_113509.jpg"/></a>
