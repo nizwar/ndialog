@@ -7,9 +7,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations/controlled_animation.dart';
 
-///Simple dialog with blur background and popup animations, use DialogStyle to custom it
+///NDialog widget
 class NDialog extends StatelessWidget {
-  ///Custom progress dialog style
+  ///Custom dialog style
   final DialogStyle dialogStyle;
 
   ///The (optional) title of the dialog is displayed in a large font at the top of the dialog.
@@ -22,11 +22,7 @@ class NDialog extends StatelessWidget {
   final List<Widget> actions;
 
   const NDialog(
-      {Key key,
-      @required this.dialogStyle,
-      this.title,
-      this.content,
-      this.actions})
+      {Key key, this.dialogStyle, this.title, this.content, this.actions})
       : super(key: key);
 
   @override
@@ -37,113 +33,81 @@ class NDialog extends StatelessWidget {
 
     String label = style.semanticsLabel;
     Widget dialogChild = IntrinsicWidth(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(minWidth: 280.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            title != null
-                ? Padding(
-                    padding: style.titlePadding ??
-                        EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          title != null
+              ? Padding(
+                  padding: style.titlePadding ??
+                      EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+                  child: DefaultTextStyle(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Semantics(
+                          child: title,
+                          namesRoute: true,
+                          label: label,
+                        ),
+                        style.titleDivider ?? false
+                            ? Divider()
+                            : Container(
+                                height: 10.0,
+                              )
+                      ],
+                    ),
+                    style: style.titleTextStyle ??
+                        dialogTheme.titleTextStyle ??
+                        theme.textTheme.title,
+                  ),
+                )
+              : Container(),
+          content != null
+              ? Flexible(
+                  child: Padding(
+                    padding: style.contentPadding ??
+                        EdgeInsets.only(
+                            right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
                     child: DefaultTextStyle(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Semantics(
-                            child: title,
-                            namesRoute: true,
-                            label: label,
-                          ),
-                          style.titleDivider ?? false
-                              ? Divider()
-                              : Container(
-                                  height: 10.0,
-                                )
-                        ],
-                      ),
-                      style: style.titleTextStyle ??
-                          dialogTheme.titleTextStyle ??
-                          theme.textTheme.title,
+                      child: Semantics(child: content),
+                      style: style.contentTextStyle ??
+                          dialogTheme.contentTextStyle ??
+                          theme.textTheme.subhead,
                     ),
-                  )
-                : Container(),
-            content != null
-                ? Flexible(
-                    child: SingleChildScrollView(
-                      padding: style.contentPadding ??
-                          EdgeInsets.only(
-                              right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
-                      child: DefaultTextStyle(
-                        child: Semantics(child: content),
-                        style: style.contentTextStyle ??
-                            dialogTheme.contentTextStyle ??
-                            theme.textTheme.subhead,
-                      ),
-                    ),
-                  )
-                : Container(),
-            actions != null
-                ? actions.length <= 3
-                    ? IntrinsicHeight(
-                        child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: List.generate(actions.length, (index) {
-                              return Expanded(child: actions[index]);
-                            })))
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: List.generate(actions.length, (index) {
-                          return SizedBox(
-                            height: 50.0,
-                            child: actions[index],
-                          );
-                        }))
-                : Container(),
-          ],
-        ),
+                  ),
+                )
+              : Container(),
+          actions != null
+              ? actions.length <= 3
+                  ? IntrinsicHeight(
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: List.generate(actions.length, (index) {
+                            return Expanded(child: actions[index]);
+                          })))
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(actions.length, (index) {
+                        return SizedBox(
+                          height: 50.0,
+                          child: actions[index],
+                        );
+                      }))
+              : Container(),
+        ],
       ),
     );
 
-    return Material(
-      type: MaterialType.canvas,
-      color: Colors.transparent,
-      child: WillPopScope(
-        onWillPop: () async {
-          if (style.barrierDismissable ?? true) {
-            if (dialogStyle.onDismiss != null) dialogStyle.onDismiss();
-            Navigator.pop(context);
-          }
-          return;
-        },
-        child: Stack(alignment: Alignment.center, children: <Widget>[
-          GestureDetector(
-            onTap: style.barrierDismissable ?? true
-                ? () {
-                    if (dialogStyle.onDismiss != null) dialogStyle.onDismiss();
-                    Navigator.pop(context);
-                  }
-                : () {},
-            child: ControlledAnimation(
-              tween: Tween<double>(begin: 0, end: style.blur ?? 3),
-              duration: Duration(milliseconds: 300),
-              builder: (context, val) {
-                return BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: val,
-                    sigmaY: val,
-                  ),
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
-                );
-              },
-            ),
-          ),
-          ControlledAnimation(
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets +
+          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minWidth: 280.0),
+          child: ControlledAnimation(
               tween: Tween<double>(begin: 0, end: 1),
               curve: Curves.elasticOut,
               duration: Duration(milliseconds: 900),
@@ -151,10 +115,9 @@ class NDialog extends StatelessWidget {
                 return Transform.scale(
                     scale: val,
                     child: Card(
-                      margin: EdgeInsets.symmetric(horizontal: 32.0),
                       child: dialogChild,
                       clipBehavior: Clip.antiAlias,
-                      elevation: style.elevation,
+                      elevation: style.elevation ?? 24,
                       color: style.backgroundColor,
                       shape: style.borderRadius != null
                           ? RoundedRectangleBorder(
@@ -164,18 +127,148 @@ class NDialog extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(5.0)),
                     ));
               }),
-        ]),
+        ),
       ),
     );
   }
 }
 
+///Simple dialog with blur background and popup animations, use DialogStyle to custom it
+class NAlertDialog extends StatelessWidget {
+  ///Custom progress dialog style
+  final DialogStyle dialogStyle;
+
+  ///The (optional) title of the dialog is displayed in a large font at the top of the dialog.
+  final Widget title;
+
+  ///The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
+  final Widget content;
+
+  ///The (optional) set of actions that are displayed at the bottom of the dialog.
+  final List<Widget> actions;
+
+  /// Creates an background filter that applies a Gaussian blur.
+  /// Default = 3.0
+  final blur;
+
+  ///Is your dialog dismissable?, because its warp by BlurDialogBackground,
+  ///you have to declare here instead on showDialog
+  final bool dismissable;
+
+  ///Action before dialog dismissed
+  final Function onDismiss;
+
+  const NAlertDialog(
+      {Key key,
+      this.dialogStyle,
+      this.title,
+      this.content,
+      this.actions,
+      this.blur,
+      this.dismissable,
+      this.onDismiss})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlurDialogBackground(
+      dialog: NDialog(
+        dialogStyle: dialogStyle,
+        actions: actions,
+        content: content,
+        title: title,
+      ),
+      dismissable: dismissable,
+      blur: blur ?? 3,
+      onDismiss: onDismiss,
+    );
+  }
+}
+
+///Blur background of dialog, you can use this class to make your custom dialog background blur
+class BlurDialogBackground extends StatelessWidget {
+  ///Widget of dialog, you can use NDialog, Dialog, AlertDialog or Custom your own Dialog
+  final Widget dialog;
+
+  ///Because blur dialog cover the barrier, you have to declare here
+  final bool dismissable;
+
+  ///Action before dialog dismissed
+  final Function onDismiss;
+
+  /// Creates an background filter that applies a Gaussian blur.
+  /// Default = 3.0
+  final double blur;
+
+  const BlurDialogBackground(
+      {Key key, this.dialog, this.dismissable, this.blur, this.onDismiss})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      type: MaterialType.canvas,
+      color: Colors.transparent,
+      child: WillPopScope(
+        onWillPop: () async {
+          if (dismissable ?? true) {
+            if (onDismiss != null) onDismiss();
+            Navigator.pop(context);
+          }
+          return;
+        },
+        child: Stack(
+            overflow: Overflow.clip,
+            alignment: Alignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: dismissable ?? true
+                    ? () {
+                        if (onDismiss != null) {
+                          onDismiss();
+                        }
+                        Navigator.pop(context);
+                      }
+                    : () {},
+                child: ControlledAnimation(
+                  tween: Tween<double>(begin: 0, end: blur ?? 3),
+                  duration: Duration(milliseconds: 300),
+                  builder: (context, val) {
+                    return BackdropFilter(
+                      filter: ImageFilter.blur(
+                        sigmaX: val,
+                        sigmaY: val,
+                      ),
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              dialog
+            ]),
+      ),
+    );
+  }
+}
+
+///Typedef of Progress while on Progress Error
+typedef OnProgressError(dynamic error);
+
+///Typedef of Progress while on Progress Finish
+typedef OnProgressFinish(dynamic data);
+
+///Typedef of Progress while on Progress Cancel
+typedef OnProgressCancel();
+
 ///Simple progress dialog with blur background and popup animations, use DialogStyle to custom it
+///inspired by ProgressDialog from Android Native, and it very simple to use
 class ProgressDialog {
   ///The context
   final BuildContext context;
 
-  ///Custom progress dialog style
+  ///Custom dialog style
   final DialogStyle dialogStyle;
 
   ///The (optional) title of the progress dialog is displayed in a large font at the top of the dialog.
@@ -185,7 +278,6 @@ class ProgressDialog {
   final Widget message;
 
   ///The (optional) on cancel button that will display at the bottom of the dialog.
-  ///
   ///Note : Do not use POP to cancel the dialog, just put your cancel code there
   final Function onCancel;
 
@@ -195,15 +287,22 @@ class ProgressDialog {
   ///The (optional) progress widget that are displayed before message of the dialog.
   final Widget progressWidget;
 
+  ///Is your dialog dismissable?, because its warp by BlurDialogBackground,
+  ///you have to declare here instead on showDialog
+  final bool dismissable;
+
+  ///Action before dialog dismissed
+  final Function onDismiss;
+
   bool _show = false;
   _ProgressDialogWidget _progressDialogWidget;
 
-  ///Progress dialog is inspired by ProgressDialog from Android Native,
-  ///its very simple to use
   ProgressDialog(this.context,
       {this.cancelText,
       this.progressWidget,
       this.onCancel,
+      this.dismissable,
+      this.onDismiss,
       this.title,
       this.message,
       this.dialogStyle}) {
@@ -224,13 +323,12 @@ class ProgressDialog {
 
   ///Show progress dialog
   void show() async {
-    DialogStyle style = dialogStyle ?? DialogStyle();
     if (!_show) {
       _show = true;
       if (_progressDialogWidget == null) _initProgress();
       await showDialog(
           context: context,
-          barrierDismissible: style.barrierDismissable ?? true,
+          barrierDismissible: dismissable ?? true,
           builder: (context) {
             return _progressDialogWidget;
           });
@@ -252,6 +350,8 @@ class ProgressDialog {
       onCancel: onCancel,
       cancelText: cancelText,
       title: title,
+      dismissable: dismissable,
+      onDismiss: onDismiss,
       message: message,
       progressWidget: progressWidget,
     );
@@ -265,6 +365,8 @@ class ProgressDialog {
       OnProgressError onProgressError,
       OnProgressFinish onProgressFinish,
       OnProgressCancel onProgressCancel,
+      Function onDismiss,
+      bool dismissable,
       Widget message,
       Widget title,
       Widget cancelText,
@@ -273,6 +375,8 @@ class ProgressDialog {
     ProgressDialog pDialog = ProgressDialog(context,
         message: message,
         title: title,
+        dismissable: dismissable,
+        onDismiss: onDismiss,
         dialogStyle: dialogStyle,
         progressWidget: progressWidget,
         cancelText: cancelText,
@@ -294,15 +398,6 @@ class ProgressDialog {
   }
 }
 
-///Typedef of Progress while on Progress Error
-typedef OnProgressError(dynamic error);
-
-///Typedef of Progress while on Progress Finish
-typedef OnProgressFinish(dynamic data);
-
-///Typedef of Progress while on Progress Cancel
-typedef OnProgressCancel();
-
 //ignore:must_be_immutable
 class _ProgressDialogWidget extends StatefulWidget {
   final DialogStyle dialogStyle;
@@ -310,6 +405,8 @@ class _ProgressDialogWidget extends StatefulWidget {
   final Widget cancelText;
   final Function onCancel;
   final Widget progressWidget;
+  final Function onDismiss;
+  final bool dismissable;
   _ProgressDialogWidgetState _dialogWidgetState = _ProgressDialogWidgetState();
 
   _ProgressDialogWidget({
@@ -318,6 +415,8 @@ class _ProgressDialogWidget extends StatefulWidget {
     this.title,
     this.message,
     this.onCancel,
+    this.dismissable,
+    this.onDismiss,
     this.cancelText,
     this.progressWidget,
   }) : super(key: key);
@@ -357,13 +456,18 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
                 : widget.dialogStyle.contentPadding
             : EdgeInsets.fromLTRB(15.0, 0, 15.0, 0);
 
-    return NDialog(
+    return NAlertDialog(
       title: titleDialog,
+      dismissable: widget.dismissable ?? true,
+      onDismiss: () {
+        if (widget.onDismiss != null) {
+          widget.onDismiss();
+        }
+        if (widget.onCancel != null) widget.onCancel();
+      },
       dialogStyle: DialogStyle(
           backgroundColor: widget.dialogStyle.backgroundColor,
-          blur: widget.dialogStyle.blur,
           titleDivider: widget.dialogStyle.titleDivider,
-          barrierDismissable: widget.dialogStyle.barrierDismissable,
           borderRadius:
               widget.dialogStyle.borderRadius ?? BorderRadius.circular(2.0),
           contentPadding: msgPadding ?? EdgeInsets.symmetric(horizontal: 20.0),
@@ -373,12 +477,6 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
           shape: widget.dialogStyle.shape,
           titlePadding: widget.dialogStyle.titlePadding ??
               EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
-          onDismiss: () {
-            if (widget.dialogStyle.onDismiss != null) {
-              widget.dialogStyle.onDismiss();
-            }
-            if (widget.onCancel != null) widget.onCancel();
-          },
           titleTextStyle: widget.dialogStyle.titleTextStyle),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -450,16 +548,6 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
 
 ///Dialog style to custom your dialog
 class DialogStyle {
-  /// Creates an background filter that applies a Gaussian blur.
-  ///
-  /// Default = 3.0
-  final double blur;
-
-  /// is your dialog Dismissable while you click outside box?
-  final bool barrierDismissable;
-
-  final Function onDismiss;
-
   /// Divider on title
   final bool titleDivider;
 
@@ -469,11 +557,17 @@ class DialogStyle {
   ///Set semanticslabel for Title
   final String semanticsLabel;
 
-  ///Set padding for your Title or Content
-  final EdgeInsets titlePadding, contentPadding;
+  ///Set padding for your Title
+  final EdgeInsets titlePadding;
 
-  ///Set TextStyle for your Title or Content
-  final TextStyle titleTextStyle, contentTextStyle;
+  ///Set padding for your  Content
+  final EdgeInsets contentPadding;
+
+  ///Set TextStyle for your Title
+  final TextStyle titleTextStyle;
+
+  ///Set TextStyle for your Content
+  final TextStyle contentTextStyle;
 
   ///Elevation for dialog
   final double elevation;
@@ -486,9 +580,6 @@ class DialogStyle {
 
   DialogStyle(
       {this.titleDivider,
-      this.blur,
-      this.onDismiss,
-      this.barrierDismissable,
       this.borderRadius,
       this.semanticsLabel,
       this.titlePadding,

@@ -1,3 +1,9 @@
+## [2.0.0] - 09 Oct 2019 
+
+* You can blur any dialog background using BlurDialogBackground.
+* separate the NDialog class into 2, NDialog and NAlertDialog.
+* Fix bugs when the screen gets smaller (for example when the keyboard appears)
+
 ## [1.2.1+3] - 07 Oct 2019 
 
 * Fix ProgressDialog bug and layouting

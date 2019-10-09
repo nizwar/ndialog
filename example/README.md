@@ -1,21 +1,56 @@
 # Example
 This library have 2 Dialog : NDialog and ProgressDialog
-Now you have to use DialogStyle to custom your dialog
 
-## NDialog 
+## NAlertDialog & NDialog
+
+I separate the NDialog class into 2, that is NAlertDialog (NDialog like before) and NDialog (Raw Dialog without blur)
+
+### NAlertDialog
+
+Dialog that will show using blur background, you can custom it easily.
+
+``` dart
+await showDialog(
+  context: context,
+  builder: (context) {
+    return NAlertDialog(
+      dialogStyle: DialogStyle(
+      onDismiss: () {},
+      dismissable: true,
+      titleDivider: true),
+      title: Text("Hi, This is NDialog"),
+      content: Text("And here is your content, hoho... "), 
+      actions: <Widget>[
+        FlatButton(
+          child: Text("You"),
+          onPressed: () {},
+        ),
+        FlatButton(
+          child: Text("Are"),
+          onPressed: () {},
+        ),
+        FlatButton(
+          child: Text("Awesome"),
+          onPressed: () {},
+        )
+      ],
+    );
+  }
+);
+```
+
+### NDialog
+
+Raw dialog that you can use directly to showDialog without Blur Background
 
 ``` dart
 await showDialog(
   context: context,
   builder: (context) {
     return NDialog(
-      dialogStyle: DialogStyle(
-        blur: 3,
-        onDismiss: () {}, 
-        barrierDismissable: true
-      ),
+      dialogStyle: DialogStyle(titleDivider: true),
       title: Text("Hi, This is NDialog"),
-      content: Text("And here your content, hoho... "),
+      content: Text("And here is your content, hoho... "),  
       actions: <Widget>[
         FlatButton(
           child: Text("You"),
@@ -46,17 +81,14 @@ ProgressDialog progressDialog = ProgressDialog(context,
 //You can set Message using this function
 progressDialog.setTitle(Text("Loading"));
 progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
-
 progressDialog.show();
 
 await Future.delayed(Duration(seconds: 5));
-
 //Progress Dialog already show? don't worry, you can change the message :D
 progressDialog.setTitle(Text("Just Kidding"));
 progressDialog.setMessage(Text("I mean, virus of love :*"));
 
 await Future.delayed(Duration(seconds: 5));
-
 progressDialog.dismiss();
 ```
 
@@ -84,6 +116,38 @@ await ProgressDialog.future(context,
     },
     barrierDismissable: true
   )
+);
+```
+
+## BlurDialogBackground
+
+Now you can blur any dialog, simply wrap them with BlurDialogBackground
+
+``` dart
+await showDialog(
+  context: context,
+  builder: (context) {
+    return BlurDialogBackground(
+      dialog: AlertDialog(
+        title: Text("Alert Dialog"),
+        content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("You"),
+            onPressed: () {},
+          ),
+          FlatButton(
+            child: Text("Are"),
+            onPressed: () {},
+          ),
+          FlatButton(
+            child: Text("Awesome"),
+            onPressed: () {},
+          )
+        ],
+      ),
+    );
+  }
 );
 ```
 
