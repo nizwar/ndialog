@@ -387,14 +387,18 @@ class ProgressDialog {
             : null);
 
     pDialog.show();
-
-    return await future.then((data) {
+    
+    var output;
+    await future.then((data) {
       if (onProgressFinish != null) onProgressFinish = onProgressFinish(data);
+      output = data;
       pDialog.dismiss();
     }).catchError((error) {
       if (onProgressError != null) onProgressError = onProgressError(error);
       pDialog.dismiss();
     });
+
+    return output;
   }
 }
 

@@ -1,3 +1,7 @@
+## [2.0.1] - 10 Oct 2019
+
+* Fix Return value from ProgressDialog.future
+
 ## [2.0.0] - 09 Oct 2019 
 
 * You can blur any dialog background using BlurDialogBackground.

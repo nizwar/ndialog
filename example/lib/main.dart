@@ -62,17 +62,16 @@ class MyHomePage extends StatelessWidget {
               FlatButton(
                 color: Colors.blue,
                 onPressed: () async {
-                  await ProgressDialog.future(
+                  print(await ProgressDialog.future(
                     context,
-                    future: Future.delayed(Duration(seconds: 5)),
+                    future: Future.delayed(Duration(seconds: 5), () {
+                      return "HIYAAA";
+                    }),
                     onProgressError: (error) {
                       print("Do something onProgressError");
                     },
                     onProgressFinish: (data) {
                       print("Do something onProgressFinish");
-                    },
-                    onProgressCancel: () {
-                      print("Do something onProgressCancel");
                     },
                     onDismiss: () {
                       print("Dismissed");
@@ -80,7 +79,7 @@ class MyHomePage extends StatelessWidget {
                     message: Text("Please Wait"),
                     cancelText: Text("Batal"),
                     title: Text("Loging in"),
-                  );
+                  ));
                 },
                 child: Text("Progress Dialog Future",
                     style: TextStyle(color: Colors.white)),
