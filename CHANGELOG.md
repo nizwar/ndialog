@@ -1,3 +1,7 @@
+## [2.0.2] - 10 Oct 2019
+
+* Fix set blur on progressdialog
+
 ## [2.0.1] - 10 Oct 2019
 
 * Fix Return value from ProgressDialog.future

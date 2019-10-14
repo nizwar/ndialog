@@ -36,7 +36,7 @@ class MyHomePage extends StatelessWidget {
                 color: Colors.blue,
                 onPressed: () async {
                   ProgressDialog progressDialog =
-                      ProgressDialog(context, onDismiss: () {
+                      ProgressDialog(context, blur: 0, onDismiss: () {
                     print("Do something onDismiss");
                   }, dismissable: true);
                   progressDialog.setMessage(
@@ -64,6 +64,7 @@ class MyHomePage extends StatelessWidget {
                 onPressed: () async {
                   print(await ProgressDialog.future(
                     context,
+                    blur: 0.0,
                     future: Future.delayed(Duration(seconds: 5), () {
                       return "HIYAAA";
                     }),

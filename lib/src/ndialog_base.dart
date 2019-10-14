@@ -294,12 +294,15 @@ class ProgressDialog {
   ///Action before dialog dismissed
   final Function onDismiss;
 
+  final double blur;
+
   bool _show = false;
   _ProgressDialogWidget _progressDialogWidget;
 
   ProgressDialog(this.context,
       {this.cancelText,
       this.progressWidget,
+      this.blur,
       this.onCancel,
       this.dismissable,
       this.onDismiss,
@@ -353,6 +356,7 @@ class ProgressDialog {
       dismissable: dismissable,
       onDismiss: onDismiss,
       message: message,
+      blur: blur,
       progressWidget: progressWidget,
     );
   }
@@ -362,6 +366,7 @@ class ProgressDialog {
   static Future future(BuildContext context,
       {@required Future future,
       DialogStyle dialogStyle,
+      double blur,
       OnProgressError onProgressError,
       OnProgressFinish onProgressFinish,
       OnProgressCancel onProgressCancel,
@@ -378,6 +383,7 @@ class ProgressDialog {
         dismissable: dismissable,
         onDismiss: onDismiss,
         dialogStyle: dialogStyle,
+        blur: blur,
         progressWidget: progressWidget,
         cancelText: cancelText,
         onCancel: onProgressCancel != null
@@ -387,7 +393,7 @@ class ProgressDialog {
             : null);
 
     pDialog.show();
-    
+
     var output;
     await future.then((data) {
       if (onProgressFinish != null) onProgressFinish = onProgressFinish(data);
@@ -411,6 +417,7 @@ class _ProgressDialogWidget extends StatefulWidget {
   final Widget progressWidget;
   final Function onDismiss;
   final bool dismissable;
+  final double blur;
   _ProgressDialogWidgetState _dialogWidgetState = _ProgressDialogWidgetState();
 
   _ProgressDialogWidget({
@@ -423,6 +430,7 @@ class _ProgressDialogWidget extends StatefulWidget {
     this.onDismiss,
     this.cancelText,
     this.progressWidget,
+    this.blur,
   }) : super(key: key);
 
   @override
@@ -463,6 +471,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
     return NAlertDialog(
       title: titleDialog,
       dismissable: widget.dismissable ?? true,
+      blur: widget.blur,
       onDismiss: () {
         if (widget.onDismiss != null) {
           widget.onDismiss();
