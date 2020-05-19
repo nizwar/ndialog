@@ -1,4 +1,16 @@
+## [2.1.0+4] - 19 May 2020
+
+* I hope it work now (just publishing issues).
+
+## [2.1.0+3] - 19 May 2020
+
+* Another touch
+
 ## [2.1.0+2] - 19 May 2020
+
+* Little touch here an there   
+
+## [2.1.0+1] - 19 May 2020
 
 * You can popup the dialog without bouncing animation, simply use animatePopup : false 
 * progressDialog widget changed to LoadingWidget

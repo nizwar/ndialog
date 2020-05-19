@@ -43,7 +43,8 @@ class MyHomePage extends StatelessWidget {
                     },
                   );
                   progressDialog.setLoadingWidget(CircleAvatar());
-                  progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
+                  progressDialog.setMessage(
+                      Text("Please Wait, Injecting your phone with my virus"));
                   progressDialog.setTitle(Text("Loading"));
                   progressDialog.show();
 
@@ -57,7 +58,8 @@ class MyHomePage extends StatelessWidget {
 
                   progressDialog.dismiss();
                 },
-                child: Text("Progress Dialog", style: TextStyle(color: Colors.white)),
+                child: Text("Progress Dialog",
+                    style: TextStyle(color: Colors.white)),
               ),
               SizedBox(
                 width: 10.0,
@@ -85,7 +87,8 @@ class MyHomePage extends StatelessWidget {
                     title: Text("Loging in"),
                   ));
                 },
-                child: Text("Progress Dialog Future", style: TextStyle(color: Colors.white)),
+                child: Text("Progress Dialog Future",
+                    style: TextStyle(color: Colors.white)),
               ),
               SizedBox(
                 width: 10.0,
@@ -117,7 +120,8 @@ class MyHomePage extends StatelessWidget {
                         );
                       });
                 },
-                child: Text("Show NAlertDialog", style: TextStyle(color: Colors.white)),
+                child: Text("Show NAlertDialog",
+                    style: TextStyle(color: Colors.white)),
               ),
               FlatButton(
                 color: Colors.blue,
@@ -146,7 +150,8 @@ class MyHomePage extends StatelessWidget {
                         );
                       });
                 },
-                child: Text("Show NDialog", style: TextStyle(color: Colors.white)),
+                child:
+                    Text("Show NDialog", style: TextStyle(color: Colors.white)),
               ),
               FlatButton(
                 child: Text(
@@ -164,7 +169,8 @@ class MyHomePage extends StatelessWidget {
                           blur: 2,
                           dialog: AlertDialog(
                             title: Text("Alert Dialog"),
-                            content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
+                            content: Text(
+                                "Wohoo.. This is ordinary AlertDialog with Blur background"),
                             actions: <Widget>[
                               FlatButton(
                                 child: Text("You"),

@@ -5,7 +5,7 @@ import 'dart:async';
 ///==================================================================================
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations/controlled_animation.dart';
+import 'package:simple_animations/simple_animations.dart';
 
 ///NDialog widget
 class NDialog extends StatelessWidget {
@@ -21,7 +21,9 @@ class NDialog extends StatelessWidget {
   ///The (optional) set of actions that are displayed at the bottom of the dialog.
   final List<Widget> actions;
 
-  const NDialog({Key key, this.dialogStyle, this.title, this.content, this.actions}) : super(key: key);
+  const NDialog(
+      {Key key, this.dialogStyle, this.title, this.content, this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,8 @@ class NDialog extends StatelessWidget {
         children: <Widget>[
           title != null
               ? Padding(
-                  padding: style.titlePadding ?? EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+                  padding: style.titlePadding ??
+                      EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
                   child: DefaultTextStyle(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,17 +57,23 @@ class NDialog extends StatelessWidget {
                               )
                       ],
                     ),
-                    style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.headline6,
+                    style: style.titleTextStyle ??
+                        dialogTheme.titleTextStyle ??
+                        theme.textTheme.headline6,
                   ),
                 )
               : Container(),
           content != null
               ? Flexible(
                   child: Padding(
-                    padding: style.contentPadding ?? EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
+                    padding: style.contentPadding ??
+                        EdgeInsets.only(
+                            right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
                     child: DefaultTextStyle(
                       child: Semantics(child: content),
-                      style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
+                      style: style.contentTextStyle ??
+                          dialogTheme.contentTextStyle ??
+                          theme.textTheme.subtitle1,
                     ),
                   ),
                 )
@@ -93,16 +102,17 @@ class NDialog extends StatelessWidget {
     );
 
     return Padding(
-      padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+      padding: MediaQuery.of(context).viewInsets +
+          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 280.0),
           child: (dialogStyle.animatePopup ?? true)
-              ? ControlledAnimation(
+              ? CustomAnimation(
                   tween: Tween<double>(begin: 0, end: 1),
                   curve: Curves.elasticOut,
                   duration: Duration(milliseconds: 900),
-                  builder: (context, val) {
+                  builder: (context, child, val) {
                     return Transform.scale(
                         scale: val,
                         child: Card(
@@ -110,8 +120,12 @@ class NDialog extends StatelessWidget {
                           clipBehavior: Clip.antiAlias,
                           elevation: style.elevation ?? 24,
                           color: style.backgroundColor,
-                          shape:
-                              style.borderRadius != null ? RoundedRectangleBorder(borderRadius: style.borderRadius) : style.shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                          shape: style.borderRadius != null
+                              ? RoundedRectangleBorder(
+                                  borderRadius: style.borderRadius)
+                              : style.shape ??
+                                  RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0)),
                         ));
                   })
               : Card(
@@ -119,7 +133,11 @@ class NDialog extends StatelessWidget {
                   clipBehavior: Clip.antiAlias,
                   elevation: style.elevation ?? 24,
                   color: style.backgroundColor,
-                  shape: style.borderRadius != null ? RoundedRectangleBorder(borderRadius: style.borderRadius) : style.shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                  shape: style.borderRadius != null
+                      ? RoundedRectangleBorder(borderRadius: style.borderRadius)
+                      : style.shape ??
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0)),
                 ),
         ),
       ),
@@ -152,7 +170,16 @@ class NAlertDialog extends StatelessWidget {
   ///Action before dialog dismissed
   final Function onDismiss;
 
-  const NAlertDialog({Key key, this.dialogStyle, this.title, this.content, this.actions, this.blur, this.dismissable, this.onDismiss}) : super(key: key);
+  const NAlertDialog(
+      {Key key,
+      this.dialogStyle,
+      this.title,
+      this.content,
+      this.actions,
+      this.blur,
+      this.dismissable,
+      this.onDismiss})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -185,7 +212,9 @@ class BlurDialogBackground extends StatelessWidget {
   /// Default = 3.0
   final double blur;
 
-  const BlurDialogBackground({Key key, this.dialog, this.dismissable, this.blur, this.onDismiss}) : super(key: key);
+  const BlurDialogBackground(
+      {Key key, this.dialog, this.dismissable, this.blur, this.onDismiss})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -200,34 +229,37 @@ class BlurDialogBackground extends StatelessWidget {
           }
           return;
         },
-        child: Stack(overflow: Overflow.clip, alignment: Alignment.center, children: <Widget>[
-          GestureDetector(
-            onTap: dismissable ?? true
-                ? () {
-                    if (onDismiss != null) {
-                      onDismiss();
-                    }
-                    Navigator.pop(context);
-                  }
-                : () {},
-            child: ControlledAnimation(
-              tween: Tween<double>(begin: 0, end: blur ?? 0),
-              duration: Duration(milliseconds: 300),
-              builder: (context, val) {
-                return BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: val,
-                    sigmaY: val,
-                  ),
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
-                );
-              },
-            ),
-          ),
-          dialog
-        ]),
+        child: Stack(
+            overflow: Overflow.clip,
+            alignment: Alignment.center,
+            children: <Widget>[
+              GestureDetector(
+                onTap: dismissable ?? true
+                    ? () {
+                        if (onDismiss != null) {
+                          onDismiss();
+                        }
+                        Navigator.pop(context);
+                      }
+                    : () {},
+                child: CustomAnimation(
+                  tween: Tween<double>(begin: 0, end: blur ?? 0),
+                  duration: Duration(milliseconds: 300),
+                  builder: (context, child, val) {
+                    return BackdropFilter(
+                      filter: ImageFilter.blur(
+                        sigmaX: val,
+                        sigmaY: val,
+                      ),
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              dialog
+            ]),
       ),
     );
   }
@@ -280,7 +312,16 @@ class ProgressDialog {
   bool _show = false;
   _ProgressDialogWidget _progressDialogWidget;
 
-  ProgressDialog(this.context, {this.cancelText, this.defaultLoadingWidget, this.blur, this.onCancel, this.dismissable, this.onDismiss, this.title, this.message, this.dialogStyle}) {
+  ProgressDialog(this.context,
+      {this.cancelText,
+      this.defaultLoadingWidget,
+      this.blur,
+      this.onCancel,
+      this.dismissable,
+      this.onDismiss,
+      this.title,
+      this.message,
+      this.dialogStyle}) {
     _initProgress();
   }
 
@@ -450,7 +491,11 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
 
     EdgeInsetsGeometry msgPadding = titleDialog == null
         ? EdgeInsets.all(15.0)
-        : widget.onCancel == null ? widget.dialogStyle.contentPadding == null ? EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0) : widget.dialogStyle.contentPadding : EdgeInsets.fromLTRB(15.0, 0, 15.0, 0);
+        : widget.onCancel == null
+            ? widget.dialogStyle.contentPadding == null
+                ? EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0)
+                : widget.dialogStyle.contentPadding
+            : EdgeInsets.fromLTRB(15.0, 0, 15.0, 0);
 
     return NAlertDialog(
       title: titleDialog,
@@ -465,14 +510,16 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
       dialogStyle: DialogStyle(
           backgroundColor: widget.dialogStyle.backgroundColor,
           titleDivider: widget.dialogStyle.titleDivider,
-          borderRadius: widget.dialogStyle.borderRadius ?? BorderRadius.circular(2.0),
+          borderRadius:
+              widget.dialogStyle.borderRadius ?? BorderRadius.circular(2.0),
           contentPadding: msgPadding ?? EdgeInsets.symmetric(horizontal: 20.0),
           contentTextStyle: widget.dialogStyle.contentTextStyle,
           elevation: widget.dialogStyle.elevation,
           semanticsLabel: widget.dialogStyle.semanticsLabel,
           animatePopup: widget.dialogStyle.animatePopup,
           shape: widget.dialogStyle.shape,
-          titlePadding: widget.dialogStyle.titlePadding ?? EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
+          titlePadding: widget.dialogStyle.titlePadding ??
+              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
           titleTextStyle: widget.dialogStyle.titleTextStyle),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -488,7 +535,9 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
               Expanded(
                 child: DefaultTextStyle(
                   child: Semantics(child: messageDialog),
-                  style: widget.dialogStyle.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
+                  style: widget.dialogStyle.contentTextStyle ??
+                      dialogTheme.contentTextStyle ??
+                      theme.textTheme.subtitle1,
                 ),
               ),
             ],
