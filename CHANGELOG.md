@@ -1,3 +1,14 @@
+## [2.1.0+1] - 19 May 2020
+
+* You can popup the dialog without bouncing animation, simply use animatePopup : false 
+* progressDialog widget changed to LoadingWidget
+* You can change LoadingWidget simply like you change Title and Message
+
+## [2.0.2+1] - 30 Oct 2019
+
+* Fix double blur issues
+* Set 0 as default value of blur
+
 ## [2.0.2] - 10 Oct 2019
 
 * Fix set blur on progressdialog
