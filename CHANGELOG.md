@@ -1,3 +1,14 @@
+
+## [2.1.1+7] - 19 May 2020
+* Show NAlertDialog and NDialog much easier
+* Optimize the codes!
+
+## [2.1.0+6] - 19 May 2020
+* Fix AnimatedPopup
+
+## [2.1.0+5] - 19 May 2020
+* Fix something
+
 ## [2.1.0+4] - 19 May 2020
 
 * I hope it work now (just publishing issues).

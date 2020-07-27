@@ -45,6 +45,15 @@ await showDialog(
 );
 ```
 
+Psttt i got you a simple way to show NAlertDialog
+
+``` dart
+  NAlertDialog(
+    title: Text("Woooaaahhh"),
+    content: Text("It so fun!"),
+  ).show(context);
+```
+
 #### NDialog
 
 Raw dialog that you can use directly to showDialog without Blur Background
@@ -74,6 +83,14 @@ await showDialog(
     );
   }
 );
+```
+
+Of course NDialog can do it too!
+``` dart
+  NDialog(
+    title: Text("Woho"),
+    content: Text("I'm a simple NDialog to show!"),
+  ).show(context);
 ```
 
 ### ProgressDialog

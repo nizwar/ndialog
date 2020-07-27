@@ -34,6 +34,36 @@ class MyHomePage extends StatelessWidget {
             children: <Widget>[
               FlatButton(
                 color: Colors.blue,
+                child: Text(
+                  "NAlertDialog show",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  NAlertDialog(
+                    title: Text("Test"),
+                    content: Text("Iya iya"),
+                    blur: 2,
+                  ).show(context);
+                },
+              ),
+              FlatButton(
+                color: Colors.blue,
+                child: Text(
+                  "NDialog can do it too!",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  NDialog(
+                    title: Text("Test"),
+                    dialogStyle: DialogStyle(
+                      animatePopup: false,
+                    ),
+                    content: Text("Iya iya"),
+                  ).show(context);
+                },
+              ),
+              FlatButton(
+                color: Colors.blue,
                 onPressed: () async {
                   ProgressDialog progressDialog = ProgressDialog(
                     context,

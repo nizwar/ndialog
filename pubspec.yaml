@@ -1,6 +1,6 @@
 name: ndialog
 description: Dialog material widget with blur background and popup animation
-version: 2.1.0+4
+version: 2.1.1+7
 homepage: https://github.com/nizwar/ndialog
 
 environment:

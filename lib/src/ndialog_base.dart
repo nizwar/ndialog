@@ -107,7 +107,7 @@ class NDialog extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 280.0),
-          child: (dialogStyle.animatePopup ?? true)
+          child: (style?.animatePopup ?? true)
               ? CustomAnimation(
                   tween: Tween<double>(begin: 0, end: 1),
                   curve: Curves.elasticOut,
@@ -143,6 +143,9 @@ class NDialog extends StatelessWidget {
       ),
     );
   }
+
+  Future show<T>(BuildContext context) =>
+      showDialog<T>(context: context, builder: (context) => this);
 }
 
 ///Simple dialog with blur background and popup animations, use DialogStyle to custom it
@@ -195,6 +198,10 @@ class NAlertDialog extends StatelessWidget {
       onDismiss: onDismiss,
     );
   }
+
+  ///Simply show dialog on NAlertdialog
+  Future show<T>(BuildContext context) =>
+      showDialog<T>(context: context, builder: (context) => this);
 }
 
 ///Blur background of dialog, you can use this class to make your custom dialog background blur
@@ -352,9 +359,7 @@ class ProgressDialog {
       await showDialog(
           context: context,
           barrierDismissible: dismissable ?? true,
-          builder: (context) {
-            return _progressDialogWidget;
-          });
+          builder: (context) => _progressDialogWidget);
       _show = false;
     }
   }
@@ -516,7 +521,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
           contentTextStyle: widget.dialogStyle.contentTextStyle,
           elevation: widget.dialogStyle.elevation,
           semanticsLabel: widget.dialogStyle.semanticsLabel,
-          animatePopup: widget.dialogStyle.animatePopup,
+          animatePopup: widget.dialogStyle.animatePopup ?? true,
           shape: widget.dialogStyle.shape,
           titlePadding: widget.dialogStyle.titlePadding ??
               EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
