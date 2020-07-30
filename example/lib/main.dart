@@ -91,8 +91,28 @@ class MyHomePage extends StatelessWidget {
                 child: Text("Progress Dialog",
                     style: TextStyle(color: Colors.white)),
               ),
-              SizedBox(
-                width: 10.0,
+              FlatButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  CustomProgressDialog progressDialog = CustomProgressDialog(
+                    context,
+                    blur: 10,
+                    onDismiss: () {
+                      print("Do something onDismiss");
+                    },
+                  );
+                  progressDialog.updateLoadingWidget(CircleAvatar());
+                  progressDialog.show();
+
+                  await Future.delayed(Duration(seconds: 5));
+                  progressDialog.updateLoadingWidget(null);
+
+                  await Future.delayed(Duration(seconds: 5));
+
+                  progressDialog.dismiss();
+                },
+                child: Text("Custom Progress Dialog",
+                    style: TextStyle(color: Colors.white)),
               ),
               FlatButton(
                 color: Colors.blue,
@@ -120,8 +140,27 @@ class MyHomePage extends StatelessWidget {
                 child: Text("Progress Dialog Future",
                     style: TextStyle(color: Colors.white)),
               ),
-              SizedBox(
-                width: 10.0,
+              FlatButton(
+                color: Colors.blue,
+                onPressed: () async {
+                  print(await CustomProgressDialog.future(
+                    context,
+                    future: Future.delayed(Duration(seconds: 5), () {
+                      return "WOHOOO";
+                    }),
+                    onProgressError: (error) {
+                      print("Do something onProgressError");
+                    },
+                    onProgressFinish: (data) {
+                      print("Do something onProgressFinish");
+                    },
+                    onDismiss: () {
+                      print("Dismissed");
+                    },
+                  ));
+                },
+                child: Text("Custom Progress Dialog Future",
+                    style: TextStyle(color: Colors.white)),
               ),
               FlatButton(
                 color: Colors.blue,

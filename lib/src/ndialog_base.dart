@@ -402,20 +402,19 @@ class ProgressDialog {
       Widget cancelText,
       Widget progressWidget}) async {
     if (future == null) throw Exception("Future (param) can not be null");
-    ProgressDialog pDialog = ProgressDialog(context,
-        message: message,
-        title: title,
-        dismissable: dismissable,
-        onDismiss: onDismiss,
-        dialogStyle: dialogStyle,
-        blur: blur,
-        defaultLoadingWidget: progressWidget,
-        cancelText: cancelText,
-        onCancel: onProgressCancel != null
-            ? () {
-                onProgressCancel();
-              }
-            : null);
+
+    ProgressDialog pDialog = ProgressDialog(
+      context,
+      message: message,
+      title: title,
+      dismissable: dismissable,
+      onDismiss: onDismiss,
+      dialogStyle: dialogStyle,
+      blur: blur,
+      defaultLoadingWidget: progressWidget,
+      cancelText: cancelText,
+      onCancel: onProgressCancel != null ? onProgressCancel : null,
+    );
 
     pDialog.show();
 
@@ -588,6 +587,200 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> {
   ///Set loading widget of dialog
   void setLoadingWidget(Widget loading) async {
     this.loading = loading;
+    if (mounted) setState(() {});
+  }
+}
+
+class CustomProgressDialog {
+  ///The context
+  final BuildContext context;
+
+  ///Show as the progress, nullable to aplied to default loading widget
+  final Widget loadingWidget;
+
+  ///The (optional) on cancel button that will display at the bottom of the dialog.
+  ///Note : Do not use POP to cancel the dialog, just put your cancel code there
+  final Function onCancel;
+
+  ///Is your dialog dismissable?, because its warp by BlurDialogBackground,
+  ///you have to declare here instead on showDialog
+  final bool dismissable;
+
+  ///Action on dialog dismissing
+  final Function onDismiss;
+
+  final double blur;
+
+  bool _show = false;
+  _CustomProgressDialogWidget _progressDialogWidget;
+
+  CustomProgressDialog(
+    this.context, {
+    this.blur,
+    this.onCancel,
+    this.dismissable,
+    this.onDismiss,
+    this.loadingWidget,
+  }) {
+    _initProgress();
+  }
+
+  ///You can set loading widget of dialog using this function,
+  ///even the dialog already pop up.
+  ///Set it Null to change it as default loadingWidget that already you set before
+  void updateLoadingWidget(Widget loadingWidget) {
+    _progressDialogWidget.getDialogState().updateLoadingWidget(loadingWidget);
+  }
+
+  ///Show progress dialog
+  void show() async {
+    if (!_show) {
+      _show = true;
+      if (_progressDialogWidget == null) _initProgress();
+      await showDialog(
+          context: context,
+          barrierDismissible: dismissable ?? true,
+          builder: (context) => _progressDialogWidget);
+      _show = false;
+    }
+  }
+
+  ///Dismiss the dialog
+  void dismiss() {
+    if (_show) {
+      _show = false;
+      Navigator.pop(context);
+    }
+  }
+
+  void _initProgress() {
+    _progressDialogWidget = _CustomProgressDialogWidget(
+      blur: blur,
+      onCancel: onCancel,
+      dismissable: dismissable,
+      onDismiss: onDismiss,
+      loadingWidget: loadingWidget,
+    );
+  }
+
+  ///future function let you show ProgressDialog until future (param)
+  ///reach the end of its action
+  static Future future<T>(
+    BuildContext context, {
+    @required Future future,
+    OnProgressError onProgressError,
+    OnProgressFinish onProgressFinish,
+    OnProgressCancel onProgressCancel,
+    double blur,
+    Function onDismiss,
+    bool dismissable,
+    Widget loadingWidget,
+  }) async {
+    if (future == null) throw Exception("Future (param) can not be null");
+
+    CustomProgressDialog pDialog = CustomProgressDialog(
+      context,
+      loadingWidget: loadingWidget,
+      dismissable: dismissable,
+      blur: blur,
+      onDismiss: onDismiss,
+      onCancel: onProgressCancel != null ? onProgressCancel : null,
+    );
+
+    pDialog.show();
+
+    var output;
+    await future.then((data) {
+      if (onProgressFinish != null) onProgressFinish = onProgressFinish(data);
+      output = data;
+      pDialog.dismiss();
+    }).catchError((error) {
+      if (onProgressError != null) onProgressError = onProgressError(error);
+      pDialog.dismiss();
+    });
+
+    return output;
+  }
+}
+
+//ignore:must_be_immutable
+class _CustomProgressDialogWidget extends StatefulWidget {
+  final Function onCancel;
+  final Widget loadingWidget;
+  final Function onDismiss;
+  final double blur;
+  final bool dismissable;
+  _CustomProgressDialogWidgetState _dialogWidgetState =
+      _CustomProgressDialogWidgetState();
+
+  _CustomProgressDialogWidget({
+    Key key,
+    this.onCancel,
+    this.dismissable,
+    this.onDismiss,
+    this.loadingWidget,
+    this.blur,
+  }) : super(key: key);
+
+  @override
+  _CustomProgressDialogWidgetState createState() {
+    if (_dialogWidgetState == null) {
+      _dialogWidgetState = _CustomProgressDialogWidgetState();
+    }
+    return _dialogWidgetState;
+  }
+
+  _CustomProgressDialogWidgetState getDialogState() {
+    if (_dialogWidgetState == null) {
+      _dialogWidgetState = _CustomProgressDialogWidgetState();
+    }
+    return _dialogWidgetState;
+  }
+}
+
+class _CustomProgressDialogWidgetState
+    extends State<_CustomProgressDialogWidget> {
+  Widget loadingWidget;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget loadingWidget = (this.loadingWidget ?? widget.loadingWidget) ??
+        Container(
+          padding: EdgeInsets.all(10.0),
+          height: 150.0,
+          width: 150.0,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+          ),
+          child: SizedBox(
+            child: CircularProgressIndicator(
+              strokeWidth: 6,
+            ),
+          ),
+        );
+
+    return BlurDialogBackground(
+      blur: widget.blur ?? 0,
+      dismissable: widget.dismissable ?? true,
+      onDismiss: widget.onDismiss,
+      dialog: Padding(
+        padding: MediaQuery.of(context).viewInsets +
+            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minWidth: 280.0),
+            child: loadingWidget,
+          ),
+        ),
+      ),
+    );
+  }
+
+  ///Set title of dialog
+  void updateLoadingWidget(Widget loadingWidget) async {
+    this.loadingWidget = loadingWidget;
     if (mounted) setState(() {});
   }
 }

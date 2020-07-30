@@ -1,5 +1,10 @@
 
-## [2.1.1+7] - 19 May 2020
+## [2.1.2] - 30 July 2020
+* Add CustomProgressDialog
+* Optimize some code
+* Fix the version changelog
+
+## [2.1.1+7] - 27 July 2020
 * Show NAlertDialog and NDialog much easier
 * Optimize the codes!
 
