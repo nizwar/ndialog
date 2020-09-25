@@ -72,7 +72,9 @@ class MyHomePage extends StatelessWidget {
                       print("Do something onDismiss");
                     },
                   );
-                  progressDialog.setLoadingWidget(CircleAvatar());
+                  progressDialog.setLoadingWidget(CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.red),
+                  ));
                   progressDialog.setMessage(
                       Text("Please Wait, Injecting your phone with my virus"));
                   progressDialog.setTitle(Text("Loading"));
@@ -101,11 +103,13 @@ class MyHomePage extends StatelessWidget {
                       print("Do something onDismiss");
                     },
                   );
-                  progressDialog.updateLoadingWidget(CircleAvatar());
+                  progressDialog.setLoadingWidget(CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation(Colors.red),
+                  ));
                   progressDialog.show();
 
                   await Future.delayed(Duration(seconds: 5));
-                  progressDialog.updateLoadingWidget(null);
+                  progressDialog.setLoadingWidget(null);
 
                   await Future.delayed(Duration(seconds: 5));
 
@@ -145,6 +149,7 @@ class MyHomePage extends StatelessWidget {
                 onPressed: () async {
                   print(await CustomProgressDialog.future(
                     context,
+                    backgroundColor: Colors.blue.withOpacity(.5),
                     future: Future.delayed(Duration(seconds: 5), () {
                       return "WOHOOO";
                     }),
@@ -165,29 +170,25 @@ class MyHomePage extends StatelessWidget {
               FlatButton(
                 color: Colors.blue,
                 onPressed: () async {
-                  await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return NAlertDialog(
-                          dialogStyle: DialogStyle(titleDivider: true),
-                          title: Text("Hi, This is NAlertDialog"),
-                          content: Text("And here is your content, hoho... "),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text("You"),
-                              onPressed: () {},
-                            ),
-                            FlatButton(
-                              child: Text("Are"),
-                              onPressed: () {},
-                            ),
-                            FlatButton(
-                              child: Text("Awesome"),
-                              onPressed: () {},
-                            )
-                          ],
-                        );
-                      });
+                  NAlertDialog(
+                    dialogStyle: DialogStyle(titleDivider: true),
+                    title: Text("Hi, This is NAlertDialog"),
+                    content: Text("And here is your content, hoho... "),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("You"),
+                        onPressed: () {},
+                      ),
+                      FlatButton(
+                        child: Text("Are"),
+                        onPressed: () {},
+                      ),
+                      FlatButton(
+                        child: Text("Awesome"),
+                        onPressed: () {},
+                      )
+                    ],
+                  ).show(context);
                 },
                 child: Text("Show NAlertDialog",
                     style: TextStyle(color: Colors.white)),
@@ -195,29 +196,25 @@ class MyHomePage extends StatelessWidget {
               FlatButton(
                 color: Colors.blue,
                 onPressed: () async {
-                  await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return NDialog(
-                          dialogStyle: DialogStyle(titleDivider: true),
-                          title: Text("Hi, This is NDialog"),
-                          content: Text("And here is your content, hoho... "),
-                          actions: <Widget>[
-                            FlatButton(
-                              child: Text("You"),
-                              onPressed: () {},
-                            ),
-                            FlatButton(
-                              child: Text("Are"),
-                              onPressed: () {},
-                            ),
-                            FlatButton(
-                              child: Text("Awesome"),
-                              onPressed: () {},
-                            )
-                          ],
-                        );
-                      });
+                  NDialog(
+                    dialogStyle: DialogStyle(titleDivider: true),
+                    title: Text("Hi, This is NDialog"),
+                    content: Text("And here is your content, hoho... "),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("You"),
+                        onPressed: () {},
+                      ),
+                      FlatButton(
+                        child: Text("Are"),
+                        onPressed: () {},
+                      ),
+                      FlatButton(
+                        child: Text("Awesome"),
+                        onPressed: () {},
+                      )
+                    ],
+                  ).show(context);
                 },
                 child:
                     Text("Show NDialog", style: TextStyle(color: Colors.white)),
@@ -231,32 +228,64 @@ class MyHomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
                 color: Colors.blue,
                 onPressed: () async {
-                  await showDialog(
-                      context: context,
-                      builder: (context) {
-                        return BlurDialogBackground(
-                          blur: 2,
-                          dialog: AlertDialog(
-                            title: Text("Alert Dialog"),
-                            content: Text(
-                                "Wohoo.. This is ordinary AlertDialog with Blur background"),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text("You"),
-                                onPressed: () {},
-                              ),
-                              FlatButton(
-                                child: Text("Are"),
-                                onPressed: () {},
-                              ),
-                              FlatButton(
-                                child: Text("Awesome"),
-                                onPressed: () {},
-                              )
-                            ],
-                          ),
-                        );
-                      });
+                  DialogBackground(
+                    color: Colors.black.withOpacity(.55),
+                    blur: 0,
+                    dialog: AlertDialog(
+                      title: Text("Alert Dialog"),
+                      content: Text(
+                          "Wohoo.. This is ordinary AlertDialog with Blur background"),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text("You"),
+                          onPressed: () {},
+                        ),
+                        FlatButton(
+                          child: Text("Are"),
+                          onPressed: () {},
+                        ),
+                        FlatButton(
+                          child: Text("Awesome"),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                  ).show(context);
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FlatButton(
+                child: Text(
+                  "Show Alert Dialog\nWith Custom Background Color",
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                color: Colors.blue,
+                onPressed: () async {
+                  NAlertDialog(
+                    backgroundColor: Colors.red.withOpacity(.55),
+                    blur: 0,
+                    title: Text("Alert Dialog"),
+                    content: Text(
+                        "Wohoo.. This is ordinary AlertDialog with Custom Color background"),
+                    actions: <Widget>[
+                      FlatButton(
+                        child: Text("You"),
+                        onPressed: () {},
+                      ),
+                      FlatButton(
+                        child: Text("Are"),
+                        onPressed: () {},
+                      ),
+                      FlatButton(
+                        child: Text("Awesome"),
+                        onPressed: () {},
+                      )
+                    ],
+                  ).show(context);
                 },
               ),
             ],

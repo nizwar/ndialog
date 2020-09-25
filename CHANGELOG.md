@@ -1,7 +1,16 @@
 
+## [3.0.0] - 30 July 2020
+* Update pubspec.yaml
+* Add background color dialog
+* No radius on action buttons
+* BlurDialogBackground is depreceted, use DialogBackground instead
+* Rewrite readme.md
+* Optimize codes
+* Fix bug
+
 ## [2.1.2] - 30 July 2020
 * Add CustomProgressDialog
-* Optimize some code
+* Optimize codes
 * Fix the version changelog
 
 ## [2.1.1+7] - 27 July 2020

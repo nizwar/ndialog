@@ -1,185 +1,149 @@
-# NDialog 
+# NDialog 3.x
 [![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/fork)&nbsp; [![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp; [![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)&nbsp; [![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp; [![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/ndialog#-example-tab-)
 
-Custom dialog with blur background and popup animation and ProgressDialog with native style.
+Custom dialog with blur background, popup animation and progressDialog with native style.
 
-## Let's Code!
+Not only helps you display dialog with a blurred background, NDialog is here to help you do many things. for example, with NDialog you can display `ProgressDialog` to the user once until it meets the end of `Future`!
 
-This library have 2 Dialog : NDialog and ProgressDialog, you can Custom your dialog with blur background using BlurDialogBackground
+First of all, let's leave the old style with showDialog (blablabla), with NDialog just add a `.show(context)` at the end of your dialog design and let the magic work!
 
-### NAlertDialog & NDialog 
+There are 2 types of dialogs in here, they are Dialog (popup dialog) and Progress Dialog.
 
-I separate the NDialog class into 2, that is NAlertDialog (NDialog like before) and NDialog (Raw Dialog without blur)
+## Dialog
+In Dialog, there are 2 types too, they are `NDialog` and `NAlertDialog`.
 
-#### NAlertDialog
-
-Dialog that will show using blur background, you can custom it easily.
-
+### NDialog
+Is a raw dialog where you can view them right away without anything else
 ``` dart
-await showDialog(
-  context: context,
-  builder: (context) {
-    return NAlertDialog(
-      dialogStyle: DialogStyle(
-      onDismiss: () {},
-      dismissable: true,
-      titleDivider: true),
-      title: Text("Hi, This is NAlertDialog"),
-      content: Text("And here is your content, hoho... "), 
-      actions: <Widget>[
-        FlatButton(
-          child: Text("You"),
-          onPressed: () {},
-        ),
-        FlatButton(
-          child: Text("Are"),
-          onPressed: () {},
-        ),
-        FlatButton(
-          child: Text("Awesome"),
-          onPressed: () {},
-        )
-      ],
-    );
-  }
-);
-```
-
-Psttt i got you a simple way to show NAlertDialog
-
-``` dart
-  NAlertDialog(
-    title: Text("Woooaaahhh"),
-    content: Text("It so fun!"),
+  await NDialog(
+    dialogStyle: DialogStyle(titleDivider: true),
+    title: Text("Hi, This is NDialog"),
+    content: Text("And here is your content, hoho... "),  
+    actions: <Widget>[
+      FlatButton(child: Text("You"),onPressed: () {}),
+      FlatButton(child: Text("Are"),onPressed: () {}),
+      FlatButton(child: Text("Awesome"),onPressed: () {}),
+    ],
   ).show(context);
 ```
 
-#### NDialog
-
-Raw dialog that you can use directly to showDialog without Blur Background
+### NAlertDialog
+Is a dialog where you can directly set the background attributes without be wrapped by `DialogBackground` and you can simply display them.
 
 ``` dart
-await showDialog(
-  context: context,
-  builder: (context) {
-    return NDialog(
-      dialogStyle: DialogStyle(titleDivider: true),
-      title: Text("Hi, This is NDialog"),
-      content: Text("And here is your content, hoho... "),  
-      actions: <Widget>[
-        FlatButton(
-          child: Text("You"),
-          onPressed: () {},
-        ),
-        FlatButton(
-          child: Text("Are"),
-          onPressed: () {},
-        ),
-        FlatButton(
-          child: Text("Awesome"),
-          onPressed: () {},
-        )
-      ],
-    );
-  }
-);
-```
-
-Of course NDialog can do it too!
-``` dart
-  NDialog(
-    title: Text("Woho"),
-    content: Text("I'm a simple NDialog to show!"),
+  await NAlertDialog(
+    dialogStyle: DialogStyle(titleDivider: true),
+    title: Text("Hi, This is NAlertDialog"),
+    content: Text("And here is your content, hoho... "), 
+    actions: <Widget>[
+      FlatButton(child: Text("You"),onPressed: () {}),
+      FlatButton(child: Text("Are"),onPressed: () {}),
+      FlatButton(child: Text("Awesome"),onPressed: () {}),
+    ],
   ).show(context);
-```
+``` 
+
+ 
+
+## Progress Dialog
+In ProgressDialog, there are 2 types too, they are `ProgressDialog` and `CustomProgressDialog`.
 
 ### ProgressDialog
+Will display the ProgressDialog with Android native style.
 
 ``` dart
-ProgressDialog progressDialog = ProgressDialog(context, 
-  message:Text("This is the message"), 
-  title:Text("This is the title")
-);
+  ProgressDialog progressDialog = ProgressDialog(context, 
+    message:Text("This is the message"), 
+    title:Text("This is the title")
+  );
 
-//You can set Message using this function
-progressDialog.setTitle(Text("Loading"));
-progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
-progressDialog.show();
+  //You can set Message using this function
+  progressDialog.setTitle(Text("Loading"));
+  progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
+  progressDialog.show();
 
-await Future.delayed(Duration(seconds: 5));
-//Progress Dialog already show? don't worry, you can change the message :D
-progressDialog.setTitle(Text("Just Kidding"));
-progressDialog.setMessage(Text("I mean, virus of love :*"));
+  await Future.delayed(Duration(seconds: 5));
 
-await Future.delayed(Duration(seconds: 5));
-progressDialog.dismiss();
+  //Progress Dialog already show? don't worry, you can change the message :D
+  progressDialog.setTitle(Text("Just Kidding"));
+  progressDialog.setMessage(Text("I mean, virus of love :*"));
+
+  await Future.delayed(Duration(seconds: 5));
+
+  progressDialog.dismiss();
 ```
 
-Psstt...i make ProgressDialog realy fun...
-Just using future, this function will show ProgressDialog until future (param) reach the end, you can handle the operation too!
+### CustomProgressDialog
+Will display a progress dialog with customizable widgets
 
 ``` dart
-await ProgressDialog.future(context,
-  future: Future.delayed(Duration(seconds: 5)),
-  onProgressError: (error){
-    //Error here
-  },
-  onProgressFinish: (data){
-    //Everything setup
-  },
-  onProgressCancel: () {
-    print("Do something onProgressCancel");
-  },
+  CustomProgressDialog progressDialog = CustomProgressDialog(context,blur: 10);
+
+  ///You can set Loading Widget using this function
+  progressDialog.setLoadingWidget(CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.red)));
+  progressDialog.show();
+
+  await Future.delayed(Duration(seconds: 5));
+
+  //Progress Dialog already show? don't worry, you can change the loading widget :D
+  progressDialog.setLoadingWidget(null);
+
+  await Future.delayed(Duration(seconds: 5));
+
+  progressDialog.dismiss();
+```
+
+This is what I'm talking about, Each Progress Dialog has a `.future(context)` static function, which will help you display the progress dialog once until `Future` is completed
+
+```dart
+
+///ProgressDialog
+await ProgressDialog.future(
+  context, 
+  future: Future.delayed(Duration(seconds: 5), () {
+    return "HIYAAA";
+  }),
   message: Text("Please Wait"),
   cancelText: Text("Batal"),
-  title: Text("Waiting for delay"), 
-  dialogStyle: DialogStyle(
-    onDismiss: () {
-      print("Do something onDismiss");
-    },
-    barrierDismissable: true
-  )
-);
+  title: Text("Loging in"),
+)
+
+///CustomProgressDialog
+await CustomProgressDialog.future(
+  context,
+  future: Future.delayed(Duration(seconds: 5), () {
+    return "WOHOOO";
+  }),
+  loadingWidget: Center(
+    child: Container(
+      alignment:Alignment.center, 
+      child:CircularProgressIndicator(),
+    ),
+  ),
+  backgroundColor: Colors.blue.withOpacity(.5),
+)
+
 ```
 
-### BlurDialogBackground
 
-Now you can blur any dialog, simply wrap them with BlurDialogBackground
+## DialogBackground
+You can use DialogBackground to create your own custom dialog and display them easily, not only that, you can also change the barrierColor / background color and add little bit blur effects there.
+
+Note : BlurDialogBackground is depreceted, use `DialogBackground` instead!
 
 ``` dart
-await showDialog(
-  context: context,
-  builder: (context) {
-    return BlurDialogBackground(
-      dialog: AlertDialog(
-        title: Text("Alert Dialog"),
-        content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
-        actions: <Widget>[
-          FlatButton(
-            child: Text("You"),
-            onPressed: () {},
-          ),
-          FlatButton(
-            child: Text("Are"),
-            onPressed: () {},
-          ),
-          FlatButton(
-            child: Text("Awesome"),
-            onPressed: () {},
-          )
-        ],
-      ),
-    );
-  }
-);
-```
-
-That's it, have fun 😀
+  await DialogBackground(
+    dialog: AlertDialog(
+      title: Text("Alert Dialog"),
+      content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
+      actions: <Widget>[
+        FlatButton(child: Text("You")onPressed: () {}),
+        FlatButton(child: Text("Are")onPressed: () {}),
+        FlatButton(child: Text("Awesome")onPressed: () {}),
+      ],
+    ),
+  ).show(context); 
+``` 
 
 ## Screenshot
-
-<p align="center">
-  <a href="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s2000/Screenshot_20191002_134440%255B1%255D.jpg"> <img src="https://1.bp.blogspot.com/-x9i-ZikgprA/XZRHrF1AP5I/AAAAAAAAGyc/ZqqSsHN-_aUOscsTUqn8-I3V6OwBWJDBwCLcBGAsYHQ/s320/Screenshot_20191002_134440%255B1%255D.jpg"/></a> 
-  <a href="https://1.bp.blogspot.com/-8ybIrlaNxeA/XZrBLCTxE6I/AAAAAAAAGzA/CpRWabOtuTAibsXhu_Oi8ZzjJIQo18X1wCLcBGAsYHQ/s2000/Screenshot_20191007_113509.jpg"> <img src="https://1.bp.blogspot.com/-8ybIrlaNxeA/XZrBLCTxE6I/AAAAAAAAGzA/CpRWabOtuTAibsXhu_Oi8ZzjJIQo18X1wCLcBGAsYHQ/s320/Screenshot_20191007_113509.jpg"/></a>
-</p>  
-
+![Example](./example/screenshots/screenshot.gif)
