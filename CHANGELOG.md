@@ -1,5 +1,5 @@
 
-## [3.0.0] - 30 July 2020
+## [3.0.0] - 25 Sept 2020
 * Update pubspec.yaml
 * Add background color dialog
 * No radius on action buttons
