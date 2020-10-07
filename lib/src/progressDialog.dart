@@ -3,7 +3,7 @@
 ///==================================================================================
 import 'package:flutter/material.dart';
 
-import './ndialog_base.dart';
+import 'ndialogBase.dart';
 
 ///Typedef of Progress while on Progress Error
 typedef OnProgressError(dynamic error);

@@ -5,7 +5,7 @@ Custom dialog with blur background, popup animation and progressDialog with nati
 
 Not only helps you display dialog with a blurred background, NDialog is here to help you do many things. for example, with NDialog you can display `ProgressDialog` to the user once until it meets the end of `Future`!
 
-First of all, let's leave the old style with showDialog (blablabla), with NDialog just add a `.show(context)` at the end of your dialog design and let the magic work!
+First of all, let's leave the old style with showDialog(blablabla), with NDialog i provide dialog extensions, you just simply call `.show(context)` at the end of your dialog and let the magic work!
 
 There are 2 types of dialogs in here, they are Dialog (popup dialog) and Progress Dialog.
 
@@ -125,6 +125,16 @@ await CustomProgressDialog.future(
 
 ```
 
+## Dialog Extensions!
+You can simply call `show(context)` at the end of Flutter's built-in dialogs.
+
+```dart
+  AlertDialog( ... ).show(context);
+  SimpleDialog( ... ).show(context);
+  Dialog( ... ).show(context);
+  CupertinoDialog( ... ).show(context);
+  CupertinoAlertDialog( ... ).show(context);
+```
 
 ## DialogBackground
 You can use DialogBackground to create your own custom dialog and display them easily, not only that, you can also change the barrierColor / background color and add little bit blur effects there.

@@ -4,7 +4,7 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:simple_animations/simple_animations.dart';
+// import 'package:simple_animations/simple_animations.dart';
 
 ///NDialog widget
 class NDialog extends StatelessWidget {
@@ -125,26 +125,25 @@ class NDialog extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 280.0),
           child: (style?.animatePopup ?? true)
-              ? CustomAnimation(
+              ? TweenAnimationBuilder(
                   tween: Tween<double>(begin: 0, end: 1),
-                  curve: Curves.elasticOut,
                   duration: Duration(milliseconds: 900),
-                  builder: (context, child, val) {
-                    return Transform.scale(
-                        scale: val,
-                        child: Card(
-                          child: dialogChild,
-                          clipBehavior: Clip.antiAlias,
-                          elevation: style.elevation ?? 24,
-                          color: style.backgroundColor,
-                          shape: style.borderRadius != null
-                              ? RoundedRectangleBorder(
-                                  borderRadius: style.borderRadius)
-                              : style.shape ??
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                        ));
-                  })
+                  curve: Curves.elasticOut,
+                  builder: (context, val, child) => Transform.scale(
+                      scale: val,
+                      child: Card(
+                        child: dialogChild,
+                        clipBehavior: Clip.antiAlias,
+                        elevation: style.elevation ?? 24,
+                        color: style.backgroundColor,
+                        shape: style.borderRadius != null
+                            ? RoundedRectangleBorder(
+                                borderRadius: style.borderRadius)
+                            : style.shape ??
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                      )),
+                )
               : Card(
                   child: dialogChild,
                   clipBehavior: Clip.antiAlias,
@@ -305,30 +304,29 @@ class DialogBackground extends StatelessWidget {
           alignment: Alignment.center,
           children: <Widget>[
             GestureDetector(
-              onTap: dismissable ?? true
-                  ? () {
-                      if (onDismiss != null) {
-                        onDismiss();
+                onTap: dismissable ?? true
+                    ? () {
+                        if (onDismiss != null) {
+                          onDismiss();
+                        }
+                        Navigator.pop(context);
                       }
-                      Navigator.pop(context);
-                    }
-                  : () {},
-              child: CustomAnimation(
-                tween: Tween<double>(begin: 0, end: blur ?? 0),
-                duration: Duration(milliseconds: 300),
-                builder: (context, child, val) {
-                  return BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: val,
-                      sigmaY: val,
-                    ),
-                    child: Container(
-                      color: Colors.transparent,
-                    ),
-                  );
-                },
-              ),
-            ),
+                    : () {},
+                child: TweenAnimationBuilder(
+                  tween: Tween<double>(begin: 0, end: blur ?? 0),
+                  duration: Duration(milliseconds: 300),
+                  builder: (context, val, child) {
+                    return BackdropFilter(
+                      filter: ImageFilter.blur(
+                        sigmaX: val,
+                        sigmaY: val,
+                      ),
+                      child: Container(
+                        color: Colors.transparent,
+                      ),
+                    );
+                  },
+                )),
             dialog
           ],
         ),

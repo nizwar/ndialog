@@ -1,4 +1,8 @@
 
+## [3.1.0] - 8 Oct 2020
+* Dialog extensions, simply show dialog with Flutter's built-in dialogs
+* Remove 3rd party plugins
+
 ## [3.0.0] - 25 Sept 2020
 * Update pubspec.yaml
 * Add background color dialog
