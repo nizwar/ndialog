@@ -4,11 +4,12 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:ndialog/src/zoom_widget/zoom_widget.dart';
 // import 'package:simple_animations/simple_animations.dart';
 
 ///NDialog widget
 class NDialog extends StatelessWidget {
-  ///Custom dialog style
+  ///Dialog style
   final DialogStyle dialogStyle;
 
   ///The (optional) title of the dialog is displayed in a large font at the top of the dialog.
@@ -169,7 +170,7 @@ class NDialog extends StatelessWidget {
 
 ///Simple dialog with blur background and popup animations, use DialogStyle to custom it
 class NAlertDialog extends DialogBackground {
-  ///Custom progress dialog style
+  ///Dialog style
   final DialogStyle dialogStyle;
 
   ///The (optional) title of the dialog is displayed in a large font at the top of the dialog.
@@ -331,6 +332,69 @@ class DialogBackground extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+//A Dialog, but you can zoom on it
+class ZoomDialog extends DialogBackground {
+  ///The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
+  final Widget child;
+
+  /// Creates an background filter that applies a Gaussian blur.
+  /// Default = 0
+  final double blur;
+
+  /// Background color
+  final Color backgroundColor;
+
+  ///Maximum zoom scale
+  final double zoomScale;
+
+  ///Initialize zoom scale on dialog show
+  final double initZoomScale;
+
+  ///Action before dialog dismissed
+  final Function onDismiss;
+
+  const ZoomDialog(
+      {Key key,
+      this.backgroundColor,
+      @required this.child,
+      this.initZoomScale = 0,
+      this.blur,
+      this.zoomScale = 3,
+      this.onDismiss})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DialogBackground(
+      dialog: Zoom(
+        onTap: () {
+          Navigator.pop(context);
+          if (onDismiss != null) onDismiss();
+        },
+        canvasColor: Colors.transparent,
+        backgroundColor: Colors.transparent,
+        initZoom: initZoomScale ?? 0,
+        maxZoomWidth: MediaQuery.of(context).size.width * zoomScale,
+        maxZoomHeight: MediaQuery.of(context).size.height * zoomScale,
+        centerOnScale: true,
+        child: Transform.scale(
+          scale: zoomScale,
+          child: Container(
+            child: child,
+            alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+          ),
+        ),
+      ),
+      dismissable: true,
+      blur: blur ?? 0,
+      onDismiss: onDismiss,
+      color: backgroundColor,
     );
   }
 }

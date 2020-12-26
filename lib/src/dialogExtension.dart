@@ -83,20 +83,3 @@ extension CupertinoAlertDialogShow on CupertinoAlertDialog {
         routeSettings: routeSettings,
       );
 }
-
-///Extension of CupertinoDialog
-extension CupertinoDialogShow on CupertinoDialog {
-  Future<T> show<T>(
-    BuildContext context, {
-    bool barrierDismissible = true,
-    bool useRootNavigator = true,
-    RouteSettings routeSettings,
-  }) =>
-      showCupertinoDialog<T>(
-        context: context,
-        builder: (context) => this,
-        barrierDismissible: barrierDismissible,
-        useRootNavigator: useRootNavigator,
-        routeSettings: routeSettings,
-      );
-}

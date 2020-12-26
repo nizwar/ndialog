@@ -1,4 +1,8 @@
 
+## [3.2.0] - 26 Dec 2020
+* ZoomDialog, a dialog... but you can zoom on it
+* Fix some typos on description
+
 ## [3.1.0] - 8 Oct 2020
 * Dialog extensions, simply show dialog with Flutter's built-in dialogs
 * Remove 3rd party plugins

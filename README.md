@@ -10,7 +10,7 @@ First of all, let's leave the old style with showDialog(blablabla), with NDialog
 There are 2 types of dialogs in here, they are Dialog (popup dialog) and Progress Dialog.
 
 ## Dialog
-In Dialog, there are 2 types too, they are `NDialog` and `NAlertDialog`.
+In Dialog, there are 3 types too, they are `NDialog`, `NAlertDialog`, `ZoomDialog`.
 
 ### NDialog
 Is a raw dialog where you can view them right away without anything else
@@ -43,6 +43,20 @@ Is a dialog where you can directly set the background attributes without be wrap
   ).show(context);
 ``` 
 
+### ZoomDialog
+Is a dialog that you can zoom on it, you can zoom all type of widget on this dialog, simplye write this code and boom, there you go!
+
+
+``` dart
+  await ZoomDialog(
+    zoomScale: 5,
+    child: Container(
+      child: Text("Zoom me!"),
+      color: Colors.white,
+      padding: EdgeInsets.all(20),
+    ),
+  ).show(context);
+``` 
  
 
 ## Progress Dialog
