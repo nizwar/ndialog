@@ -378,16 +378,18 @@ class ZoomDialog extends DialogBackground {
         canvasColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         initZoom: initZoomScale ?? 0,
+        centerOnScale: true,
         maxZoomWidth: MediaQuery.of(context).size.width * zoomScale,
         maxZoomHeight: MediaQuery.of(context).size.height * zoomScale,
-        centerOnScale: true,
         child: Transform.scale(
           scale: zoomScale,
-          child: Container(
-            child: child,
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+          child: Center(
+            child: Container(
+              child: child,
+              alignment: Alignment.center,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+            ),
           ),
         ),
       ),

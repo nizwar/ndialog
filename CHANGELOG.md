@@ -1,4 +1,7 @@
 
+## [3.2.1] - 27 Dec 2020
+* Fix ZoomDialog's bugs.
+
 ## [3.2.0] - 26 Dec 2020
 * ZoomDialog, a dialog... but you can zoom on it
 * Fix some typos on description
