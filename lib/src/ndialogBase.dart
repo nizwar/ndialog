@@ -4,6 +4,8 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:ndialog/src/transition.dart';
+import 'package:ndialog/src/utils.dart';
 import 'package:ndialog/src/zoom_widget/zoom_widget.dart';
 // import 'package:simple_animations/simple_animations.dart';
 
@@ -125,47 +127,33 @@ class NDialog extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 280.0),
-          child: (style?.animatePopup ?? true)
-              ? TweenAnimationBuilder(
-                  tween: Tween<double>(begin: 0, end: 1),
-                  duration: Duration(milliseconds: 900),
-                  curve: Curves.elasticOut,
-                  builder: (context, val, child) => Transform.scale(
-                      scale: val,
-                      child: Card(
-                        child: dialogChild,
-                        clipBehavior: Clip.antiAlias,
-                        elevation: style.elevation ?? 24,
-                        color: style.backgroundColor,
-                        shape: style.borderRadius != null
-                            ? RoundedRectangleBorder(
-                                borderRadius: style.borderRadius)
-                            : style.shape ??
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                      )),
-                )
-              : Card(
-                  child: dialogChild,
-                  clipBehavior: Clip.antiAlias,
-                  elevation: style.elevation ?? 24,
-                  color: style.backgroundColor,
-                  shape: style.borderRadius != null
-                      ? RoundedRectangleBorder(borderRadius: style.borderRadius)
-                      : style.shape ??
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0)),
-                ),
+          child: Card(
+            child: dialogChild,
+            clipBehavior: Clip.antiAlias,
+            elevation: style.elevation ?? 24,
+            color: style.backgroundColor,
+            shape: style.borderRadius != null
+                ? RoundedRectangleBorder(borderRadius: style.borderRadius)
+                : style.shape ??
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+          ),
         ),
       ),
     );
   }
 
-  ///Show dialog directly
-  Future show<T>(BuildContext context) => showDialog<T>(
-        context: context,
-        builder: (context) => this,
-      );
+  Future<T> show<T>(BuildContext context,
+          {DialogTransitionType transitionType,
+          bool dismissable,
+          Duration transitionDuration}) =>
+      DialogUtils(
+        child: this,
+        dialogTransitionType: transitionType,
+        dismissable: dismissable,
+        barrierColor: Colors.black.withOpacity(.6),
+        transitionDuration: transitionDuration,
+      ).show(context);
 }
 
 ///Simple dialog with blur background and popup animations, use DialogStyle to custom it
@@ -190,22 +178,23 @@ class NAlertDialog extends DialogBackground {
   ///you have to declare here instead on showDialog
   final bool dismissable;
 
+  ///Its Barrier Color
   final Color backgroundColor;
 
   ///Action before dialog dismissed
   final Function onDismiss;
 
-  const NAlertDialog(
-      {Key key,
-      this.backgroundColor,
-      this.dialogStyle,
-      this.title,
-      this.content,
-      this.actions,
-      this.blur,
-      this.dismissable,
-      this.onDismiss})
-      : super(key: key);
+  const NAlertDialog({
+    Key key,
+    this.backgroundColor,
+    this.dialogStyle,
+    this.title,
+    this.content,
+    this.actions,
+    this.blur,
+    this.dismissable,
+    this.onDismiss,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -219,7 +208,8 @@ class NAlertDialog extends DialogBackground {
       dismissable: dismissable,
       blur: blur ?? 0,
       onDismiss: onDismiss,
-      color: backgroundColor,
+      barrierColor: backgroundColor,
+      key: key,
     );
   }
 }
@@ -250,89 +240,6 @@ class BlurDialogBackground extends DialogBackground {
       this.blur,
       this.onDismiss})
       : super(key: key);
-}
-
-///Blur background of dialog, you can use this class to make your custom dialog background blur
-class DialogBackground extends StatelessWidget {
-  ///Widget of dialog, you can use NDialog, Dialog, AlertDialog or Custom your own Dialog
-  final Widget dialog;
-
-  ///Because blur dialog cover the barrier, you have to declare here
-  final bool dismissable;
-
-  ///Action before dialog dismissed
-  final Function onDismiss;
-
-  /// Creates an background filter that applies a Gaussian blur.
-  /// Default = 0
-  final double blur;
-
-  /// Background color
-  final Color color;
-
-  const DialogBackground(
-      {Key key,
-      this.dialog,
-      this.dismissable,
-      this.blur,
-      this.onDismiss,
-      this.color})
-      : super(key: key);
-
-  ///Show dialog directly
-  Future show<T>(BuildContext context) => showDialog<T>(
-      context: context,
-      builder: (context) => this,
-      barrierColor: Color(0x00ffffff),
-      barrierDismissible: dismissable ?? true);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      type: MaterialType.canvas,
-      color: color ?? Colors.black.withOpacity(.6),
-      child: WillPopScope(
-        onWillPop: () async {
-          if (dismissable ?? true) {
-            if (onDismiss != null) onDismiss();
-            Navigator.pop(context);
-          }
-          return;
-        },
-        child: Stack(
-          clipBehavior: Clip.antiAlias,
-          alignment: Alignment.center,
-          children: <Widget>[
-            GestureDetector(
-                onTap: dismissable ?? true
-                    ? () {
-                        if (onDismiss != null) {
-                          onDismiss();
-                        }
-                        Navigator.pop(context);
-                      }
-                    : () {},
-                child: TweenAnimationBuilder(
-                  tween: Tween<double>(begin: 0, end: blur ?? 0),
-                  duration: Duration(milliseconds: 300),
-                  builder: (context, val, child) {
-                    return BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: val,
-                        sigmaY: val,
-                      ),
-                      child: Container(
-                        color: Colors.transparent,
-                      ),
-                    );
-                  },
-                )),
-            dialog
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 //A Dialog, but you can zoom on it
@@ -369,6 +276,7 @@ class ZoomDialog extends DialogBackground {
   @override
   Widget build(BuildContext context) {
     return DialogBackground(
+      key: key,
       dialog: Zoom(
         onTap: () {
           Navigator.pop(context);
@@ -395,7 +303,101 @@ class ZoomDialog extends DialogBackground {
       dismissable: true,
       blur: blur ?? 0,
       onDismiss: onDismiss,
-      color: backgroundColor,
+      barrierColor: backgroundColor,
+    );
+  }
+}
+
+///Blur background of dialog, you can use this class to make your custom dialog background blur
+class DialogBackground extends StatelessWidget {
+  ///Widget of dialog, you can use NDialog, Dialog, AlertDialog or Custom your own Dialog
+  final Widget dialog;
+
+  ///Because blur dialog cover the barrier, you have to declare here
+  final bool dismissable;
+
+  ///Action before dialog dismissed
+  final Function onDismiss;
+
+  /// Creates an background filter that applies a Gaussian blur.
+  /// Default = 0
+  final double blur;
+
+  final Color barrierColor;
+
+  @Deprecated("Use barrierColor instead")
+  final Color color;
+
+  const DialogBackground(
+      {Key key,
+      this.dialog,
+      this.color,
+      this.dismissable,
+      this.blur,
+      this.onDismiss,
+      this.barrierColor})
+      : super(key: key);
+
+  ///Show dialog directly
+  // Future show<T>(BuildContext context) => showDialog<T>(context: context, builder: (context) => this, barrierColor: barrierColor, barrierDismissible: dismissable ?? true);
+
+  Future<T> show<T>(BuildContext context,
+          {DialogTransitionType transitionType,
+          bool dismissable,
+          Duration transitionDuration}) =>
+      DialogUtils(
+        child: this,
+        dialogTransitionType: transitionType,
+        dismissable: dismissable,
+        barrierColor: barrierColor ?? Colors.black.withOpacity(.6),
+        transitionDuration: transitionDuration,
+      ).show(context);
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      type: MaterialType.canvas,
+      color: Colors.transparent,
+      child: WillPopScope(
+        onWillPop: () async {
+          if (dismissable ?? true) {
+            if (onDismiss != null) onDismiss();
+            Navigator.pop(context);
+          }
+          return;
+        },
+        child: Stack(
+          clipBehavior: Clip.antiAlias,
+          alignment: Alignment.center,
+          children: <Widget>[
+            GestureDetector(
+              onTap: dismissable ?? true
+                  ? () {
+                      if (onDismiss != null) {
+                        onDismiss();
+                      }
+                      Navigator.pop(context);
+                    }
+                  : () {},
+              child: TweenAnimationBuilder(
+                tween: Tween<double>(begin: 0, end: blur ?? 0),
+                duration: Duration(milliseconds: 300),
+                builder: (context, val, child) {
+                  return BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: val,
+                      sigmaY: val,
+                    ),
+                    child: Container(
+                      color: Colors.transparent,
+                    ),
+                  );
+                },
+              ),
+            ),
+            dialog
+          ],
+        ),
+      ),
     );
   }
 }
@@ -433,18 +435,24 @@ class DialogStyle {
   final ShapeBorder shape;
 
   ///Bubble animation when your dialog will popup
+  @Deprecated("Use animatePopup on .show() instead")
   final bool animatePopup;
 
-  DialogStyle(
-      {this.titleDivider,
-      this.borderRadius,
-      this.semanticsLabel,
-      this.titlePadding,
-      this.contentPadding,
-      this.titleTextStyle,
-      this.contentTextStyle,
-      this.elevation,
-      this.backgroundColor,
-      this.animatePopup,
-      this.shape});
+  ///Dialog Transition Type
+  // final DialogTransitionType dialogTransitionType;
+
+  DialogStyle({
+    this.titleDivider,
+    // this.dialogTransitionType,
+    this.borderRadius,
+    this.semanticsLabel,
+    this.titlePadding,
+    this.contentPadding,
+    this.titleTextStyle,
+    this.contentTextStyle,
+    this.elevation,
+    this.backgroundColor,
+    this.animatePopup,
+    this.shape,
+  });
 }

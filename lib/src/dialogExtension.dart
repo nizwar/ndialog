@@ -3,6 +3,7 @@
 ///==================================================================================
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ndialog/ndialog.dart';
 
 ///Extension of Dialog
 extension DialogShow on Dialog {
@@ -34,16 +35,17 @@ extension AlertDialogShow on AlertDialog {
     bool useSafeArea = true,
     bool useRootNavigator = true,
     RouteSettings routeSettings,
+    DialogTransitionType dialogTransitionType,
   }) =>
-      showDialog<T>(
-        context: context,
-        builder: (context) => this,
-        barrierDismissible: barrierDismissible,
-        barrierColor: barrierColor,
-        useSafeArea: useSafeArea,
-        useRootNavigator: useRootNavigator,
+      DialogUtils(
+        barrierColor: barrierColor ?? Colors.black.withOpacity(.6),
+        child: this,
+        dismissable: barrierDismissible,
+        dialogTransitionType: dialogTransitionType,
         routeSettings: routeSettings,
-      );
+        useRootNavigator: useRootNavigator,
+        useSafeArea: useSafeArea,
+      ).show(context);
 }
 
 ///Extension of SimpleDialog
@@ -55,16 +57,17 @@ extension SimpleDialogShow on SimpleDialog {
     bool useSafeArea = true,
     bool useRootNavigator = true,
     RouteSettings routeSettings,
+    DialogTransitionType dialogTransitionType,
   }) =>
-      showDialog<T>(
-        context: context,
-        builder: (context) => this,
-        barrierDismissible: barrierDismissible,
-        barrierColor: barrierColor,
-        useSafeArea: useSafeArea,
-        useRootNavigator: useRootNavigator,
+      DialogUtils(
+        barrierColor: barrierColor ?? Colors.black.withOpacity(.6),
+        child: this,
+        dismissable: barrierDismissible,
+        dialogTransitionType: dialogTransitionType,
         routeSettings: routeSettings,
-      );
+        useRootNavigator: useRootNavigator,
+        useSafeArea: useSafeArea,
+      ).show(context);
 }
 
 ///Extension of CupertinoAlertDialog

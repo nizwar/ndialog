@@ -2,6 +2,8 @@
 ///nizwar@merahputih.id
 ///==================================================================================
 import 'package:flutter/material.dart';
+import 'package:ndialog/src/transition.dart';
+import 'package:ndialog/src/utils.dart';
 
 import 'ndialogBase.dart';
 
@@ -85,11 +87,18 @@ class ProgressDialog implements _ProgressDialog {
   ///Dialog Barrier background color
   final Color backgroundColor;
 
+  ///Dialog Transition Type
+  final DialogTransitionType dialogTransitionType;
+
+  ///Dialog Transition Duration
+  final Duration transitionDuration;
+
   bool _show = false;
   _ProgressDialogWidget _progressDialogWidget;
 
   ProgressDialog(this.context,
-      {this.backgroundColor,
+      {this.dialogTransitionType,
+      this.backgroundColor,
       this.cancelText,
       this.defaultLoadingWidget,
       this.blur,
@@ -98,7 +107,8 @@ class ProgressDialog implements _ProgressDialog {
       this.onDismiss,
       this.title,
       this.message,
-      this.dialogStyle}) {
+      this.dialogStyle,
+      this.transitionDuration}) {
     _initProgress();
   }
 
@@ -127,11 +137,14 @@ class ProgressDialog implements _ProgressDialog {
     if (!_show) {
       _show = true;
       if (_progressDialogWidget == null) _initProgress();
-      await showDialog(
-          context: context,
-          barrierDismissible: dismissable ?? true,
-          builder: (context) => _progressDialogWidget,
-          barrierColor: Color(0x00ffffff));
+      // await showDialog(context: context, barrierDismissible: dismissable ?? true, builder: (context) => _progressDialogWidget, barrierColor: Color(0x00ffffff));
+      DialogUtils(
+        dismissable: dismissable,
+        barrierColor: backgroundColor ?? Colors.black.withOpacity(.6),
+        child: _progressDialogWidget,
+        dialogTransitionType: dialogTransitionType,
+        transitionDuration: transitionDuration,
+      ).show(context);
       _show = false;
     }
   }
@@ -161,20 +174,24 @@ class ProgressDialog implements _ProgressDialog {
 
   ///future function let you show ProgressDialog until future (param)
   ///reach the end of its action
-  static Future future<T>(BuildContext context,
-      {@required Future future,
-      DialogStyle dialogStyle,
-      double blur,
-      Color backgroundColor,
-      OnProgressError onProgressError,
-      OnProgressFinish onProgressFinish,
-      OnProgressCancel onProgressCancel,
-      Function onDismiss,
-      bool dismissable,
-      Widget message,
-      Widget title,
-      Widget cancelText,
-      Widget progressWidget}) async {
+  static Future future<T>(
+    BuildContext context, {
+    @required Future future,
+    DialogStyle dialogStyle,
+    double blur,
+    Color backgroundColor,
+    OnProgressError onProgressError,
+    OnProgressFinish onProgressFinish,
+    OnProgressCancel onProgressCancel,
+    Function onDismiss,
+    bool dismissable,
+    Widget message,
+    Widget title,
+    Widget cancelText,
+    Widget progressWidget,
+    DialogTransitionType dialogTransitionType,
+    Duration transitionDuration,
+  }) async {
     if (future == null) throw Exception("Future (param) can not be null");
 
     ProgressDialog pDialog = ProgressDialog(
@@ -189,6 +206,8 @@ class ProgressDialog implements _ProgressDialog {
       defaultLoadingWidget: progressWidget,
       cancelText: cancelText,
       onCancel: onProgressCancel != null ? onProgressCancel : null,
+      dialogTransitionType: dialogTransitionType,
+      transitionDuration: transitionDuration,
     );
 
     pDialog.show();
@@ -301,7 +320,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
           contentTextStyle: widget.dialogStyle.contentTextStyle,
           elevation: widget.dialogStyle.elevation,
           semanticsLabel: widget.dialogStyle.semanticsLabel,
-          animatePopup: widget.dialogStyle.animatePopup ?? true,
+          // animatePopup: widget.dialogStyle.animatePopup ?? true,
           shape: widget.dialogStyle.shape,
           titlePadding: widget.dialogStyle.titlePadding ??
               EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
@@ -399,6 +418,8 @@ class CustomProgressDialog implements _CustomProgressDialog {
   final double blur;
 
   final Color backgroundColor;
+  final DialogTransitionType dialogTransitionType;
+  final Duration transitionDuration;
 
   bool _show = false;
   _CustomProgressDialogWidget _progressDialogWidget;
@@ -411,6 +432,8 @@ class CustomProgressDialog implements _CustomProgressDialog {
     this.dismissable,
     this.onDismiss,
     this.loadingWidget,
+    this.dialogTransitionType,
+    this.transitionDuration,
   }) {
     _initProgress();
   }
@@ -430,11 +453,14 @@ class CustomProgressDialog implements _CustomProgressDialog {
     if (!_show) {
       _show = true;
       if (_progressDialogWidget == null) _initProgress();
-      await showDialog(
-          context: context,
-          barrierDismissible: dismissable ?? true,
-          builder: (context) => _progressDialogWidget,
-          barrierColor: Color(0x00ffffff));
+      // await showDialog(context: context, barrierDismissible: dismissable ?? true, builder: (context) => _progressDialogWidget, barrierColor: Color(0x00ffffff));
+      DialogUtils(
+        dismissable: dismissable,
+        barrierColor: backgroundColor,
+        child: _progressDialogWidget,
+        dialogTransitionType: dialogTransitionType,
+        transitionDuration: transitionDuration,
+      ).show(context);
       _show = false;
     }
   }
@@ -471,6 +497,8 @@ class CustomProgressDialog implements _CustomProgressDialog {
     Function onDismiss,
     bool dismissable,
     Widget loadingWidget,
+    DialogTransitionType dialogTransitionType,
+    Duration transitionDuration,
   }) async {
     if (future == null) throw Exception("Future (param) can not be null");
 
@@ -482,6 +510,8 @@ class CustomProgressDialog implements _CustomProgressDialog {
       blur: blur,
       onDismiss: onDismiss,
       onCancel: onProgressCancel != null ? onProgressCancel : null,
+      dialogTransitionType: dialogTransitionType,
+      transitionDuration: transitionDuration,
     );
 
     pDialog.show();
@@ -563,7 +593,7 @@ class _CustomProgressDialogWidgetState
       blur: widget.blur ?? 0,
       dismissable: widget.dismissable ?? true,
       onDismiss: widget.onDismiss,
-      color: backgroundColor,
+      barrierColor: backgroundColor,
       dialog: Padding(
         padding: MediaQuery.of(context).viewInsets +
             const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),

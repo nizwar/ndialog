@@ -41,7 +41,7 @@ class MyHomePage extends StatelessWidget {
                 title: Text("Test"),
                 content: Text("Iya iya"),
                 blur: 2,
-              ).show(context);
+              ).show(context, transitionType: DialogTransitionType.Bubble);
             },
           ),
           FlatButton(
@@ -66,6 +66,8 @@ class MyHomePage extends StatelessWidget {
               ProgressDialog progressDialog = ProgressDialog(
                 context,
                 blur: 0,
+                dialogTransitionType: DialogTransitionType.Shrink,
+                transitionDuration: Duration(milliseconds: 100),
                 onDismiss: () {
                   print("Do something onDismiss");
                 },
@@ -212,7 +214,9 @@ class MyHomePage extends StatelessWidget {
                     onPressed: () {},
                   )
                 ],
-              ).show(context);
+              ).show(
+                context,
+              );
             },
             child: Text("Show NDialog", style: TextStyle(color: Colors.white)),
           ),
@@ -226,7 +230,7 @@ class MyHomePage extends StatelessWidget {
             color: Colors.blue,
             onPressed: () async {
               DialogBackground(
-                color: Colors.black.withOpacity(.55),
+                barrierColor: Colors.black.withOpacity(.55),
                 blur: 0,
                 dialog: AlertDialog(
                   title: Text("Alert Dialog"),
@@ -247,7 +251,9 @@ class MyHomePage extends StatelessWidget {
                     )
                   ],
                 ),
-              ).show(context);
+              ).show(
+                context,
+              );
             },
           ),
           SizedBox(

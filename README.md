@@ -10,7 +10,7 @@ First of all, let's leave the old style with showDialog(blablabla), with NDialog
 There are 2 types of dialogs in here, they are Dialog (popup dialog) and Progress Dialog.
 
 ## Dialog
-In Dialog, there are 3 types too, they are `NDialog`, `NAlertDialog`, `ZoomDialog`.
+In Dialog, there are 3 types, they are `NDialog`, `NAlertDialog`, `ZoomDialog`.
 
 ### NDialog
 Is a raw dialog where you can view them right away without anything else
