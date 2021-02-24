@@ -23,9 +23,7 @@ class NDialog extends StatelessWidget {
   ///The (optional) set of actions that are displayed at the bottom of the dialog.
   final List<Widget> actions;
 
-  const NDialog(
-      {Key key, this.dialogStyle, this.title, this.content, this.actions})
-      : super(key: key);
+  const NDialog({Key key, this.dialogStyle, this.title, this.content, this.actions}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +39,7 @@ class NDialog extends StatelessWidget {
         children: <Widget>[
           title != null
               ? Padding(
-                  padding: style.titlePadding ??
-                      EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+                  padding: style.titlePadding ?? EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
                   child: DefaultTextStyle(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,23 +56,17 @@ class NDialog extends StatelessWidget {
                               )
                       ],
                     ),
-                    style: style.titleTextStyle ??
-                        dialogTheme.titleTextStyle ??
-                        theme.textTheme.headline6,
+                    style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.headline6,
                   ),
                 )
               : Container(),
           content != null
               ? Flexible(
                   child: Padding(
-                    padding: style.contentPadding ??
-                        EdgeInsets.only(
-                            right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
+                    padding: style.contentPadding ?? EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
                     child: DefaultTextStyle(
                       child: Semantics(child: content),
-                      style: style.contentTextStyle ??
-                          dialogTheme.contentTextStyle ??
-                          theme.textTheme.subtitle1,
+                      style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
                     ),
                   ),
                 )
@@ -122,8 +113,7 @@ class NDialog extends StatelessWidget {
     );
 
     return Padding(
-      padding: MediaQuery.of(context).viewInsets +
-          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+      padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 280.0),
@@ -132,26 +122,18 @@ class NDialog extends StatelessWidget {
             clipBehavior: Clip.antiAlias,
             elevation: style.elevation ?? 24,
             color: style.backgroundColor,
-            shape: style.borderRadius != null
-                ? RoundedRectangleBorder(borderRadius: style.borderRadius)
-                : style.shape ??
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
+            shape: style.borderRadius != null ? RoundedRectangleBorder(borderRadius: style.borderRadius) : style.shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
           ),
         ),
       ),
     );
   }
 
-  Future<T> show<T>(BuildContext context,
-          {DialogTransitionType transitionType,
-          bool dismissable,
-          Duration transitionDuration}) =>
-      DialogUtils(
+  Future<T> show<T>(BuildContext context, {DialogTransitionType transitionType, bool dismissable, Duration transitionDuration}) => DialogUtils(
         child: this,
         dialogTransitionType: transitionType,
         dismissable: dismissable,
-        barrierColor: Colors.black.withOpacity(.6),
+        barrierColor: Colors.black.withOpacity(.5),
         transitionDuration: transitionDuration,
       ).show(context);
 }
@@ -232,14 +214,7 @@ class BlurDialogBackground extends DialogBackground {
   /// Background color
   final Color color;
 
-  const BlurDialogBackground(
-      {Key key,
-      this.color,
-      this.dialog,
-      this.dismissable,
-      this.blur,
-      this.onDismiss})
-      : super(key: key);
+  const BlurDialogBackground({Key key, this.color, this.dialog, this.dismissable, this.blur, this.onDismiss}) : super(key: key);
 }
 
 //A Dialog, but you can zoom on it
@@ -263,15 +238,7 @@ class ZoomDialog extends DialogBackground {
   ///Action before dialog dismissed
   final Function onDismiss;
 
-  const ZoomDialog(
-      {Key key,
-      this.backgroundColor,
-      @required this.child,
-      this.initZoomScale = 0,
-      this.blur,
-      this.zoomScale = 3,
-      this.onDismiss})
-      : super(key: key);
+  const ZoomDialog({Key key, this.backgroundColor, @required this.child, this.initZoomScale = 0, this.blur, this.zoomScale = 3, this.onDismiss}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -328,28 +295,16 @@ class DialogBackground extends StatelessWidget {
   @Deprecated("Use barrierColor instead")
   final Color color;
 
-  const DialogBackground(
-      {Key key,
-      this.dialog,
-      this.color,
-      this.dismissable,
-      this.blur,
-      this.onDismiss,
-      this.barrierColor})
-      : super(key: key);
+  const DialogBackground({Key key, this.dialog, this.color, this.dismissable, this.blur, this.onDismiss, this.barrierColor}) : super(key: key);
 
   ///Show dialog directly
   // Future show<T>(BuildContext context) => showDialog<T>(context: context, builder: (context) => this, barrierColor: barrierColor, barrierDismissible: dismissable ?? true);
 
-  Future<T> show<T>(BuildContext context,
-          {DialogTransitionType transitionType,
-          bool dismissable,
-          Duration transitionDuration}) =>
-      DialogUtils(
+  Future<T> show<T>(BuildContext context, {DialogTransitionType transitionType, bool dismissable, Duration transitionDuration}) => DialogUtils(
         child: this,
         dialogTransitionType: transitionType,
         dismissable: dismissable,
-        barrierColor: barrierColor ?? Colors.black.withOpacity(.6),
+        barrierColor: barrierColor ?? Colors.black.withOpacity(.5),
         transitionDuration: transitionDuration,
       ).show(context);
   @override

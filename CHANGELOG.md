@@ -1,7 +1,10 @@
+## [3.3.1] - 24 Feb 2021
+* Fix ProgressDialog and CustomDialog dismiss after future complete
+* Fix Bugs
 ## [3.3.0] - 22 Feb 2021
 * Add new customize Transition (Extensions supported too)
 * Show dialog with native call
-* Fix Bug
+* Fix Bugs
 ## [3.2.1] - 27 Dec 2020
 * Fix ZoomDialog's bugs
 * Fix Stack's "overflow removed"

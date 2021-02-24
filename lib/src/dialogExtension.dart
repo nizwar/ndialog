@@ -38,7 +38,7 @@ extension AlertDialogShow on AlertDialog {
     DialogTransitionType dialogTransitionType,
   }) =>
       DialogUtils(
-        barrierColor: barrierColor ?? Colors.black.withOpacity(.6),
+        barrierColor: barrierColor ?? Colors.black.withOpacity(.5),
         child: this,
         dismissable: barrierDismissible,
         dialogTransitionType: dialogTransitionType,
@@ -60,7 +60,7 @@ extension SimpleDialogShow on SimpleDialog {
     DialogTransitionType dialogTransitionType,
   }) =>
       DialogUtils(
-        barrierColor: barrierColor ?? Colors.black.withOpacity(.6),
+        barrierColor: barrierColor ?? Colors.black.withOpacity(.5),
         child: this,
         dismissable: barrierDismissible,
         dialogTransitionType: dialogTransitionType,
