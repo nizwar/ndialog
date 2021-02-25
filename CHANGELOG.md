@@ -1,10 +1,17 @@
+## [3.3.2] - 25 Feb 2021
+* Add default transition duration, to make it much-much smooth and flexible
+* Fix Transparent barrier when its color is Null
+* Fix pop delay when dialog's transition is null
+
 ## [3.3.1] - 24 Feb 2021
 * Fix ProgressDialog and CustomDialog dismiss after future complete
 * Fix Bugs
+
 ## [3.3.0] - 22 Feb 2021
 * Add new customize Transition (Extensions supported too)
 * Show dialog with native call
 * Fix Bugs
+
 ## [3.2.1] - 27 Dec 2020
 * Fix ZoomDialog's bugs
 * Fix Stack's "overflow removed"

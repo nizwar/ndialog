@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
 
+Color get generalBarrierColor => Colors.black.withOpacity(.5);
+
 class DialogUtils {
   final bool dismissable;
   final Widget child;
@@ -9,6 +11,8 @@ class DialogUtils {
   final RouteSettings routeSettings;
   final bool useRootNavigator;
   final bool useSafeArea;
+
+  ///Set it null to start the animation with default duration
   final Duration transitionDuration;
 
   DialogUtils({
@@ -23,18 +27,43 @@ class DialogUtils {
   });
 
   ///Show dialog directly
-  Future show<T>(BuildContext context) => showGeneralDialog<T>(
-        context: context,
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            (useSafeArea ?? false) ? SafeArea(child: child) : child,
-        barrierColor: barrierColor ?? Color(0x00ffffff),
-        barrierDismissible: dismissable ?? true,
-        barrierLabel: "",
-        transitionDuration: transitionDuration ?? Duration(milliseconds: 500),
-        transitionBuilder: (context, animation, secondaryAnimation, child) =>
-            _animationWidget(animation, child),
-        useRootNavigator: useRootNavigator ?? false,
-      );
+  Future show<T>(BuildContext context) {
+    Duration defaultDuration = Duration(seconds: 1);
+    switch (dialogTransitionType ?? DialogTransitionType.NONE) {
+      case DialogTransitionType.Bubble:
+        defaultDuration = Duration(milliseconds: 500);
+        break;
+      case DialogTransitionType.LeftToRight:
+        defaultDuration = Duration(milliseconds: 230);
+        break;
+      case DialogTransitionType.RightToLeft:
+        defaultDuration = Duration(milliseconds: 230);
+        break;
+      case DialogTransitionType.TopToBottom:
+        defaultDuration = Duration(milliseconds: 300);
+        break;
+      case DialogTransitionType.BottomToTop:
+        defaultDuration = Duration(milliseconds: 300);
+        break;
+      case DialogTransitionType.Shrink:
+        defaultDuration = Duration(milliseconds: 200);
+        break;
+      default:
+        defaultDuration = Duration.zero;
+    }
+    return showGeneralDialog<T>(
+      context: context,
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          (useSafeArea ?? false) ? SafeArea(child: child) : child,
+      barrierColor: barrierColor ?? Color(0x00ffffff),
+      barrierDismissible: dismissable ?? true,
+      barrierLabel: "",
+      transitionDuration: transitionDuration ?? defaultDuration,
+      transitionBuilder: (context, animation, secondaryAnimation, child) =>
+          _animationWidget(animation, child),
+      useRootNavigator: useRootNavigator ?? false,
+    );
+  }
 
   Widget _animationWidget(Animation<double> animation, Widget child) {
     switch (dialogTransitionType ?? DialogTransitionType.NONE) {

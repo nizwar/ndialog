@@ -140,7 +140,7 @@ class ProgressDialog implements _ProgressDialog {
       // await showDialog(context: context, barrierDismissible: dismissable ?? true, builder: (context) => _progressDialogWidget, barrierColor: Color(0x00ffffff));
       await DialogUtils(
         dismissable: dismissable,
-        barrierColor: backgroundColor ?? Colors.black.withOpacity(.5),
+        barrierColor: backgroundColor ?? generalBarrierColor,
         child: _progressDialogWidget,
         dialogTransitionType: dialogTransitionType,
         transitionDuration: transitionDuration,
@@ -269,7 +269,8 @@ class _ProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements _ProgressDialog {
+class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
+    implements _ProgressDialog {
   Widget _title, _message, _loading;
   Color _backgroundColor;
 
@@ -313,14 +314,16 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements
       dialogStyle: DialogStyle(
           backgroundColor: widget.dialogStyle.backgroundColor,
           titleDivider: widget.dialogStyle.titleDivider,
-          borderRadius: widget.dialogStyle.borderRadius ?? BorderRadius.circular(2.0),
+          borderRadius:
+              widget.dialogStyle.borderRadius ?? BorderRadius.circular(2.0),
           contentPadding: msgPadding ?? EdgeInsets.symmetric(horizontal: 20.0),
           contentTextStyle: widget.dialogStyle.contentTextStyle,
           elevation: widget.dialogStyle.elevation,
           semanticsLabel: widget.dialogStyle.semanticsLabel,
           // animatePopup: widget.dialogStyle.animatePopup ?? true,
           shape: widget.dialogStyle.shape,
-          titlePadding: widget.dialogStyle.titlePadding ?? EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
+          titlePadding: widget.dialogStyle.titlePadding ??
+              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 0.0),
           titleTextStyle: widget.dialogStyle.titleTextStyle),
       content: Column(
         mainAxisSize: MainAxisSize.min,
@@ -336,7 +339,9 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements
               Expanded(
                 child: DefaultTextStyle(
                   child: Semantics(child: message),
-                  style: widget.dialogStyle.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.subtitle1,
+                  style: widget.dialogStyle.contentTextStyle ??
+                      dialogTheme.contentTextStyle ??
+                      theme.textTheme.subtitle1,
                 ),
               ),
             ],
@@ -535,7 +540,8 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   final double blur;
   final Color backgroundColor;
   final bool dismissable;
-  _CustomProgressDialogWidgetState _dialogWidgetState = _CustomProgressDialogWidgetState();
+  _CustomProgressDialogWidgetState _dialogWidgetState =
+      _CustomProgressDialogWidgetState();
 
   _CustomProgressDialogWidget({
     Key key,
@@ -563,13 +569,15 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _CustomProgressDialogWidgetState extends State<_CustomProgressDialogWidget> implements _CustomProgressDialog {
+class _CustomProgressDialogWidgetState
+    extends State<_CustomProgressDialogWidget>
+    implements _CustomProgressDialog {
   Widget _loadingWidget;
   Color _backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = _backgroundColor ?? (widget.backgroundColor ?? Colors.black.withOpacity(.5));
+    Color backgroundColor = _backgroundColor ?? widget.backgroundColor;
     Widget loadingWidget = (this._loadingWidget ?? widget.loadingWidget) ??
         Container(
           padding: EdgeInsets.all(10.0),
@@ -589,7 +597,8 @@ class _CustomProgressDialogWidgetState extends State<_CustomProgressDialogWidget
       onDismiss: widget.onDismiss,
       barrierColor: backgroundColor,
       dialog: Padding(
-        padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+        padding: MediaQuery.of(context).viewInsets +
+            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
         child: Center(
           child: loadingWidget,
         ),
