@@ -48,5 +48,6 @@ class MultiTouchGestureRecognizer extends MultiTapGestureRecognizer {
   set onTap(_onTap) {}
 }
 
-typedef MultiTouchGestureRecognizerCallback = void Function(Offset firstPoint, Offset secondPoint);
+typedef MultiTouchGestureRecognizerCallback = void Function(
+    Offset firstPoint, Offset secondPoint);
 typedef SingleTouchGestureRecognizerCallback = void Function(Offset point);

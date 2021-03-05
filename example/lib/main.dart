@@ -53,7 +53,8 @@ class MyHomePage extends StatelessWidget {
           OutlinedButton(
             child: Text("Progress Dialog"),
             onPressed: () async {
-              ProgressDialog progressDialog = ProgressDialog(context, blur: 0, dialogTransitionType: DialogTransitionType.Shrink,
+              ProgressDialog progressDialog = ProgressDialog(context,
+                  blur: 0, dialogTransitionType: DialogTransitionType.Shrink,
                   // transitionDuration: Duration(milliseconds: 100),
                   onDismiss: () {
                 print("Do something onDismiss");
@@ -61,7 +62,8 @@ class MyHomePage extends StatelessWidget {
               progressDialog.setLoadingWidget(CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation(Colors.red),
               ));
-              progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
+              progressDialog.setMessage(
+                  Text("Please Wait, Injecting your phone with my virus"));
               progressDialog.setTitle(Text("Loading"));
               progressDialog.show();
 
@@ -151,15 +153,15 @@ class MyHomePage extends StatelessWidget {
                 title: Text("Hi, This is NAlertDialog"),
                 content: Text("And here is your content, hoho... "),
                 actions: <Widget>[
-                  OutlinedButton(
+                  TextButton(
                     child: Text("You"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Are"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Awesome"),
                     onPressed: () {},
                   )
@@ -175,15 +177,15 @@ class MyHomePage extends StatelessWidget {
                 title: Text("Hi, This is NDialog"),
                 content: Text("And here is your content, hoho... "),
                 actions: <Widget>[
-                  OutlinedButton(
+                  TextButton(
                     child: Text("You"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Are"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Awesome"),
                     onPressed: () {},
                   )
@@ -196,7 +198,7 @@ class MyHomePage extends StatelessWidget {
           ),
           OutlinedButton(
             child: Text(
-              "Show Alert Dialog\nWith Blur Background",
+              "Show Alert Dialog With Blur Background",
               textAlign: TextAlign.center,
             ),
             onPressed: () async {
@@ -205,17 +207,18 @@ class MyHomePage extends StatelessWidget {
                 blur: 0,
                 dialog: AlertDialog(
                   title: Text("Alert Dialog"),
-                  content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
+                  content: Text(
+                      "Wohoo.. This is ordinary AlertDialog with Blur background"),
                   actions: <Widget>[
-                    OutlinedButton(
+                    TextButton(
                       child: Text("You"),
                       onPressed: () {},
                     ),
-                    OutlinedButton(
+                    TextButton(
                       child: Text("Are"),
                       onPressed: () {},
                     ),
-                    OutlinedButton(
+                    TextButton(
                       child: Text("Awesome"),
                       onPressed: () {},
                     )
@@ -228,7 +231,7 @@ class MyHomePage extends StatelessWidget {
           ),
           OutlinedButton(
             child: Text(
-              "Show Alert Dialog\nWith Custom Background Color",
+              "Show Alert Dialog With Custom Background Color",
               textAlign: TextAlign.center,
             ),
             onPressed: () async {
@@ -236,17 +239,18 @@ class MyHomePage extends StatelessWidget {
                 backgroundColor: Colors.red.withOpacity(.5),
                 blur: 0,
                 title: Text("Alert Dialog"),
-                content: Text("Wohoo.. This is ordinary AlertDialog with Custom Color background"),
+                content: Text(
+                    "Wohoo.. This is ordinary AlertDialog with Custom Color background"),
                 actions: <Widget>[
-                  OutlinedButton(
+                  TextButton(
                     child: Text("You"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Are"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Awesome"),
                     onPressed: () {},
                   )
@@ -262,17 +266,18 @@ class MyHomePage extends StatelessWidget {
             onPressed: () async {
               await AlertDialog(
                 title: Text("Alert Dialog"),
-                content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
+                content: Text(
+                    "Wohoo.. This is ordinary AlertDialog with Blur background"),
                 actions: <Widget>[
-                  OutlinedButton(
+                  TextButton(
                     child: Text("You"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Are"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Awesome"),
                     onPressed: () {},
                   )
@@ -281,21 +286,23 @@ class MyHomePage extends StatelessWidget {
             },
           ),
           OutlinedButton(
-            child: Text("CupertinoDialog Extension", textAlign: TextAlign.center),
+            child:
+                Text("CupertinoDialog Extension", textAlign: TextAlign.center),
             onPressed: () async {
               await CupertinoAlertDialog(
                 title: Text("Alert Dialog"),
-                content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
+                content: Text(
+                    "Wohoo.. This is ordinary AlertDialog with Blur background"),
                 actions: <Widget>[
-                  OutlinedButton(
+                  TextButton(
                     child: Text("You"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Are"),
                     onPressed: () {},
                   ),
-                  OutlinedButton(
+                  TextButton(
                     child: Text("Awesome"),
                     onPressed: () {},
                   )

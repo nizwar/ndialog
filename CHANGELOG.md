@@ -1,3 +1,8 @@
+## [3.5.0-nullsafety.1] - 5 March 2021
+* Migrate to nullsafety
+* Fix some function and animation bugs
+* Fix Bugs
+
 ## [3.3.2] - 25 Feb 2021
 * Add default transition duration, to make it much-much smooth and flexible
 * Fix Transparent barrier when its color is Null

@@ -53,12 +53,16 @@ class DialogUtils {
     }
     return showGeneralDialog<T>(
       context: context,
-      pageBuilder: (context, animation, secondaryAnimation) => (useSafeArea ?? false) ? SafeArea(child: child ?? SizedBox.shrink()) : (child ?? SizedBox.shrink()),
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          (useSafeArea ?? false)
+              ? SafeArea(child: child ?? SizedBox.shrink())
+              : (child ?? SizedBox.shrink()),
       barrierColor: barrierColor ?? generalBarrierColor,
       barrierDismissible: dismissable ?? true,
       barrierLabel: "",
       transitionDuration: transitionDuration ?? defaultDuration,
-      transitionBuilder: (context, animation, secondaryAnimation, child) => _animationWidget(animation, child),
+      transitionBuilder: (context, animation, secondaryAnimation, child) =>
+          _animationWidget(animation, child),
       useRootNavigator: useRootNavigator ?? false,
     );
   }
