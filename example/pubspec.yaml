@@ -3,6 +3,7 @@ description: Example for ndialog
 version: 1.0.0+1
 homepage: https://github.com/nizwar
 author: Nizwar <nizwar@merahputih.id>
+publish_to: none
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

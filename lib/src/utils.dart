@@ -4,16 +4,16 @@ import 'package:ndialog/src/transition.dart';
 Color get generalBarrierColor => Colors.black.withOpacity(.5);
 
 class DialogUtils {
-  final bool dismissable;
-  final Widget child;
-  final DialogTransitionType dialogTransitionType;
-  final Color barrierColor;
-  final RouteSettings routeSettings;
-  final bool useRootNavigator;
-  final bool useSafeArea;
+  final bool? dismissable;
+  final Widget? child;
+  final DialogTransitionType? dialogTransitionType;
+  final Color? barrierColor;
+  final RouteSettings? routeSettings;
+  final bool? useRootNavigator;
+  final bool? useSafeArea;
 
   ///Set it null to start the animation with default duration
-  final Duration transitionDuration;
+  final Duration? transitionDuration;
 
   DialogUtils({
     this.useSafeArea,
@@ -27,7 +27,7 @@ class DialogUtils {
   });
 
   ///Show dialog directly
-  Future show<T>(BuildContext context) {
+  Future<T?> show<T>(BuildContext context) {
     Duration defaultDuration = Duration(seconds: 1);
     switch (dialogTransitionType ?? DialogTransitionType.NONE) {
       case DialogTransitionType.Bubble:
@@ -53,14 +53,12 @@ class DialogUtils {
     }
     return showGeneralDialog<T>(
       context: context,
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          (useSafeArea ?? false) ? SafeArea(child: child) : child,
-      barrierColor: barrierColor ?? Color(0x00ffffff),
+      pageBuilder: (context, animation, secondaryAnimation) => (useSafeArea ?? false) ? SafeArea(child: child ?? SizedBox.shrink()) : (child ?? SizedBox.shrink()),
+      barrierColor: barrierColor ?? generalBarrierColor,
       barrierDismissible: dismissable ?? true,
       barrierLabel: "",
       transitionDuration: transitionDuration ?? defaultDuration,
-      transitionBuilder: (context, animation, secondaryAnimation, child) =>
-          _animationWidget(animation, child),
+      transitionBuilder: (context, animation, secondaryAnimation, child) => _animationWidget(animation, child),
       useRootNavigator: useRootNavigator ?? false,
     );
   }
@@ -69,22 +67,16 @@ class DialogUtils {
     switch (dialogTransitionType ?? DialogTransitionType.NONE) {
       case DialogTransitionType.Bubble:
         return DialogTransition.bubble(animation, child);
-        break;
       case DialogTransitionType.LeftToRight:
         return DialogTransition.transitionFromLeft(animation, child);
-        break;
       case DialogTransitionType.RightToLeft:
         return DialogTransition.transitionFromRight(animation, child);
-        break;
       case DialogTransitionType.TopToBottom:
         return DialogTransition.transitionFromTop(animation, child);
-        break;
       case DialogTransitionType.BottomToTop:
         return DialogTransition.transitionFromBottom(animation, child);
-        break;
       case DialogTransitionType.Shrink:
         return DialogTransition.shrink(animation, child);
-        break;
       default:
     }
     return child;

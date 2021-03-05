@@ -7,13 +7,13 @@ import 'package:ndialog/ndialog.dart';
 
 ///Extension of Dialog
 extension DialogShow on Dialog {
-  Future<T> show<T>(
+  Future<T?> show<T>(
     BuildContext context, {
     bool barrierDismissible = true,
-    Color barrierColor,
+    Color? barrierColor,
     bool useSafeArea = true,
     bool useRootNavigator = true,
-    RouteSettings routeSettings,
+    RouteSettings? routeSettings,
   }) =>
       showDialog<T>(
         context: context,
@@ -28,14 +28,14 @@ extension DialogShow on Dialog {
 
 ///Extension of AlertDialog
 extension AlertDialogShow on AlertDialog {
-  Future<T> show<T>(
+  Future<T?> show<T>(
     BuildContext context, {
     bool barrierDismissible = true,
-    Color barrierColor,
+    Color? barrierColor,
     bool useSafeArea = true,
     bool useRootNavigator = true,
-    RouteSettings routeSettings,
-    DialogTransitionType dialogTransitionType,
+    RouteSettings? routeSettings,
+    DialogTransitionType? dialogTransitionType,
   }) =>
       DialogUtils(
         barrierColor: barrierColor ?? generalBarrierColor,
@@ -50,14 +50,14 @@ extension AlertDialogShow on AlertDialog {
 
 ///Extension of SimpleDialog
 extension SimpleDialogShow on SimpleDialog {
-  Future<T> show<T>(
+  Future<T?> show<T>(
     BuildContext context, {
-    bool barrierDismissible = true,
-    Color barrierColor,
+    bool? barrierDismissible = true,
+    Color? barrierColor,
     bool useSafeArea = true,
     bool useRootNavigator = true,
-    RouteSettings routeSettings,
-    DialogTransitionType dialogTransitionType,
+    RouteSettings? routeSettings,
+    DialogTransitionType? dialogTransitionType,
   }) =>
       DialogUtils(
         barrierColor: barrierColor ?? generalBarrierColor,
@@ -67,16 +67,16 @@ extension SimpleDialogShow on SimpleDialog {
         routeSettings: routeSettings,
         useRootNavigator: useRootNavigator,
         useSafeArea: useSafeArea,
-      ).show(context);
+      ).show<T?>(context);
 }
 
 ///Extension of CupertinoAlertDialog
 extension CupertinoAlertDialogShow on CupertinoAlertDialog {
-  Future<T> show<T>(
+  Future<T?> show<T>(
     BuildContext context, {
     bool barrierDismissible = true,
     bool useRootNavigator = true,
-    RouteSettings routeSettings,
+    RouteSettings? routeSettings,
   }) =>
       showCupertinoDialog<T>(
         context: context,
