@@ -1,3 +1,12 @@
+## [4.0.1] - 18 March 2021
+* Fix SkDeletable bugs
+
+## [4.0.0+1] - 16 March 2021
+* Fix readme ndialog version
+
+## [4.0.0] - 16 March 2021
+* Migrate to nullsafety with stable version
+
 ## [3.5.0-nullsafety.1] - 5 March 2021
 * Migrate to nullsafety
 * Fix some function and animation bugs

@@ -1,6 +1,6 @@
 name: ndialog
-description: Dialog material widget with blur background and popup animation
-version: 3.5.0-nullsafety.1
+description: Custom native dialog style with blur background, popup animation and ProgressDialog.
+version: 4.0.1
 homepage: https://github.com/nizwar/ndialog
 
 environment:

@@ -1,9 +1,12 @@
 
+There are 2 types of dialogs, they are Dialog (popup dialog) and ProgressDialog.
+
 ## Dialog
-In Dialog, there are 2 types too, they are `NDialog` and `NAlertDialog`.
+In Dialog, there are 3 types, they are `NDialog`, `NAlertDialog`, `ZoomDialog`.
 
 ### NDialog
 Is a raw dialog where you can view them right away without anything else
+
 ``` dart
   await NDialog(
     dialogStyle: DialogStyle(titleDivider: true),
@@ -33,10 +36,23 @@ Is a dialog where you can directly set the background attributes without be wrap
   ).show(context);
 ``` 
 
+### ZoomDialog
+Is a dialog that you can zoom on it, you can zoom all type of widget on this dialog, simplye write this code and boom, there you go!
+
+``` dart
+  await ZoomDialog(
+    zoomScale: 5,
+    child: Container(
+      child: Text("Zoom me!"),
+      color: Colors.white,
+      padding: EdgeInsets.all(20),
+    ),
+  ).show(context);
+``` 
  
 
 ## Progress Dialog
-In ProgressDialog, there are 2 types too, they are `ProgressDialog` and `CustomProgressDialog`.
+In ProgressDialog, there are 2 types, they are `ProgressDialog` and `CustomProgressDialog`.
 
 ### ProgressDialog
 Will display the ProgressDialog with Android native style.
@@ -83,7 +99,8 @@ Will display a progress dialog with customizable widgets
   progressDialog.dismiss();
 ```
 
-This is what I'm talking about, Each Progress Dialog has a `.future(context)` static function, which will help you display the progress dialog once until `Future` is completed
+### Show Progress Dialog Once with .future()
+This is what I'm talking about, Each Progress Dialog has a `.future(context)` static function, which will help you display the progress dialog once until `Future` is completed!
 
 ```dart
 
@@ -115,9 +132,18 @@ await CustomProgressDialog.future(
 
 ```
 
+## Dialog Extensions!
+You can simply call `show(context)` at the end of Flutter's built-in dialogs.
+
+```dart
+  AlertDialog( ... ).show(context);
+  SimpleDialog( ... ).show(context);
+  Dialog( ... ).show(context);
+  CupertinoAlertDialog( ... ).show(context);
+```
 
 ## DialogBackground
-You can use DialogBackground to create your own custom dialog and display them easily, not only that, you can also change the barrierColor / background color and add little bit blur effects there.
+You can use DialogBackground to create your own custom dialog and display them easily, you can also change the barrierColor / background color and add little bit blur effects there.
 
 Note : BlurDialogBackground is depreceted, use `DialogBackground` instead!
 
@@ -134,3 +160,12 @@ Note : BlurDialogBackground is depreceted, use `DialogBackground` instead!
     ),
   ).show(context); 
 ``` 
+
+## Dialog Transition
+Now you can show Dialog(Flutter native dialog included) with animated transition, by simply write
+
+``` dart
+yourDialog.show(context, transitionType: DialogTransitionType.Bubble);
+```
+
+Choose your customized transition and show them right away!
