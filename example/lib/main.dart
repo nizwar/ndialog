@@ -31,6 +31,12 @@ class MyHomePage extends StatelessWidget {
         padding: EdgeInsets.all(20),
         children: <Widget>[
           OutlinedButton(
+            child: Text("Show CustomDialog from extension"),
+            onPressed: () {
+              Future.delayed(Duration(seconds: 3)).showProgressDialog(context, title: Text("This is just an ordinary loading"), message: Text("This is fastest and coolest way to show a dialog"));
+            },
+          ),
+          OutlinedButton(
             child: Text("NAlertDialog show"),
             onPressed: () {
               NAlertDialog(
@@ -53,17 +59,20 @@ class MyHomePage extends StatelessWidget {
           OutlinedButton(
             child: Text("Progress Dialog"),
             onPressed: () async {
-              ProgressDialog progressDialog = ProgressDialog(context,
-                  blur: 0, dialogTransitionType: DialogTransitionType.Shrink,
-                  // transitionDuration: Duration(milliseconds: 100),
-                  onDismiss: () {
-                print("Do something onDismiss");
-              });
+              ProgressDialog progressDialog = ProgressDialog(
+                context,
+                blur: 0,
+                dialogTransitionType: DialogTransitionType.Shrink,
+                title: Text("Title"),
+                message: Text("Message"),
+                onDismiss: () {
+                  print("Do something onDismiss");
+                },
+              );
               progressDialog.setLoadingWidget(CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation(Colors.red),
               ));
-              progressDialog.setMessage(
-                  Text("Please Wait, Injecting your phone with my virus"));
+              progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
               progressDialog.setTitle(Text("Loading"));
               progressDialog.show();
 
@@ -207,8 +216,7 @@ class MyHomePage extends StatelessWidget {
                 blur: 0,
                 dialog: AlertDialog(
                   title: Text("Alert Dialog"),
-                  content: Text(
-                      "Wohoo.. This is ordinary AlertDialog with Blur background"),
+                  content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
                   actions: <Widget>[
                     TextButton(
                       child: Text("You"),
@@ -239,8 +247,7 @@ class MyHomePage extends StatelessWidget {
                 backgroundColor: Colors.red.withOpacity(.5),
                 blur: 0,
                 title: Text("Alert Dialog"),
-                content: Text(
-                    "Wohoo.. This is ordinary AlertDialog with Custom Color background"),
+                content: Text("Wohoo.. This is ordinary AlertDialog with Custom Color background"),
                 actions: <Widget>[
                   TextButton(
                     child: Text("You"),
@@ -266,8 +273,7 @@ class MyHomePage extends StatelessWidget {
             onPressed: () async {
               await AlertDialog(
                 title: Text("Alert Dialog"),
-                content: Text(
-                    "Wohoo.. This is ordinary AlertDialog with Blur background"),
+                content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
                 actions: <Widget>[
                   TextButton(
                     child: Text("You"),
@@ -286,13 +292,11 @@ class MyHomePage extends StatelessWidget {
             },
           ),
           OutlinedButton(
-            child:
-                Text("CupertinoDialog Extension", textAlign: TextAlign.center),
+            child: Text("CupertinoDialog Extension", textAlign: TextAlign.center),
             onPressed: () async {
               await CupertinoAlertDialog(
                 title: Text("Alert Dialog"),
-                content: Text(
-                    "Wohoo.. This is ordinary AlertDialog with Blur background"),
+                content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
                 actions: <Widget>[
                   TextButton(
                     child: Text("You"),

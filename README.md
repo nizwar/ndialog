@@ -140,10 +140,31 @@ await CustomProgressDialog.future(
 
 ```
 
+## Future Extensions
+Now you can show a dialog on every futures by simply add a single code.
+
+``` dart
+  //Make sure you import ndialog to call extensions function
+  import 'package:ndialog/ndialog.dart';
+
+  ...
+
+
+  Future.delayed(Duration(seconds: 3)).showProgressDialog(context, title: Text("This is just an ordinary loading"), message: Text("This is fastest and coolest way to show a dialog"));
+
+  //or
+  Future.delayed(Duration(seconds:3)).showCustomProgressDialog(context);
+```
+
 ## Dialog Extensions!
 You can simply call `show(context)` at the end of Flutter's built-in dialogs.
 
 ```dart
+  //Make sure you import ndialog to call extensions function
+  import 'package:ndialog/ndialog.dart';
+
+  ...
+
   AlertDialog( ... ).show(context);
   SimpleDialog( ... ).show(context);
   Dialog( ... ).show(context);

@@ -1,3 +1,8 @@
+## [4.1.0] - 25 Apr 2021
+* Add showCustomProgressDialog and showProgressDialog (E.g Future.delayed(Duration(seconds:3)).showCustomProgressDialog(context))
+* Add isShowed to check if Progress Dialogs is showed [#5](https://github.com/nizwar/ndialog/issues/5)
+* Fix ProgressDialog future's Type
+
 ## [4.0.1] - 18 March 2021
 * Fix SkDeletable bugs
 

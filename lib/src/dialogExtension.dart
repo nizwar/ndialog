@@ -86,3 +86,69 @@ extension CupertinoAlertDialogShow on CupertinoAlertDialog {
         routeSettings: routeSettings,
       );
 }
+
+extension FutureDialog<T> on Future<T> {
+  Future<T?> showProgressDialog(
+    BuildContext context, {
+    double? blur,
+    Color? backgroundColor,
+    DialogTransitionType? dialogTransitionType,
+    bool? dismissable,
+    Duration? transitionDuration,
+    OnProgressError? onProgressError,
+    OnProgressFinish? onProgressFinish,
+    OnProgressCancel? onProgressCancel,
+    Function? onDismiss,
+    Widget? cancelText,
+    @required Widget? message,
+    @required Widget? title,
+    Widget? progressWidget,
+    DialogStyle? dialogStyle,
+  }) =>
+      ProgressDialog.future<T?>(
+        context,
+        future: this,
+        blur: blur,
+        cancelText: cancelText,
+        dialogStyle: dialogStyle,
+        message: message,
+        title: title,
+        progressWidget: progressWidget,
+        backgroundColor: backgroundColor,
+        dialogTransitionType: dialogTransitionType,
+        dismissable: dismissable,
+        transitionDuration: transitionDuration,
+        onProgressCancel: onProgressCancel,
+        onProgressError: onProgressError,
+        onProgressFinish: onProgressFinish,
+        onDismiss: onDismiss,
+      );
+
+  Future<T?> showCustomProgressDialog(
+    BuildContext context, {
+    Widget? loadingWidget,
+    double? blur,
+    Color? backgroundColor,
+    DialogTransitionType? dialogTransitionType,
+    bool? dismissable,
+    Duration? transitionDuration,
+    OnProgressError? onProgressError,
+    OnProgressFinish? onProgressFinish,
+    OnProgressCancel? onProgressCancel,
+    Function? onDismiss,
+  }) =>
+      CustomProgressDialog.future<T?>(
+        context,
+        future: this,
+        loadingWidget: loadingWidget,
+        blur: blur,
+        backgroundColor: backgroundColor,
+        dialogTransitionType: dialogTransitionType,
+        dismissable: dismissable,
+        transitionDuration: transitionDuration,
+        onProgressCancel: onProgressCancel,
+        onProgressError: onProgressError,
+        onProgressFinish: onProgressFinish,
+        onDismiss: onDismiss,
+      );
+}
