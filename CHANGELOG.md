@@ -1,3 +1,7 @@
+## [4.1.1] - 25 Apr 2021
+* Update deprecated and 
+* Solve pub.dev scoring
+
 ## [4.1.0] - 25 Apr 2021
 * Add showCustomProgressDialog and showProgressDialog (E.g Future.delayed(Duration(seconds:3)).showCustomProgressDialog(context))
 * Add isShowed to check if Progress Dialogs is showed [#5](https://github.com/nizwar/ndialog/issues/5)

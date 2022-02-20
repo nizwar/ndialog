@@ -8,7 +8,6 @@
 ///
 /// All copyright belong to owner, i only modify to fit and fullfiled ndialog features
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'MultiTouchGestureDetector.dart';

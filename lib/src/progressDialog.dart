@@ -235,7 +235,9 @@ class ProgressDialog implements _ProgressDialog {
 class _ProgressDialogWidget extends StatefulWidget {
   final DialogStyle? dialogStyle;
   final Widget? title, message;
+  @Deprecated("Use cancelButton instead")
   final Widget? cancelText;
+  final Widget? cancelButton;
   final Function? onCancel;
   final Widget? loadingWidget;
   final Function? onDismiss;
@@ -250,6 +252,7 @@ class _ProgressDialogWidget extends StatefulWidget {
     this.title,
     this.message,
     this.onCancel,
+    this.cancelButton,
     this.dismissable,
     this.onDismiss,
     this.cancelText,
@@ -307,62 +310,69 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
             : EdgeInsets.fromLTRB(15.0, 0, 15.0, 0);
 
     return NAlertDialog(
-      title: title,
-      dismissable: widget.dismissable ?? true,
-      blur: widget.blur,
-      backgroundColor: backgroundColor,
-      onDismiss: () {
-        if (widget.onDismiss != null) {
-          widget.onDismiss?.call();
-        }
-        if (widget.onCancel != null) widget.onCancel?.call();
-      },
-      dialogStyle: widget.dialogStyle?.copyWith(
-        contentPadding: msgPadding ?? EdgeInsets.symmetric(horizontal: 20.0),
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              loading,
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: DefaultTextStyle(
-                  child: Semantics(child: message),
-                  style: (widget.dialogStyle?.contentTextStyle ??
-                          dialogTheme.contentTextStyle) ??
-                      (theme.textTheme.subtitle1 ?? TextStyle()),
+        title: title,
+        dismissable: widget.dismissable ?? true,
+        blur: widget.blur,
+        backgroundColor: backgroundColor,
+        onDismiss: () {
+          if (widget.onDismiss != null) {
+            widget.onDismiss?.call();
+          }
+          if (widget.onCancel != null) widget.onCancel?.call();
+        },
+        dialogStyle: widget.dialogStyle?.copyWith(
+          contentPadding: msgPadding ?? EdgeInsets.symmetric(horizontal: 20.0),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                loading,
+                SizedBox(
+                  width: 10,
                 ),
-              ),
-            ],
-          ),
-        ],
-      ),
-      actions: widget.onCancel == null
-          ? []
-          : [
+                Expanded(
+                  child: DefaultTextStyle(
+                    child: Semantics(child: message),
+                    style: (widget.dialogStyle?.contentTextStyle ??
+                            dialogTheme.contentTextStyle) ??
+                        (theme.textTheme.subtitle1 ?? TextStyle()),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          if (widget.onCancel != null)
+            if (widget.cancelButton != null)
+              widget.cancelButton!
+            // ignore: deprecated_member_use_from_same_package
+            else if (widget.cancelText != null)
               Container(
                 padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  style: ButtonStyle(),
+                  style: TextButton.styleFrom(
+                    padding: EdgeInsets.only(),
+                    primary: Theme.of(context).colorScheme.secondary,
+                  ),
                   onPressed: () {
-                    if (widget.onCancel != null) widget.onCancel?.call();
+                    if (widget.onCancel != null) widget.onCancel!.call();
                     Navigator.pop(context);
                   },
                   child: DefaultTextStyle(
+                    // ignore: deprecated_member_use_from_same_package
                     child: widget.cancelText ?? Text("Cancel"),
-                    style: TextStyle(color: Theme.of(context).accentColor),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
               )
-            ],
-    );
+        ]);
   }
 
   @override
