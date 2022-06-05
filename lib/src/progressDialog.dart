@@ -252,6 +252,7 @@ class _ProgressDialogWidget extends StatefulWidget {
     this.title,
     this.message,
     this.onCancel,
+    // ignore: unused_element
     this.cancelButton,
     this.dismissable,
     this.onDismiss,

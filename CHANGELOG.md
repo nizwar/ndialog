@@ -1,3 +1,6 @@
+## [4.1.1+1] - 5 Jun 2022
+* Solve pub.dev scoring
+
 ## [4.1.1] - 25 Apr 2021
 * Update deprecated and 
 * Solve pub.dev scoring
