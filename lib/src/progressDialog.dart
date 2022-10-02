@@ -1,6 +1,9 @@
 ///By Mochamad Nizwar Syafuan
 ///nizwar@merahputih.id
 ///==================================================================================
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
 import 'package:ndialog/src/utils.dart';
@@ -297,9 +300,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
           padding: EdgeInsets.all(10.0),
           height: 50.0,
           width: 50.0,
-          child: CircularProgressIndicator(
-            strokeWidth: 3,
-          ),
+          child: CircularProgressIndicator(),
         );
 
     EdgeInsets? msgPadding = title == null
@@ -332,9 +333,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 loading,
-                SizedBox(
-                  width: 10,
-                ),
+                SizedBox(width: 10),
                 Expanded(
                   child: DefaultTextStyle(
                     child: Semantics(child: message),
@@ -357,17 +356,13 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
                 padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.only(),
-                    primary: Theme.of(context).colorScheme.secondary,
-                  ),
                   onPressed: () {
                     if (widget.onCancel != null) widget.onCancel!.call();
                     Navigator.pop(context);
                   },
                   child: DefaultTextStyle(
                     // ignore: deprecated_member_use_from_same_package
-                    child: widget.cancelText ?? Text("Cancel"),
+                    child: widget.cancelText!,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary),
                   ),
@@ -587,15 +582,14 @@ class _CustomProgressDialogWidgetState
         _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
     Widget loadingWidget = (this._loadingWidget ?? widget.loadingWidget) ??
         Container(
-          padding: EdgeInsets.all(10.0),
-          height: 100.0,
-          width: 100.0,
-          alignment: Alignment.center,
+          padding: EdgeInsets.all(25.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(15),
             color: Colors.white,
           ),
-          child: CircularProgressIndicator(),
+          child: Platform.isAndroid
+              ? CircularProgressIndicator()
+              : CupertinoActivityIndicator(),
         );
 
     return DialogBackground(

@@ -1,3 +1,9 @@
+## [4.2.0] - 2 Oct 2022
+* Adaptive loading indicator on CustomProgressDialog
+* Fix theme on progress dialog's buttons
+* Update example
+* Update readme
+
 ## [4.1.1+1] - 5 Jun 2022
 * Solve pub.dev scoring
 

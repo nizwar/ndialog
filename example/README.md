@@ -1,21 +1,15 @@
 
-There are 2 types of dialogs, they are Dialog (popup dialog) and ProgressDialog.
-
-## Dialog
-In Dialog, there are 3 types, they are `NDialog`, `NAlertDialog`, `ZoomDialog`.
-
 ### NDialog
 Is a raw dialog where you can view them right away without anything else
 
 ``` dart
-  await NDialog(
+  NDialog(
     dialogStyle: DialogStyle(titleDivider: true),
-    title: Text("Hi, This is NDialog"),
-    content: Text("And here is your content, hoho... "),  
+    title: Text("NDialog"),
+    content: Text("This is NDialog's content"),
     actions: <Widget>[
-      FlatButton(child: Text("You"),onPressed: () {}),
-      FlatButton(child: Text("Are"),onPressed: () {}),
-      FlatButton(child: Text("Awesome"),onPressed: () {}),
+      TextButton(child: Text("Okay"), onPressed: () => Navigator.pop(context)),
+      TextButton(child: Text("Close"), onPressed: () => Navigator.pop(context)),
     ],
   ).show(context);
 ```
@@ -24,14 +18,13 @@ Is a raw dialog where you can view them right away without anything else
 Is a dialog where you can directly set the background attributes without be wrapped by `DialogBackground` and you can simply display them.
 
 ``` dart
-  await NAlertDialog(
+  NAlertDialog(
     dialogStyle: DialogStyle(titleDivider: true),
-    title: Text("Hi, This is NAlertDialog"),
-    content: Text("And here is your content, hoho... "), 
+    title: Text("NAlertDialog"),
+    content: Text("This is NAlertDialog's content"),
     actions: <Widget>[
-      FlatButton(child: Text("You"),onPressed: () {}),
-      FlatButton(child: Text("Are"),onPressed: () {}),
-      FlatButton(child: Text("Awesome"),onPressed: () {}),
+      TextButton(child: Text("Okay"), onPressed: () => Navigator.pop(context)),
+      TextButton(child: Text("Close"), onPressed: () => Navigator.pop(context)),
     ],
   ).show(context);
 ``` 
@@ -40,7 +33,7 @@ Is a dialog where you can directly set the background attributes without be wrap
 Is a dialog that you can zoom on it, you can zoom all type of widget on this dialog, simplye write this code and boom, there you go!
 
 ``` dart
-  await ZoomDialog(
+  ZoomDialog(
     zoomScale: 5,
     child: Container(
       child: Text("Zoom me!"),
@@ -48,34 +41,38 @@ Is a dialog that you can zoom on it, you can zoom all type of widget on this dia
       padding: EdgeInsets.all(20),
     ),
   ).show(context);
-``` 
- 
-
-## Progress Dialog
-In ProgressDialog, there are 2 types, they are `ProgressDialog` and `CustomProgressDialog`.
+```  
 
 ### ProgressDialog
 Will display the ProgressDialog with Android native style.
 
 ``` dart
-  ProgressDialog progressDialog = ProgressDialog(context, 
-    message:Text("This is the message"), 
-    title:Text("This is the title")
+  ProgressDialog progressDialog = ProgressDialog(
+    context,
+    blur: 10,
+    title: Text("Title of ProgressDialog"),
+    message: Text("Content of ProgressDialog"),
+    onDismiss: () => print("Do something onDismiss"),
   );
-
-  //You can set Message using this function
-  progressDialog.setTitle(Text("Loading"));
-  progressDialog.setMessage(Text("Please Wait, Injecting your phone with my virus"));
   progressDialog.show();
 
+  //Set loading with red circular progress indicator and change the title and message
   await Future.delayed(Duration(seconds: 5));
+  progressDialog.setLoadingWidget(CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.red)));
+  progressDialog.setTitle(Text("ProgressDialog Title changed"));
+  progressDialog.setMessage(Text("It will change again after 5 seconds"));
 
-  //Progress Dialog already show? don't worry, you can change the message :D
-  progressDialog.setTitle(Text("Just Kidding"));
-  progressDialog.setMessage(Text("I mean, virus of love :*"));
+  //Show dialog
+  progressDialog.show();
 
+  //After 5 seconds, change the title, message and loading widget to null (default widget is CircularProgressIndicator)
   await Future.delayed(Duration(seconds: 5));
+  progressDialog.setLoadingWidget(null);
+  progressDialog.setMessage(Text("ProgressDialog will dismiss after 5 seconds"));
+  progressDialog.setTitle(Text("Last changes"));
 
+  //After 5 seconds, dismiss the dialog
+  await Future.delayed(Duration(seconds: 5));
   progressDialog.dismiss();
 ```
 
@@ -83,19 +80,23 @@ Will display the ProgressDialog with Android native style.
 Will display a progress dialog with customizable widgets
 
 ``` dart
-  CustomProgressDialog progressDialog = CustomProgressDialog(context,blur: 10);
-
-  ///You can set Loading Widget using this function
+  CustomProgressDialog progressDialog = CustomProgressDialog(
+    context,
+    blur: 10,
+    onDismiss: () => print("Do something onDismiss"),
+  );
+  //Set loading with red circular progress indicator
   progressDialog.setLoadingWidget(CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.red)));
+
+  //Show dialog
   progressDialog.show();
 
+  //After 5 seconds, change the loading widget to null (default widget is CircularProgressIndicator)
   await Future.delayed(Duration(seconds: 5));
-
-  //Progress Dialog already show? don't worry, you can change the loading widget :D
   progressDialog.setLoadingWidget(null);
 
+  //After 5 seconds, dismiss the dialog
   await Future.delayed(Duration(seconds: 5));
-
   progressDialog.dismiss();
 ```
 
@@ -103,39 +104,54 @@ Will display a progress dialog with customizable widgets
 This is what I'm talking about, Each Progress Dialog has a `.future(context)` static function, which will help you display the progress dialog once until `Future` is completed!
 
 ```dart
+  ///ProgressDialog
+  ProgressDialog.future(
+    context,
+    title: Text("ProgressDialog.future()"),
+    message: Text("This will finis after 5 seconds"),
+    future: Future.delayed(Duration(seconds: 5), () => "The end of future (5 seconds)"),
+    onProgressError: (error) => print("Do something onProgressError"),
+    onProgressFinish: (data) => print("Do something onProgressFinish"),
+    onDismiss: () => print("Dismissed"),
+  ).then((value) => print(value));
 
-///ProgressDialog
-await ProgressDialog.future(
-  context, 
-  future: Future.delayed(Duration(seconds: 5), () {
-    return "HIYAAA";
-  }),
-  message: Text("Please Wait"),
-  cancelText: Text("Batal"),
-  title: Text("Loging in"),
-)
+  ///CustomProgressDialog
+  CustomProgressDialog.future(
+    context,
+    future: Future.delayed(Duration(seconds: 5), () => "The end of future (5 seconds)"),
+    onProgressError: (error) => print("Do something onProgressError"),
+    onProgressFinish: (data) => print("Do something onProgressFinish"),
+    onDismiss: () => print("Dismissed"),
+  ).then((value) => print(value));
 
-///CustomProgressDialog
-await CustomProgressDialog.future(
-  context,
-  future: Future.delayed(Duration(seconds: 5), () {
-    return "WOHOOO";
-  }),
-  loadingWidget: Center(
-    child: Container(
-      alignment:Alignment.center, 
-      child:CircularProgressIndicator(),
-    ),
-  ),
-  backgroundColor: Colors.blue.withOpacity(.5),
-)
+```
 
+## Future Extensions
+Now you can show a dialog on every futures by simply add a single code.
+
+``` dart
+  //Make sure you import ndialog to call extensions function
+  import 'package:ndialog/ndialog.dart';
+
+  ...
+  Future.delayed(Duration(seconds: 3)).showProgressDialog(
+    context,
+    title: Text("Title of ProgressDialog"),
+    message: Text("This dialog will be close after 3 seconds"),
+  );
+  //or
+  Future.delayed(Duration(seconds:3)).showCustomProgressDialog(context);
 ```
 
 ## Dialog Extensions!
 You can simply call `show(context)` at the end of Flutter's built-in dialogs.
 
 ```dart
+  //Make sure you import ndialog to call extensions function
+  import 'package:ndialog/ndialog.dart';
+
+  ...
+
   AlertDialog( ... ).show(context);
   SimpleDialog( ... ).show(context);
   Dialog( ... ).show(context);
@@ -148,24 +164,15 @@ You can use DialogBackground to create your own custom dialog and display them e
 Note : BlurDialogBackground is depreceted, use `DialogBackground` instead!
 
 ``` dart
-  await DialogBackground(
+  DialogBackground(
+    blur: 5,
     dialog: AlertDialog(
-      title: Text("Alert Dialog"),
-      content: Text("Wohoo.. This is ordinary AlertDialog with Blur background"),
+      title: Text("NAlert Dialog"),
+      content: Text("NAlertDialog with Blur background"),
       actions: <Widget>[
-        FlatButton(child: Text("You")onPressed: () {}),
-        FlatButton(child: Text("Are")onPressed: () {}),
-        FlatButton(child: Text("Awesome")onPressed: () {}),
+        TextButton(child: Text("Okay"), onPressed: () => Navigator.pop(context)),
+        TextButton(child: Text("Close"), onPressed: () => Navigator.pop(context)),
       ],
     ),
-  ).show(context); 
+  ).show(context);
 ``` 
-
-## Dialog Transition
-Now you can show Dialog(Flutter native dialog included) with animated transition, by simply write
-
-``` dart
-yourDialog.show(context, transitionType: DialogTransitionType.Bubble);
-```
-
-Choose your customized transition and show them right away!
