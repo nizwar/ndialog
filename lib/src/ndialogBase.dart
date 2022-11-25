@@ -79,10 +79,11 @@ class NDialog extends StatelessWidget {
               : Container(),
           actions != null && (actions?.length ?? 0) > 0
               ? Theme(
-                  data: ThemeData(
-                    buttonTheme: ButtonThemeData(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
+                  data: theme!.copyWith(
+                    textButtonTheme: TextButtonThemeData(
+                      style: TextButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
                       ),
                     ),
                   ),
