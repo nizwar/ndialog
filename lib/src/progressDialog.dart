@@ -585,7 +585,7 @@ class _CustomProgressDialogWidgetState
           padding: EdgeInsets.all(25.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
           ),
           child: Platform.isAndroid
               ? CircularProgressIndicator()

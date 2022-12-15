@@ -1,3 +1,6 @@
+## [4.2.2]
+* Adjust theme for future's custom progress dialog
+
 ## [4.2.1]
 * Adjust theme for textbutton
 ## [4.2.0]
