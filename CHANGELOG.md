@@ -1,3 +1,6 @@
+## [4.2.3]
+* Use universal io to make it work on web
+
 ## [4.2.2]
 * Adjust theme for future's custom progress dialog
 

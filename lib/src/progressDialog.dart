@@ -1,12 +1,12 @@
 ///By Mochamad Nizwar Syafuan
 ///nizwar@merahputih.id
 ///==================================================================================
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
 import 'package:ndialog/src/utils.dart';
+import 'package:universal_io/io.dart';
 
 import 'ndialogBase.dart';
 
@@ -587,9 +587,9 @@ class _CustomProgressDialogWidgetState
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).colorScheme.surface,
           ),
-          child: Platform.isAndroid
-              ? CircularProgressIndicator()
-              : CupertinoActivityIndicator(),
+          child: Platform.isIOS
+              ? CupertinoActivityIndicator()
+              : CircularProgressIndicator(),
         );
 
     return DialogBackground(

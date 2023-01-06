@@ -1,6 +1,6 @@
 name: ndialog
 description: Custom native dialog style with blur background, popup animation and ProgressDialog.
-version: 4.2.2
+version: 4.2.3
 homepage: https://github.com/nizwar/ndialog
 
 environment:
@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter 
+  universal_io: ^2.0.4
 
 dev_dependencies:
   flutter_test:
