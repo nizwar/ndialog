@@ -82,6 +82,7 @@ jobs:
 
   publish:
     runs-on: ubuntu-latest
+    needs: [archive_project, build_android_example]
     steps:
       - uses: actions/checkout@v2
 

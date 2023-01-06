@@ -1,6 +1,6 @@
 name: ndialog
 description: Custom native dialog style with blur background, popup animation and ProgressDialog.
-version: 4.2.3
+version: 4.2.3+1
 homepage: https://github.com/nizwar/ndialog
 
 environment:
