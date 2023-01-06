@@ -1,0 +1,110 @@
+name: Build Release
+on: push
+
+
+jobs:
+  archive_project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+       
+      - uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r source_code.zip . -x "*.git*"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: source_code.zip
+          path: source_code.zip
+
+  build_documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+
+      - name: Install dartdoc
+        run: flutter pub global activate dartdoc
+
+      - name: Build documentation
+        run: flutter pub run dartdoc
+
+      - name: Release the documentation
+        uses: crazy-max/ghaction-github-pages@v3
+        if: success()
+        with:
+          target_branch: documentation
+          build_dir: doc/api
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+
+  build_web_example:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+
+      - name: Build web example
+        run: flutter build web --release --web-renderer=html
+      
+      - name: Release the documentation
+        uses: crazy-max/ghaction-github-pages@v3
+        if: success()
+        with:
+          target_branch: web_example
+          build_dir: build/web
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+  build_android_example:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: 'stable'
+
+      - name: Build android example
+        run: flutter build apk --split-per-abi --release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        with:
+          name: publish-artifacts
+          path: build/app/outputs/flutter-apk/*.apk
+
+
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Initialize project version
+        id: project_version
+        uses: its404/get-flutter-version@v1.0.0
+
+      - name: Download archived project
+        uses: actions/download-artifact@v2
+        with:
+          name: source_code.zip
+          path: source_code.zip
+
+      - name: Download apks
+        uses: actions/download-artifact@v2
+        with:
+          name: publish-artifacts
+          path: build/app/outputs/flutter-apk
+
+      - name: Release the APKs
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "build/app/outputs/flutter-apk/*.apk, source_code.zip"
+          token: ${{ secrets.GITHUB_TOKEN }} 
+          tag: v${{ steps.project_version.outputs.version_number }}+${{ steps.project_version.outputs.build_number }}
+          name: "v${{ steps.project_version.outputs.version_number }}+${{ steps.project_version.outputs.build_number }}"
