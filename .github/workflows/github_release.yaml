@@ -121,7 +121,7 @@ jobs:
       - name: Release the APKs
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "example/build/app/outputs/flutter-apk, source_code.zip"
+          artifacts: "example/build/app/outputs/flutter-apk/*.apk, source_code.zip"
           token: ${{ secrets.GITHUB_TOKEN }} 
           tag: v${{ steps.project_version.outputs.version_number }}+${{ steps.project_version.outputs.build_number }}
           name: "v${{ steps.project_version.outputs.version_number }}+${{ steps.project_version.outputs.build_number }}"
