@@ -56,7 +56,7 @@ jobs:
         run: flutter pub get
 
       - name: Build web example
-        run: flutter build web --release --web-renderer=html
+        run: cd ./example && flutter build web --release --web-renderer=html
       
       - name: Release the documentation
         uses: crazy-max/ghaction-github-pages@v3
@@ -80,7 +80,7 @@ jobs:
         run: flutter pub get
 
       - name: Build android example
-        run: flutter build apk --split-per-abi --release
+        run: cd ./example && flutter build apk --split-per-abi --release
 
       - name: Upload artifacts
         uses: actions/upload-artifact@master
