@@ -25,6 +25,9 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Pub Get
+        run: flutter pub get
+
       - name: Install dartdoc
         run: flutter pub global activate dartdoc
 
@@ -49,6 +52,9 @@ jobs:
         with:
           channel: 'stable'
 
+      - name: Pub Get
+        run: flutter pub get
+
       - name: Build web example
         run: flutter build web --release --web-renderer=html
       
@@ -69,6 +75,9 @@ jobs:
       - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
+
+      - name: Pub Get
+        run: flutter pub get
 
       - name: Build android example
         run: flutter build apk --split-per-abi --release
