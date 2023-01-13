@@ -3,6 +3,8 @@
 
 Custom native dialog style with blur background, popup animation and ProgressDialog.
 
+[Try ndialog demo here](https://nizwar.github.io/ndialog/)
+
 Not only helps you display dialog with a blurred background, NDialog is here to help you do a lot of things. for example, with NDialog you can display `ProgressDialog` to user once until it meets the end of `Future`!
 
 First of all, let's leave the old style with `showDialog(blablabla)`, with NDialog i provide dialog extensions, you can simply call `.show(context)` at the end all of your dialog and let the magic work!
