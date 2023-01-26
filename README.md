@@ -1,7 +1,7 @@
 # NDialog 4.x
 [![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/fork)&nbsp; [![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp; [![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)
 
-[![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp; [![Example](https://img.shields.io/badge/Example-Code-blue)](https://pub.dev/packages/ndialog#-example-tab-)&nbsp; [![Demo](https://img.shields.io/badge/Demo-WEB-blue)](https://pub.dev/packages/ndialog#-example-tab-)&nbsp; [![Demo](https://img.shields.io/badge/Demo-APKs-blue)](https://github.com/nizwar/ndialog/releases)
+[![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp; [![Example](https://img.shields.io/badge/Example-Code-blue)](https://pub.dev/packages/ndialog#-example-tab-)&nbsp; [![Demo](https://img.shields.io/badge/Demo-WEB-blue)](https://nizwar.github.io/ndialog)&nbsp; [![Demo](https://img.shields.io/badge/Demo-APKs-blue)](https://github.com/nizwar/ndialog/releases)
 
 Customize your dialog's style much easier with Dialog, animate the show transition, or show the progress dialog most simply.
 
