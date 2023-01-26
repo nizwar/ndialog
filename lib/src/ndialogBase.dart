@@ -60,10 +60,10 @@ class NDialog extends StatelessWidget {
                     ),
                     style: (style.titleTextStyle ??
                             (dialogTheme?.titleTextStyle)) ??
-                        (theme?.textTheme.headline6 ?? TextStyle()),
+                        (theme?.textTheme.titleLarge ?? TextStyle()),
                   ),
                 )
-              : Container(),
+              : SizedBox.shrink(),
           content != null
               ? Flexible(
                   child: Padding(
@@ -72,11 +72,11 @@ class NDialog extends StatelessWidget {
                       child: Semantics(child: content),
                       style: (style.contentTextStyle ??
                               dialogTheme?.contentTextStyle) ??
-                          (theme?.textTheme.subtitle1 ?? TextStyle()),
+                          (theme?.textTheme.titleMedium ?? TextStyle()),
                     ),
                   ),
                 )
-              : Container(),
+              : SizedBox.shrink(),
           actions != null && (actions?.length ?? 0) > 0
               ? Theme(
                   data: theme!.copyWith(
@@ -134,7 +134,7 @@ class NDialog extends StatelessWidget {
             child: dialogChild,
             clipBehavior: Clip.antiAlias,
             elevation: style.elevation,
-            color: style.backgroundColor,
+            color: style.backgroundColor ?? theme?.dialogBackgroundColor,
             shape: style.borderRadius != null
                 ? RoundedRectangleBorder(
                     borderRadius:
@@ -363,7 +363,7 @@ class DialogBackground extends StatelessWidget {
                 }
               },
               child: (blur ?? 0) < 1
-                  ? Container()
+                  ? SizedBox.shrink()
                   : TweenAnimationBuilder(
                       tween: Tween<double>(begin: 0.1, end: blur ?? 0),
                       duration: Duration(milliseconds: 300),

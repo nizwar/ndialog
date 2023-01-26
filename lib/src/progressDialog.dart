@@ -339,7 +339,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
                     child: Semantics(child: message),
                     style: (widget.dialogStyle?.contentTextStyle ??
                             dialogTheme.contentTextStyle) ??
-                        (theme.textTheme.subtitle1 ?? TextStyle()),
+                        (theme.textTheme.titleMedium ?? TextStyle()),
                   ),
                 ),
               ],

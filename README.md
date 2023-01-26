@@ -1,16 +1,17 @@
 # NDialog 4.x
-[![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/fork)&nbsp; [![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp; [![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)&nbsp; [![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp; [![Example](https://img.shields.io/badge/Example-Ex-success)](https://pub.dev/packages/ndialog#-example-tab-)
+[![Fork](https://img.shields.io/github/forks/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/fork)&nbsp; [![Star](https://img.shields.io/github/stars/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/star)&nbsp; [![Watches](https://img.shields.io/github/watchers/nizwar/ndialog?style=social)](https://github.com/nizwar/ndialog/)
 
-Custom native dialog style with blur background, popup animation and ProgressDialog.
+[![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp; [![Example](https://img.shields.io/badge/Example-Code-blue)](https://pub.dev/packages/ndialog#-example-tab-)&nbsp; [![Demo](https://img.shields.io/badge/Demo-WEB-blue)](https://pub.dev/packages/ndialog#-example-tab-)&nbsp; [![Demo](https://img.shields.io/badge/Demo-APKs-blue)](https://github.com/nizwar/ndialog/releases)
 
-[Try ndialog demo here](https://nizwar.github.io/ndialog/)
+Customize your dialog's style much easier with Dialog, animate the show transition, or show the progress dialog most simply.
 
-Not only helps you display dialog with a blurred background, NDialog is here to help you do a lot of things. for example, with NDialog you can display `ProgressDialog` to user once until it meets the end of `Future`!
+Wonders how the result looks like? [Click here for web demo](https://nizwar.github.io/ndialog) or here for [Android APKs demo](https://github.com/nizwar/ndialog/releases)
 
-First of all, let's leave the old style with `showDialog(blablabla)`, with NDialog i provide dialog extensions, you can simply call `.show(context)` at the end all of your dialog and let the magic work!
+Anyway, not only helps you display a dialog with a blurred background, NDialog is here to help you do a lot of things. for example, with NDialog you can display `ProgressDialog` to the user once until it meets the end of `Future`!
 
-There are 2 types of dialogs, they are Dialog (popup dialog) and ProgressDialog.
+First of all, let's leave the old style with `showDialog(...)`, with NDialog I provide dialog extensions, you can simply call `.show(context)` at the end of all of your dialog and let the magic work!
 
+There are 2 types of dialogs, they are `Dialog` (popup dialog) and `ProgressDialog`
 ## Dialog
 In Dialog, there are 3 types, they are `NDialog`, `NAlertDialog`, `ZoomDialog`.
 
