@@ -17,7 +17,5 @@ dev_dependencies:
     sdk: flutter
 
 screenshots:
-  - description: "A cover image of the plugin"
-    url: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh89mtF9nvFbecedTaMn-5u4w7cXmnGQGdckeV-iy_7JXDz2zzEX2AqcCd7VjAMvnl_gHjaZsm9qXEW1H6BXm1L8pD1_tLD6vZmvb3odSNKkmRxWGc2QKvzxm0jm-W4kzeU5oJVCGp7w8O8yu9nz0MHHWS_IuL3Yx_NtwGVCKOZSnold4zKGN1ASFYV/s1600/NDialog%20logo.png
-  - description: "A GIF that showcases the use of NDialog"
-    url: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCTCVLSyHqmw_Q75c4y6Aai2dXFe7RQU-qWzCKTEKxUsbCyIah54dLQCaEQk3aZ1LnLG3tzcgs1AAxOQ-98WY87iyMc0tHA-04ofQ0y2f2nsZNDRkOmuvIpuvsAicObJySC0BgOBsLdAlvexj-9jRIZ-ynunRpWchf3RAx77GUZUxe12GMlYiZDqcd/s728/ndialog_preview.gif
+  - description: "NDialog logo image"
+    path: images/logo.png
