@@ -3,7 +3,7 @@
 
 [![Get the library](https://img.shields.io/badge/Get%20library-pub-blue)](https://pub.dev/packages/ndialog)&nbsp; [![Example](https://img.shields.io/badge/Example-Code-blue)](https://pub.dev/packages/ndialog#-example-tab-)&nbsp; [![Demo](https://img.shields.io/badge/Demo-WEB-blue)](https://nizwar.github.io/ndialog)&nbsp; [![Demo](https://img.shields.io/badge/Demo-APKs-blue)](https://github.com/nizwar/ndialog/releases)
 
-Customize your dialog's style much easier with Dialog, animate the show transition, or show the progress dialog most simply.
+Customize your dialog's style much easier with NDialog, animate the show transition, or show the progress dialog most simply.
 
 Wonders how the result looks like? [Click here for web demo](https://nizwar.github.io/ndialog) or here for [Android APKs demo](https://github.com/nizwar/ndialog/releases)
 
