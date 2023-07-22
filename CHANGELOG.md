@@ -1,3 +1,7 @@
+## [4.3.1]
+* Update nullsafety examplen and adjustment
+* Fix Web support
+
 ## [4.3.0]
 * Update deprecated and change colors from card into dialogBackgroundColor
 * Add workflows to provide demo, [Find it here](https://nizwar.github.io/ndialog/)

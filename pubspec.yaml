@@ -1,11 +1,11 @@
 name: ndialog
 description: Customize your dialog's style much easier with NDialog, animate the show transition, or show the progress dialog most simply.
-version: 4.3.0+1
+version: 4.3.1
 homepage: https://nizwar.github.io/ndialog/
 repository: https://github.com/nizwar/ndialog
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 < 4.0.0"
 
 dependencies:
   flutter:

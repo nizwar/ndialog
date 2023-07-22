@@ -124,7 +124,7 @@ class ProgressDialog implements _ProgressDialog {
   }
 
   @override
-  void setLoadingWidget(Widget loadingWidget) {
+  void setLoadingWidget(Widget? loadingWidget) {
     _progressDialogWidget?.getDialogState().setLoadingWidget(loadingWidget);
   }
 
@@ -384,7 +384,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
   }
 
   @override
-  void setLoadingWidget(Widget loading) async {
+  void setLoadingWidget(Widget? loading) async {
     this._loading = loading;
     if (mounted) setState(() {});
   }
@@ -439,7 +439,7 @@ class CustomProgressDialog implements _CustomProgressDialog {
   }
 
   @override
-  void setLoadingWidget(Widget loadingWidget) {
+  void setLoadingWidget(Widget? loadingWidget) {
     _progressDialogWidget?.getDialogState().setLoadingWidget(loadingWidget);
   }
 
@@ -608,7 +608,7 @@ class _CustomProgressDialogWidgetState
   }
 
   @override
-  void setLoadingWidget(Widget loadingWidget) async {
+  void setLoadingWidget(Widget? loadingWidget) async {
     this._loadingWidget = loadingWidget;
     if (mounted) setState(() {});
   }
