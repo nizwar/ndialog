@@ -30,7 +30,7 @@ class NDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData? theme = Theme.of(context);
-    final DialogTheme? dialogTheme = DialogTheme.of(context);
+    final DialogThemeData dialogTheme = DialogTheme.of(context);
     final DialogStyle style = dialogStyle ?? DialogStyle();
 
     String? label = style.semanticsLabel;
