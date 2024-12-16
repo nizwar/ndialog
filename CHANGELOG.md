@@ -1,3 +1,8 @@
+## [4.4.0]
+* Flutter 3.27.0 support (Thanks to JEuler 🍻)
+* Some minors and deprecated adjustments
+* Fix Web support
+
 ## [4.3.1]
 * Update nullsafety examplen and adjustment
 * Fix Web support

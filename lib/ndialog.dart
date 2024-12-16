@@ -1,7 +1,7 @@
 library ndialog;
 
-export 'src/ndialogBase.dart';
-export 'src/progressDialog.dart';
-export 'src/dialogExtension.dart';
+export 'src/ndialog_base.dart';
+export 'src/progress_dialog.dart';
+export 'src/dialog_extension.dart';
 export 'src/transition.dart';
 export 'src/utils.dart';

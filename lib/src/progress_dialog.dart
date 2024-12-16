@@ -6,9 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
 import 'package:ndialog/src/utils.dart';
-import 'package:universal_io/io.dart';
 
-import 'ndialogBase.dart';
+import 'ndialog_base.dart';
 
 ///Typedef of Progress while on Progress Error
 typedef OnProgressError(dynamic error);
@@ -587,7 +586,7 @@ class _CustomProgressDialogWidgetState
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).colorScheme.surface,
           ),
-          child: Platform.isIOS
+          child: Theme.of(context).platform == TargetPlatform.iOS
               ? CupertinoActivityIndicator()
               : CircularProgressIndicator(),
         );

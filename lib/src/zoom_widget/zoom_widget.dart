@@ -10,7 +10,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'MultiTouchGestureDetector.dart';
+import 'multi_touch_gesture_detector.dart';
 
 class Zoom extends StatefulWidget {
   final double maxZoomWidth, maxZoomHeight;
