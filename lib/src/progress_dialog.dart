@@ -1,7 +1,3 @@
-///By Mochamad Nizwar Syafuan
-///nizwar@merahputih.id
-///==================================================================================
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
@@ -219,13 +215,11 @@ class ProgressDialog implements _ProgressDialog {
 
     var output;
     await future.then((data) {
-      if (onProgressFinish != null)
-        onProgressFinish = onProgressFinish?.call(data);
+      if (onProgressFinish != null) onProgressFinish = onProgressFinish?.call(data);
       output = data;
       pDialog.dismiss();
     }).catchError((error) {
-      if (onProgressError != null)
-        onProgressError = onProgressError?.call(error);
+      if (onProgressError != null) onProgressError = onProgressError?.call(error);
       pDialog.dismiss();
     });
 
@@ -280,8 +274,7 @@ class _ProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
-    implements _ProgressDialog {
+class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements _ProgressDialog {
   Widget? _title, _message, _loading;
   Color? _backgroundColor;
 
@@ -292,8 +285,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
 
     Widget? title = _title ?? widget.title;
     Widget message = _message ?? (widget.message ?? SizedBox.shrink());
-    Color backgroundColor =
-        _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
+    Color backgroundColor = _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
     Widget loading = (_loading ?? widget.loadingWidget) ??
         Container(
           padding: EdgeInsets.all(10.0),
@@ -336,9 +328,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
                 Expanded(
                   child: DefaultTextStyle(
                     child: Semantics(child: message),
-                    style: (widget.dialogStyle?.contentTextStyle ??
-                            dialogTheme.contentTextStyle) ??
-                        (theme.textTheme.titleMedium ?? TextStyle()),
+                    style: (widget.dialogStyle?.contentTextStyle ?? dialogTheme.contentTextStyle) ?? (theme.textTheme.titleMedium ?? TextStyle()),
                   ),
                 ),
               ],
@@ -362,8 +352,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
                   child: DefaultTextStyle(
                     // ignore: deprecated_member_use_from_same_package
                     child: widget.cancelText!,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary),
+                    style: TextStyle(color: Theme.of(context).colorScheme.secondary),
                   ),
                 ),
               )
@@ -518,12 +507,10 @@ class CustomProgressDialog implements _CustomProgressDialog {
     var output;
     try {
       await future.then((data) {
-        if (onProgressFinish != null)
-          onProgressFinish = onProgressFinish?.call(data);
+        if (onProgressFinish != null) onProgressFinish = onProgressFinish?.call(data);
         output = data;
       }).catchError((error) {
-        if (onProgressError != null)
-          onProgressError = onProgressError?.call(error);
+        if (onProgressError != null) onProgressError = onProgressError?.call(error);
       });
     } catch (e) {}
     pDialog.dismiss();
@@ -540,8 +527,7 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   final double? blur;
   final Color? backgroundColor;
   final bool? dismissable;
-  _CustomProgressDialogWidgetState _dialogWidgetState =
-      _CustomProgressDialogWidgetState();
+  _CustomProgressDialogWidgetState _dialogWidgetState = _CustomProgressDialogWidgetState();
 
   _CustomProgressDialogWidget({
     Key? key,
@@ -569,16 +555,13 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _CustomProgressDialogWidgetState
-    extends State<_CustomProgressDialogWidget>
-    implements _CustomProgressDialog {
+class _CustomProgressDialogWidgetState extends State<_CustomProgressDialogWidget> implements _CustomProgressDialog {
   Widget? _loadingWidget;
   Color? _backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor =
-        _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
+    Color backgroundColor = _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
     Widget loadingWidget = (this._loadingWidget ?? widget.loadingWidget) ??
         Container(
           padding: EdgeInsets.all(25.0),
@@ -586,9 +569,7 @@ class _CustomProgressDialogWidgetState
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).colorScheme.surface,
           ),
-          child: Theme.of(context).platform == TargetPlatform.iOS
-              ? CupertinoActivityIndicator()
-              : CircularProgressIndicator(),
+          child: Theme.of(context).platform == TargetPlatform.iOS ? CupertinoActivityIndicator() : CircularProgressIndicator(),
         );
 
     return DialogBackground(
@@ -597,8 +578,7 @@ class _CustomProgressDialogWidgetState
       onDismiss: widget.onDismiss,
       barrierColor: backgroundColor,
       dialog: Padding(
-        padding: MediaQuery.of(context).viewInsets +
-            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+        padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
         child: Center(
           child: loadingWidget,
         ),
