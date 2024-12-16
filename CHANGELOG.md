@@ -1,5 +1,5 @@
 ## [4.4.0]
-* Flutter 3.27.0 support (Thanks to JEuler 🍻)
+* Flutter 3.27.0 support (Thanks to [JEuler 🍻](https://github.com/nizwar/ndialog/pull/15))
 * Some minors and deprecated adjustments
 * Fix Web support
 

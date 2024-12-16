@@ -154,6 +154,7 @@ class MyHomePage extends StatelessWidget {
               context,
               title: Text("Title of ProgressDialog"),
               message: Text("This dialog will be close after 3 seconds"),
+              dismissable: false,
             );
           }),
 
