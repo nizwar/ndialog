@@ -3,30 +3,34 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
 import 'package:ndialog/src/utils.dart';
-import 'package:ndialog/src/zoom_widget/zoom_widget.dart';
-// import 'package:simple_animations/simple_animations.dart';
 
-///NDialog widget
+/// A customizable dialog widget.
 class NDialog extends StatelessWidget {
-  ///Dialog style
+  /// Dialog style
   final DialogStyle? dialogStyle;
 
-  ///The (optional) title of the dialog is displayed in a large font at the top of the dialog.
+  /// The (optional) title of the dialog is displayed in a large font at the top of the dialog.
   final Widget? title;
 
-  ///The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
+  /// The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
   final Widget? content;
 
-  ///The (optional) set of actions that are displayed at the bottom of the dialog.
+  /// The (optional) set of actions that are displayed at the bottom of the dialog.
   final List<Widget>? actions;
 
-  const NDialog({Key? key, this.dialogStyle, this.title, this.content, this.actions}) : super(key: key);
+  const NDialog({
+    Key? key,
+    this.dialogStyle,
+    this.title,
+    this.content,
+    this.actions,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData? theme = Theme.of(context);
-    final DialogThemeData dialogTheme = DialogTheme.of(context);
-    final DialogStyle style = dialogStyle ?? DialogStyle();
+    final theme = Theme.of(context);
+    final dialogTheme = DialogTheme.of(context);
+    final style = dialogStyle ?? DialogStyle();
 
     String? label = style.semanticsLabel;
     Widget dialogChild = IntrinsicWidth(
@@ -34,80 +38,49 @@ class NDialog extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          title != null
-              ? Padding(
-                  padding: style.titlePadding,
-                  child: DefaultTextStyle(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Semantics(
-                          child: title,
-                          namesRoute: true,
-                          label: label,
-                        ),
-                        style.titleDivider
-                            ? Divider()
-                            : Container(
-                                height: 10.0,
-                              )
-                      ],
-                    ),
-                    style: (style.titleTextStyle ?? (dialogTheme.titleTextStyle)) ?? (theme!.textTheme.titleLarge ?? TextStyle()),
-                  ),
-                )
-              : SizedBox.shrink(),
-          content != null
-              ? Flexible(
-                  child: Padding(
-                    padding: style.contentPadding,
-                    child: DefaultTextStyle(
-                      child: Semantics(child: content),
-                      style: (style.contentTextStyle ?? dialogTheme.contentTextStyle) ?? (theme?.textTheme.titleMedium ?? TextStyle()),
-                    ),
-                  ),
-                )
-              : SizedBox.shrink(),
-          actions != null && (actions?.length ?? 0) > 0
-              ? Theme(
-                  data: theme!.copyWith(
-                    textButtonTheme: TextButtonThemeData(
-                      style: TextButton.styleFrom(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-                      ),
-                    ),
-                  ),
-                  child: (actions?.length ?? 0) <= 3
-                      ? IntrinsicHeight(
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(minHeight: 40),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: List.generate(
-                                actions?.length ?? 0,
-                                (index) {
-                                  return Expanded(child: actions?[index] ?? SizedBox.shrink());
-                                },
-                              ),
-                            ),
-                          ),
-                        )
-                      : Column(
+          if (title != null)
+            Padding(
+              padding: style.titlePadding,
+              child: DefaultTextStyle(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Semantics(child: title, namesRoute: true, label: label),
+                    style.titleDivider ? Divider() : SizedBox(height: 10.0),
+                  ],
+                ),
+                style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.titleLarge ?? TextStyle(),
+              ),
+            ),
+          if (content != null)
+            Flexible(
+              child: Padding(
+                padding: style.contentPadding,
+                child: DefaultTextStyle(
+                  child: Semantics(child: content),
+                  style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.titleMedium ?? TextStyle(),
+                ),
+              ),
+            ),
+          if (actions != null && actions!.isNotEmpty)
+            Theme(
+              data: theme.copyWith(textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero)))),
+              child: actions!.length <= 3
+                  ? IntrinsicHeight(
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(minHeight: 40),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: List.generate(
-                            actions?.length ?? 0,
-                            (index) {
-                              return SizedBox(
-                                height: 50.0,
-                                child: actions?[index],
-                              );
-                            },
-                          ),
+                          children: actions!.map((action) => Expanded(child: action)).toList(),
                         ),
-                )
-              : SizedBox.shrink(),
+                      ),
+                    )
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: actions!.map((action) => SizedBox(height: 50.0, child: action)).toList(),
+                    ),
+            ),
         ],
       ),
     );
@@ -121,7 +94,7 @@ class NDialog extends StatelessWidget {
             child: dialogChild,
             clipBehavior: Clip.antiAlias,
             elevation: style.elevation,
-            color: style.backgroundColor ?? theme?.dialogBackgroundColor,
+            color: style.backgroundColor ?? theme.dialogBackgroundColor,
             shape: style.borderRadius != null
                 ? RoundedRectangleBorder(borderRadius: style.borderRadius ?? BorderRadius.circular(5))
                 : style.shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
@@ -147,32 +120,30 @@ class NDialog extends StatelessWidget {
       ).show(context);
 }
 
-///Simple dialog with blur background and popup animations, use DialogStyle to custom it
+/// A simple dialog with a blur background and popup animations. Use [DialogStyle] to customize it.
 class NAlertDialog extends DialogBackground {
-  ///Dialog style
+  /// Dialog style
   final DialogStyle? dialogStyle;
 
-  ///The (optional) title of the dialog is displayed in a large font at the top of the dialog.
+  /// The (optional) title of the dialog is displayed in a large font at the top of the dialog.
   final Widget? title;
 
-  ///The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
+  /// The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
   final Widget? content;
 
-  ///The (optional) set of actions that are displayed at the bottom of the dialog.
+  /// The (optional) set of actions that are displayed at the bottom of the dialog.
   final List<Widget>? actions;
 
-  /// Creates an background filter that applies a Gaussian blur.
-  /// Default = 0
+  /// Creates a background filter that applies a Gaussian blur. Default is 0.
   final double? blur;
 
-  ///Is your dialog dismissable?, because its warp by BlurDialogBackground,
-  ///you have to declare here instead on showDialog
+  /// Indicates if the dialog is dismissable.
   final bool? dismissable;
 
-  ///Its Barrier Color
+  /// The barrier color of the dialog.
   final Color? backgroundColor;
 
-  ///Action before dialog dismissed
+  /// Action to be performed before the dialog is dismissed.
   final Function? onDismiss;
 
   const NAlertDialog({
@@ -190,12 +161,7 @@ class NAlertDialog extends DialogBackground {
   @override
   Widget build(BuildContext context) {
     return DialogBackground(
-      dialog: NDialog(
-        dialogStyle: dialogStyle,
-        actions: actions,
-        content: content,
-        title: title,
-      ),
+      dialog: NDialog(dialogStyle: dialogStyle, actions: actions, content: content, title: title),
       dismissable: dismissable,
       blur: blur,
       onDismiss: onDismiss,
@@ -205,54 +171,55 @@ class NAlertDialog extends DialogBackground {
   }
 }
 
-//A Dialog, but you can zoom on it
+/// A dialog that allows zooming on its content.
 class ZoomDialog extends DialogBackground {
-  ///The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
+  /// The (optional) content of the dialog is displayed in the center of the dialog in a lighter font.
   final Widget? child;
 
-  /// Creates an background filter that applies a Gaussian blur.
-  /// Default = 0
+  /// Creates a background filter that applies a Gaussian blur. Default is 0.
   final double? blur;
 
-  /// Background color
+  /// Background color of the dialog.
   final Color? backgroundColor;
 
-  ///Maximum zoom scale
+  /// Maximum zoom scale. Deprecated, use [maxScale] instead.
+  @Deprecated("Use maxScale instead")
   final double zoomScale;
 
-  ///Initialize zoom scale on dialog show
+  /// Maximum zoom scale.
+  final double maxScale;
+
+  /// Minimum zoom scale.
+  final double minScale;
+
+  /// Initial zoom scale when the dialog is shown.
   final double initZoomScale;
 
-  ///Action before dialog dismissed
+  /// Action to be performed before the dialog is dismissed.
   final Function? onDismiss;
 
-  const ZoomDialog({Key? key, this.backgroundColor, @required this.child, this.initZoomScale = 0, this.blur, this.zoomScale = 3, this.onDismiss}) : super(key: key);
+  const ZoomDialog({
+    Key? key,
+    this.backgroundColor,
+    @required this.child,
+    this.initZoomScale = 0,
+    this.blur,
+    this.zoomScale = 3,
+    this.onDismiss,
+    this.maxScale = 2.5,
+    this.minScale = 0.8,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DialogBackground(
       key: key,
-      dialog: Zoom(
-        onTap: () {
-          Navigator.pop(context);
-          if (onDismiss != null) onDismiss?.call();
-        },
-        canvasColor: Colors.transparent,
-        backgroundColor: Colors.transparent,
-        initZoom: initZoomScale,
-        centerOnScale: true,
-        maxZoomWidth: MediaQuery.of(context).size.width * zoomScale,
-        maxZoomHeight: MediaQuery.of(context).size.height * zoomScale,
-        child: Transform.scale(
-          scale: zoomScale,
-          child: Center(
-            child: Container(
-              child: child,
-              alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-            ),
-          ),
+      dialog: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: InteractiveViewer(
+          minScale: minScale,
+          maxScale: maxScale,
+          child: Center(child: child),
         ),
       ),
       dismissable: true,
@@ -263,26 +230,26 @@ class ZoomDialog extends DialogBackground {
   }
 }
 
-///Blur background of dialog, you can use this class to make your custom dialog background blur
+/// A widget that provides a blur background for dialogs. You can use this class to create custom dialog backgrounds with blur effects.
 class DialogBackground extends StatelessWidget {
-  ///Widget of dialog, you can use NDialog, Dialog, AlertDialog or Custom your own Dialog
+  /// Widget of the dialog. You can use [NDialog], [Dialog], [AlertDialog], or create your own custom dialog.
   final Widget? dialog;
 
-  ///Because blur dialog cover the barrier, you have to declare here
+  /// Indicates if the dialog is dismissable.
   final bool? dismissable;
 
-  ///Action before dialog dismissed
+  /// Action to be performed before the dialog is dismissed.
   final Function? onDismiss;
 
-  /// Creates an background filter that applies a Gaussian blur.
-  /// Default = 0
+  /// Creates a background filter that applies a Gaussian blur. Default is 0.
   final double? blur;
 
+  /// The barrier color of the dialog.
   final Color? barrierColor;
 
   const DialogBackground({Key? key, this.dialog, this.dismissable, this.blur, this.onDismiss, this.barrierColor}) : super(key: key);
 
-  ///Show dialog directly
+  /// Show the dialog directly.
   Future<T?> show<T>(BuildContext context, {DialogTransitionType? transitionType, bool? dismissable, Duration? transitionDuration}) => DialogUtils(
         child: this,
         dialogTransitionType: transitionType,
@@ -344,36 +311,36 @@ class DialogBackground extends StatelessWidget {
   }
 }
 
-///Dialog style to custom your dialog
+/// A class to customize the style of dialogs.
 class DialogStyle {
-  /// Divider on title
+  /// Divider on title.
   final bool titleDivider;
 
-  ///Set circular border radius for your dialog
+  /// Set circular border radius for your dialog.
   final BorderRadius? borderRadius;
 
-  ///Set semanticslabel for Title
+  /// Set semantics label for the title.
   final String semanticsLabel;
 
-  ///Set padding for your Title
+  /// Set padding for the title.
   final EdgeInsets titlePadding;
 
-  ///Set padding for your  Content
+  /// Set padding for the content.
   final EdgeInsets contentPadding;
 
-  ///Set TextStyle for your Title
+  /// Set text style for the title.
   final TextStyle? titleTextStyle;
 
-  ///Set TextStyle for your Content
+  /// Set text style for the content.
   final TextStyle? contentTextStyle;
 
-  ///Elevation for dialog
+  /// Elevation for the dialog.
   final double elevation;
 
-  ///Background color of dialog
+  /// Background color of the dialog.
   final Color? backgroundColor;
 
-  ///Shape for dialog, ignored if you set BorderRadius
+  /// Shape for the dialog, ignored if you set [borderRadius].
   final ShapeBorder? shape;
 
   DialogStyle({
@@ -411,6 +378,7 @@ class DialogStyle {
       titleTextStyle: titleTextStyle ?? this.titleTextStyle,
       contentTextStyle: contentTextStyle ?? this.contentTextStyle,
       elevation: elevation ?? this.elevation,
+      shape: shape ?? this.shape,
     );
   }
 }
