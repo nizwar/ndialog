@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ndialog/src/transition.dart';
 
-Color get generalBarrierColor => Colors.black.withOpacity(.5);
+Color get generalBarrierColor => Colors.black.withValues(alpha: .5);
 
 class DialogUtils {
   final bool? dismissable;

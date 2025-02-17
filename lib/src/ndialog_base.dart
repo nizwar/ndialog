@@ -49,7 +49,10 @@ class NDialog extends StatelessWidget {
                     style.titleDivider ? Divider() : SizedBox(height: 10.0),
                   ],
                 ),
-                style: style.titleTextStyle ?? dialogTheme.titleTextStyle ?? theme.textTheme.titleLarge ?? TextStyle(),
+                style: style.titleTextStyle ??
+                    dialogTheme.titleTextStyle ??
+                    theme.textTheme.titleLarge ??
+                    TextStyle(),
               ),
             ),
           if (content != null)
@@ -58,27 +61,39 @@ class NDialog extends StatelessWidget {
                 padding: style.contentPadding,
                 child: DefaultTextStyle(
                   child: Semantics(child: content),
-                  style: style.contentTextStyle ?? dialogTheme.contentTextStyle ?? theme.textTheme.titleMedium ?? TextStyle(),
+                  style: style.contentTextStyle ??
+                      dialogTheme.contentTextStyle ??
+                      theme.textTheme.titleMedium ??
+                      TextStyle(),
                 ),
               ),
             ),
           if (actions != null && actions!.isNotEmpty)
             Theme(
-              data: theme.copyWith(textButtonTheme: TextButtonThemeData(style: TextButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero)))),
+              data: theme.copyWith(
+                  textButtonTheme: TextButtonThemeData(
+                      style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero)))),
               child: actions!.length <= 3
                   ? IntrinsicHeight(
                       child: ConstrainedBox(
                         constraints: BoxConstraints(minHeight: 40),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: actions!.map((action) => Expanded(child: action)).toList(),
+                          children: actions!
+                              .map((action) => Expanded(child: action))
+                              .toList(),
                         ),
                       ),
                     )
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.min,
-                      children: actions!.map((action) => SizedBox(height: 50.0, child: action)).toList(),
+                      children: actions!
+                          .map(
+                              (action) => SizedBox(height: 50.0, child: action))
+                          .toList(),
                     ),
             ),
         ],
@@ -86,7 +101,8 @@ class NDialog extends StatelessWidget {
     );
 
     return Padding(
-      padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+      padding: MediaQuery.of(context).viewInsets +
+          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 280.0),
@@ -96,8 +112,12 @@ class NDialog extends StatelessWidget {
             elevation: style.elevation,
             color: style.backgroundColor ?? theme.dialogBackgroundColor,
             shape: style.borderRadius != null
-                ? RoundedRectangleBorder(borderRadius: style.borderRadius ?? BorderRadius.circular(5))
-                : style.shape ?? RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                ? RoundedRectangleBorder(
+                    borderRadius:
+                        style.borderRadius ?? BorderRadius.circular(5))
+                : style.shape ??
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
           ),
         ),
       ),
@@ -161,7 +181,11 @@ class NAlertDialog extends DialogBackground {
   @override
   Widget build(BuildContext context) {
     return DialogBackground(
-      dialog: NDialog(dialogStyle: dialogStyle, actions: actions, content: content, title: title),
+      dialog: NDialog(
+          dialogStyle: dialogStyle,
+          actions: actions,
+          content: content,
+          title: title),
       dismissable: dismissable,
       blur: blur,
       onDismiss: onDismiss,
@@ -247,10 +271,21 @@ class DialogBackground extends StatelessWidget {
   /// The barrier color of the dialog.
   final Color? barrierColor;
 
-  const DialogBackground({Key? key, this.dialog, this.dismissable, this.blur, this.onDismiss, this.barrierColor}) : super(key: key);
+  const DialogBackground(
+      {Key? key,
+      this.dialog,
+      this.dismissable,
+      this.blur,
+      this.onDismiss,
+      this.barrierColor})
+      : super(key: key);
 
   /// Show the dialog directly.
-  Future<T?> show<T>(BuildContext context, {DialogTransitionType? transitionType, bool? dismissable, Duration? transitionDuration}) => DialogUtils(
+  Future<T?> show<T>(BuildContext context,
+          {DialogTransitionType? transitionType,
+          bool? dismissable,
+          Duration? transitionDuration}) =>
+      DialogUtils(
         child: this,
         dialogTransitionType: transitionType,
         dismissable: dismissable,
@@ -347,8 +382,10 @@ class DialogStyle {
     this.titleDivider = false,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
     this.semanticsLabel = "",
-    this.titlePadding = const EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
-    this.contentPadding = const EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
+    this.titlePadding =
+        const EdgeInsets.only(left: 15.0, right: 15.0, top: 10.0),
+    this.contentPadding =
+        const EdgeInsets.only(right: 15.0, left: 15.0, top: 0.0, bottom: 15.0),
     this.titleTextStyle,
     this.contentTextStyle,
     this.elevation = 24,

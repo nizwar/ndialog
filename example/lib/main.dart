@@ -186,7 +186,7 @@ class MyHomePage extends StatelessWidget {
           ///Show NAlertDialog with custom background color
           _button("NAlertDialog with backgroundColor", () {
             NAlertDialog(
-              backgroundColor: Colors.red.withOpacity(.5),
+              backgroundColor: Colors.red.withValues(alpha: .5),
               blur: 0,
               title: Text("NAlert Dialog"),
               content: Text("NAlertDialog with custom Color background"),
