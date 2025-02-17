@@ -1,6 +1,6 @@
 name: ndialog
 description: Customize your dialog's style much easier with NDialog, animate the show transition, or show the progress dialog most simply.
-version: 4.4.0
+version: 4.4.1+1
 homepage: https://nizwar.github.io/ndialog/
 repository: https://github.com/nizwar/ndialog
 
