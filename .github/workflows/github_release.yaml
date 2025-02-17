@@ -104,7 +104,7 @@ jobs:
 
       - name: Initialize project version
         id: project_version
-        uses: its404/get-flutter-version@master
+        uses: its404/get-flutter-version@v1.0.0
 
       - name: Download archived project
         uses: actions/download-artifact@master
