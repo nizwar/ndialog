@@ -35,7 +35,7 @@ jobs:
         run: flutter pub global run dartdoc
 
       - name: Release the documentation
-        uses: crazy-max/ghaction-github-pages@master
+        uses: crazy-max/ghaction-github-pages@v4.1.0
         if: success()
         with:
           target_branch: documentation
@@ -59,7 +59,7 @@ jobs:
         run: cd example && flutter build web --release --web-renderer=html
       
       - name: Release the documentation
-        uses: crazy-max/ghaction-github-pages@master
+        uses: crazy-max/ghaction-github-pages@v4.1.0
         if: success()
         with:
           target_branch: web_example
