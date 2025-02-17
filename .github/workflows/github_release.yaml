@@ -56,7 +56,7 @@ jobs:
         run: flutter pub get
 
       - name: Build web example
-        run: cd example && flutter build web --release --web-renderer=html
+        run: cd example && flutter build web --release
       
       - name: Release the documentation
         uses: crazy-max/ghaction-github-pages@v4.1.0
