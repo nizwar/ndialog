@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: subosito/flutter-action@master
+      - uses: subosito/flutter-action@v2.18.0
         with:
           channel: 'stable'
 
@@ -48,7 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: subosito/flutter-action@master
+      - uses: subosito/flutter-action@v2.18.0
         with:
           channel: 'stable'
 
@@ -79,7 +79,7 @@ jobs:
           distribution: 'adopt'
           java-version: '21.x'
 
-      - uses: subosito/flutter-action@master
+      - uses: subosito/flutter-action@v2.18.0
         with:
           channel: 'stable'
 
