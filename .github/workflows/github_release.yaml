@@ -121,8 +121,8 @@ jobs:
         with:
           artifacts: "example/build/app/outputs/flutter-apk/flutter-apk/*.apk, source_code.zip"
           token: ${{ secrets.GITHUB_TOKEN }} 
-          tag: v${{ steps.project_version.outputs.version_number }}+${{ steps.project_version.outputs.build_number }}
-          name: "v${{ steps.project_version.outputs.version_number }}+${{ steps.project_version.outputs.build_number }}"
+          tag: v${{ steps.project_version.outputs.version_number }}+${{steps.project_version.outputs.build_number}}-${{github.run_number}}
+          name: "Release ${{ steps.project_version.outputs.version_number }}+${{steps.project_version.outputs.build_number}}"
 
 
           
