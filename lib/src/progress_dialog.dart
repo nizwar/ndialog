@@ -6,12 +6,15 @@ import 'package:ndialog/src/utils.dart';
 import 'ndialog_base.dart';
 
 ///Typedef of Progress while on Progress Error
+@Deprecated("Use try catch or .catchError instead")
 typedef OnProgressError(dynamic error);
 
 ///Typedef of Progress while on Progress Finish
+@Deprecated("Use .then instead")
 typedef OnProgressFinish<T>(T data);
 
 ///Typedef of Progress while on Progress Cancel
+@Deprecated("Use .then instead")
 typedef OnProgressCancel();
 
 abstract class _ProgressDialog {
@@ -61,12 +64,7 @@ class ProgressDialog implements _ProgressDialog {
   ///The (optional) message of the progress dialog is displayed in the center of the dialog in a lighter font.
   final Widget? message;
 
-  ///The (optional) on cancel button that will display at the bottom of the dialog.
-  ///Note : Do not use POP to cancel the dialog, just put your cancel code there
-  final Function? onCancel;
-
-  ///The (optional) cancel text that are displayed at the cancel button of the dialog.
-  final Widget? cancelText;
+  final Widget Function(Function onDismissed)? cancelButtonWidget;
 
   ///The (optional) default progress widget that are displayed before message of the dialog,
   ///it will replaced when you use setLoadingWidget, and it will restored if you `setLoadingWidget(null)`.
@@ -100,14 +98,13 @@ class ProgressDialog implements _ProgressDialog {
   ProgressDialog(this.context,
       {this.dialogTransitionType,
       this.backgroundColor,
-      this.cancelText,
       this.defaultLoadingWidget,
       this.blur,
-      this.onCancel,
+      this.cancelButtonWidget,
       this.dismissable,
       this.onDismiss,
-      @required this.title,
-      @required this.message,
+      required this.title,
+      required this.message,
       this.dialogStyle,
       this.transitionDuration}) {
     _initProgress();
@@ -162,8 +159,7 @@ class ProgressDialog implements _ProgressDialog {
     _progressDialogWidget = _ProgressDialogWidget(
       backgroundColor: backgroundColor,
       dialogStyle: dialogStyle ?? DialogStyle(),
-      onCancel: onCancel,
-      cancelText: cancelText,
+      cancelButton: cancelButtonWidget,
       title: title,
       dismissable: dismissable,
       onDismiss: onDismiss,
@@ -177,17 +173,18 @@ class ProgressDialog implements _ProgressDialog {
   ///reach the end of its action
   static Future<T?> future<T>(
     BuildContext context, {
-    @required Future? future,
+    required Future<T>? future,
     DialogStyle? dialogStyle,
     double? blur,
     Color? backgroundColor,
-    OnProgressError? onProgressError,
-    OnProgressFinish? onProgressFinish,
-    OnProgressCancel? onProgressCancel,
+    @Deprecated("Use try catch or .catchError instead") OnProgressError? onProgressError,
+    @Deprecated("Use .then instead") OnProgressFinish? onProgressFinish,
+    @Deprecated("Use .then instead") OnProgressCancel? onProgressCancel,
+    Widget Function(Function onDismissed)? cancelButton,
     Function? onDismiss,
     bool? dismissable,
-    @required Widget? message,
-    @required Widget? title,
+    required Widget? message,
+    required Widget? title,
     Widget? cancelText,
     Widget? progressWidget,
     DialogTransitionType? dialogTransitionType,
@@ -205,27 +202,21 @@ class ProgressDialog implements _ProgressDialog {
       dialogStyle: dialogStyle,
       blur: blur,
       defaultLoadingWidget: progressWidget,
-      cancelText: cancelText,
-      onCancel: onProgressCancel != null ? onProgressCancel : null,
+      cancelButtonWidget: cancelButton,
       dialogTransitionType: dialogTransitionType,
       transitionDuration: transitionDuration,
     );
 
     pDialog.show();
 
-    var output;
-    await future.then((data) {
-      if (onProgressFinish != null)
-        onProgressFinish = onProgressFinish?.call(data);
-      output = data;
+    return future.then((data) {
+      if (onProgressFinish != null) onProgressFinish = onProgressFinish?.call(data);
       pDialog.dismiss();
+      return data;
     }).catchError((error) {
-      if (onProgressError != null)
-        onProgressError = onProgressError?.call(error);
       pDialog.dismiss();
+      throw error;
     });
-
-    return output;
   }
 }
 
@@ -233,10 +224,7 @@ class ProgressDialog implements _ProgressDialog {
 class _ProgressDialogWidget extends StatefulWidget {
   final DialogStyle? dialogStyle;
   final Widget? title, message;
-  @Deprecated("Use cancelButton instead")
-  final Widget? cancelText;
-  final Widget? cancelButton;
-  final Function? onCancel;
+  final Widget Function(Function onDismissed)? cancelButton;
   final Widget? loadingWidget;
   final Function? onDismiss;
   final bool? dismissable;
@@ -246,15 +234,12 @@ class _ProgressDialogWidget extends StatefulWidget {
 
   _ProgressDialogWidget({
     Key? key,
-    @required this.dialogStyle,
+    required this.dialogStyle,
     this.title,
     this.message,
-    this.onCancel,
-    // ignore: unused_element
     this.cancelButton,
     this.dismissable,
     this.onDismiss,
-    this.cancelText,
     this.loadingWidget,
     this.blur,
     this.backgroundColor,
@@ -276,8 +261,7 @@ class _ProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
-    implements _ProgressDialog {
+class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements _ProgressDialog {
   Widget? _title, _message, _loading;
   Color? _backgroundColor;
 
@@ -288,8 +272,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
 
     Widget? title = _title ?? widget.title;
     Widget message = _message ?? (widget.message ?? SizedBox.shrink());
-    Color backgroundColor =
-        _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
+    Color backgroundColor = _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
     Widget loading = (_loading ?? widget.loadingWidget) ??
         Container(
           padding: EdgeInsets.all(10.0),
@@ -300,11 +283,9 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
 
     EdgeInsets? msgPadding = title == null
         ? EdgeInsets.all(15.0)
-        : widget.onCancel == null
-            ? widget.dialogStyle?.contentPadding == null
-                ? EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0)
-                : widget.dialogStyle?.contentPadding
-            : EdgeInsets.fromLTRB(15.0, 0, 15.0, 0);
+        : widget.dialogStyle?.contentPadding == null
+            ? EdgeInsets.fromLTRB(15.0, 0, 15.0, 15.0)
+            : widget.dialogStyle?.contentPadding;
 
     return NAlertDialog(
         title: title,
@@ -315,7 +296,6 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
           if (widget.onDismiss != null) {
             widget.onDismiss?.call();
           }
-          if (widget.onCancel != null) widget.onCancel?.call();
         },
         dialogStyle: widget.dialogStyle?.copyWith(
           contentPadding: msgPadding ?? EdgeInsets.symmetric(horizontal: 20.0),
@@ -332,9 +312,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
                 Expanded(
                   child: DefaultTextStyle(
                     child: Semantics(child: message),
-                    style: (widget.dialogStyle?.contentTextStyle ??
-                            dialogTheme.contentTextStyle) ??
-                        (theme.textTheme.titleMedium ?? TextStyle()),
+                    style: (widget.dialogStyle?.contentTextStyle ?? dialogTheme.contentTextStyle) ?? (theme.textTheme.titleMedium ?? TextStyle()),
                   ),
                 ),
               ],
@@ -342,27 +320,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
           ],
         ),
         actions: [
-          if (widget.onCancel != null)
-            if (widget.cancelButton != null)
-              widget.cancelButton!
-            // ignore: deprecated_member_use_from_same_package
-            else if (widget.cancelText != null)
-              Container(
-                padding: const EdgeInsets.only(right: 10.0, bottom: 10.0),
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    if (widget.onCancel != null) widget.onCancel!.call();
-                    Navigator.pop(context);
-                  },
-                  child: DefaultTextStyle(
-                    // ignore: deprecated_member_use_from_same_package
-                    child: widget.cancelText!,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary),
-                  ),
-                ),
-              )
+          if (widget.cancelButton != null) widget.cancelButton!.call(widget.onDismiss ?? () {}),
         ]);
   }
 
@@ -483,10 +441,10 @@ class CustomProgressDialog implements _CustomProgressDialog {
   ///reach the end of its action
   static Future<T?> future<T>(
     BuildContext context, {
-    @required Future? future,
-    OnProgressError? onProgressError,
-    OnProgressFinish? onProgressFinish,
-    OnProgressCancel? onProgressCancel,
+    required Future<T>? future,
+    @Deprecated("Use try catch or .catchError instead") OnProgressError? onProgressError,
+    @Deprecated("Use .then instead") OnProgressFinish? onProgressFinish,
+    @Deprecated("Use .then instead") OnProgressCancel? onProgressCancel,
     Color? backgroundColor,
     double? blur,
     Function? onDismiss,
@@ -511,20 +469,14 @@ class CustomProgressDialog implements _CustomProgressDialog {
 
     pDialog.show();
 
-    var output;
-    try {
-      await future.then((data) {
-        if (onProgressFinish != null)
-          onProgressFinish = onProgressFinish?.call(data);
-        output = data;
-      }).catchError((error) {
-        if (onProgressError != null)
-          onProgressError = onProgressError?.call(error);
-      });
-    } catch (e) {}
-    pDialog.dismiss();
-
-    return output;
+    return future.then((data) {
+      if (onProgressFinish != null) onProgressFinish = onProgressFinish?.call(data);
+      pDialog.dismiss();
+      return data;
+    }).catchError((error) {
+      pDialog.dismiss();
+      throw error;
+    });
   }
 }
 
@@ -536,8 +488,7 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   final double? blur;
   final Color? backgroundColor;
   final bool? dismissable;
-  _CustomProgressDialogWidgetState _dialogWidgetState =
-      _CustomProgressDialogWidgetState();
+  _CustomProgressDialogWidgetState _dialogWidgetState = _CustomProgressDialogWidgetState();
 
   _CustomProgressDialogWidget({
     Key? key,
@@ -565,16 +516,13 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _CustomProgressDialogWidgetState
-    extends State<_CustomProgressDialogWidget>
-    implements _CustomProgressDialog {
+class _CustomProgressDialogWidgetState extends State<_CustomProgressDialogWidget> implements _CustomProgressDialog {
   Widget? _loadingWidget;
   Color? _backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor =
-        _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
+    Color backgroundColor = _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
     Widget loadingWidget = (this._loadingWidget ?? widget.loadingWidget) ??
         Container(
           padding: EdgeInsets.all(25.0),
@@ -582,9 +530,7 @@ class _CustomProgressDialogWidgetState
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).colorScheme.surface,
           ),
-          child: Theme.of(context).platform == TargetPlatform.iOS
-              ? CupertinoActivityIndicator()
-              : CircularProgressIndicator(),
+          child: Theme.of(context).platform == TargetPlatform.iOS ? CupertinoActivityIndicator() : CircularProgressIndicator(),
         );
 
     return DialogBackground(
@@ -593,8 +539,7 @@ class _CustomProgressDialogWidgetState
       onDismiss: widget.onDismiss,
       barrierColor: backgroundColor,
       dialog: Padding(
-        padding: MediaQuery.of(context).viewInsets +
-            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+        padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
         child: Center(
           child: loadingWidget,
         ),
