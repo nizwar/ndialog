@@ -92,7 +92,8 @@ extension FutureDialog<T> on Future<T> {
     DialogTransitionType? dialogTransitionType,
     bool? dismissable,
     Duration? transitionDuration,
-    @Deprecated("Use try catch or .catchError instead") OnProgressError? onProgressError,
+    @Deprecated("Use try catch or .catchError instead")
+    OnProgressError? onProgressError,
     @Deprecated("Use .then instead") OnProgressFinish? onProgressFinish,
     @Deprecated("Use .then instead") OnProgressCancel? onProgressCancel,
     Function()? onDismiss,
@@ -129,7 +130,8 @@ extension FutureDialog<T> on Future<T> {
     DialogTransitionType? dialogTransitionType,
     bool? dismissable,
     Duration? transitionDuration,
-    @Deprecated("Use try catch or .catchError instead") OnProgressError? onProgressError,
+    @Deprecated("Use try catch or .catchError instead")
+    OnProgressError? onProgressError,
     @Deprecated("Use .then instead") OnProgressFinish? onProgressFinish,
     @Deprecated("Use .then instead") OnProgressCancel? onProgressCancel,
     Function? onDismiss,

@@ -177,7 +177,8 @@ class ProgressDialog implements _ProgressDialog {
     DialogStyle? dialogStyle,
     double? blur,
     Color? backgroundColor,
-    @Deprecated("Use try catch or .catchError instead") OnProgressError? onProgressError,
+    @Deprecated("Use try catch or .catchError instead")
+    OnProgressError? onProgressError,
     @Deprecated("Use .then instead") OnProgressFinish? onProgressFinish,
     @Deprecated("Use .then instead") OnProgressCancel? onProgressCancel,
     Widget Function(Function() onDismissed)? cancelButton,
@@ -210,7 +211,8 @@ class ProgressDialog implements _ProgressDialog {
     pDialog.show();
 
     return future.then((data) {
-      if (onProgressFinish != null) onProgressFinish = onProgressFinish?.call(data);
+      if (onProgressFinish != null)
+        onProgressFinish = onProgressFinish?.call(data);
       pDialog.dismiss();
       return data;
     }).catchError((error) {
@@ -261,7 +263,8 @@ class _ProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements _ProgressDialog {
+class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
+    implements _ProgressDialog {
   Widget? _title, _message, _loading;
   Color? _backgroundColor;
 
@@ -272,7 +275,8 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements
 
     Widget? title = _title ?? widget.title;
     Widget message = _message ?? (widget.message ?? SizedBox.shrink());
-    Color backgroundColor = _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
+    Color backgroundColor =
+        _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
     Widget loading = (_loading ?? widget.loadingWidget) ??
         Container(
           padding: EdgeInsets.all(10.0),
@@ -312,7 +316,9 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements
                 Expanded(
                   child: DefaultTextStyle(
                     child: Semantics(child: message),
-                    style: (widget.dialogStyle?.contentTextStyle ?? dialogTheme.contentTextStyle) ?? (theme.textTheme.titleMedium ?? TextStyle()),
+                    style: (widget.dialogStyle?.contentTextStyle ??
+                            dialogTheme.contentTextStyle) ??
+                        (theme.textTheme.titleMedium ?? TextStyle()),
                   ),
                 ),
               ],
@@ -320,7 +326,8 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget> implements
           ],
         ),
         actions: [
-          if (widget.cancelButton != null) widget.cancelButton!.call(widget.onDismiss ?? () {}),
+          if (widget.cancelButton != null)
+            widget.cancelButton!.call(widget.onDismiss ?? () {}),
         ]);
   }
 
@@ -442,7 +449,8 @@ class CustomProgressDialog implements _CustomProgressDialog {
   static Future<T?> future<T>(
     BuildContext context, {
     required Future<T>? future,
-    @Deprecated("Use try catch or .catchError instead") OnProgressError? onProgressError,
+    @Deprecated("Use try catch or .catchError instead")
+    OnProgressError? onProgressError,
     @Deprecated("Use .then instead") OnProgressFinish? onProgressFinish,
     @Deprecated("Use .then instead") OnProgressCancel? onProgressCancel,
     Color? backgroundColor,
@@ -470,7 +478,8 @@ class CustomProgressDialog implements _CustomProgressDialog {
     pDialog.show();
 
     return future.then((data) {
-      if (onProgressFinish != null) onProgressFinish = onProgressFinish?.call(data);
+      if (onProgressFinish != null)
+        onProgressFinish = onProgressFinish?.call(data);
       pDialog.dismiss();
       return data;
     }).catchError((error) {
@@ -488,7 +497,8 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   final double? blur;
   final Color? backgroundColor;
   final bool? dismissable;
-  _CustomProgressDialogWidgetState _dialogWidgetState = _CustomProgressDialogWidgetState();
+  _CustomProgressDialogWidgetState _dialogWidgetState =
+      _CustomProgressDialogWidgetState();
 
   _CustomProgressDialogWidget({
     Key? key,
@@ -516,13 +526,16 @@ class _CustomProgressDialogWidget extends StatefulWidget {
   }
 }
 
-class _CustomProgressDialogWidgetState extends State<_CustomProgressDialogWidget> implements _CustomProgressDialog {
+class _CustomProgressDialogWidgetState
+    extends State<_CustomProgressDialogWidget>
+    implements _CustomProgressDialog {
   Widget? _loadingWidget;
   Color? _backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
+    Color backgroundColor =
+        _backgroundColor ?? (widget.backgroundColor ?? generalBarrierColor);
     Widget loadingWidget = (this._loadingWidget ?? widget.loadingWidget) ??
         Container(
           padding: EdgeInsets.all(25.0),
@@ -530,7 +543,9 @@ class _CustomProgressDialogWidgetState extends State<_CustomProgressDialogWidget
             borderRadius: BorderRadius.circular(15),
             color: Theme.of(context).colorScheme.surface,
           ),
-          child: Theme.of(context).platform == TargetPlatform.iOS ? CupertinoActivityIndicator() : CircularProgressIndicator(),
+          child: Theme.of(context).platform == TargetPlatform.iOS
+              ? CupertinoActivityIndicator()
+              : CircularProgressIndicator(),
         );
 
     return DialogBackground(
@@ -539,7 +554,8 @@ class _CustomProgressDialogWidgetState extends State<_CustomProgressDialogWidget
       onDismiss: widget.onDismiss,
       barrierColor: backgroundColor,
       dialog: Padding(
-        padding: MediaQuery.of(context).viewInsets + const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
+        padding: MediaQuery.of(context).viewInsets +
+            const EdgeInsets.symmetric(horizontal: 20.0, vertical: 24.0),
         child: Center(
           child: loadingWidget,
         ),

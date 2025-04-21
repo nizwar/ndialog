@@ -1,3 +1,10 @@
+## [4.5.0+1]
+* Latest Flutter adjustments
+* `OnProgressError`, `OnProgressFinish`, `OnProgressCancel` Deprecated
+* Removing ProgressDialog's `onCancel` & `cancelText`, use `onDismiss` & `cancelButtonWidget` instead
+* Change how ProgressDialog's error handling works, use flutter's `future.catchError`
+
+
 ## [4.4.0]
 * Flutter 3.27.0 support (Thanks to [JEuler 🍻](https://github.com/nizwar/ndialog/pull/15))
 * Some minors and deprecated adjustments
