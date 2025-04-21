@@ -64,7 +64,7 @@ class ProgressDialog implements _ProgressDialog {
   ///The (optional) message of the progress dialog is displayed in the center of the dialog in a lighter font.
   final Widget? message;
 
-  final Widget Function(Function onDismissed)? cancelButtonWidget;
+  final Widget Function(Function() onDismissed)? cancelButtonWidget;
 
   ///The (optional) default progress widget that are displayed before message of the dialog,
   ///it will replaced when you use setLoadingWidget, and it will restored if you `setLoadingWidget(null)`.
@@ -75,7 +75,7 @@ class ProgressDialog implements _ProgressDialog {
   final bool? dismissable;
 
   ///Action on dialog dismissing
-  final Function? onDismiss;
+  final Function()? onDismiss;
 
   ///Blur on background
   final double? blur;
@@ -180,8 +180,8 @@ class ProgressDialog implements _ProgressDialog {
     @Deprecated("Use try catch or .catchError instead") OnProgressError? onProgressError,
     @Deprecated("Use .then instead") OnProgressFinish? onProgressFinish,
     @Deprecated("Use .then instead") OnProgressCancel? onProgressCancel,
-    Widget Function(Function onDismissed)? cancelButton,
-    Function? onDismiss,
+    Widget Function(Function() onDismissed)? cancelButton,
+    Function()? onDismiss,
     bool? dismissable,
     required Widget? message,
     required Widget? title,
@@ -224,9 +224,9 @@ class ProgressDialog implements _ProgressDialog {
 class _ProgressDialogWidget extends StatefulWidget {
   final DialogStyle? dialogStyle;
   final Widget? title, message;
-  final Widget Function(Function onDismissed)? cancelButton;
+  final Widget Function(Function() onDismissed)? cancelButton;
   final Widget? loadingWidget;
-  final Function? onDismiss;
+  final Function()? onDismiss;
   final bool? dismissable;
   final double? blur;
   final Color? backgroundColor;

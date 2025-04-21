@@ -110,7 +110,7 @@ class NDialog extends StatelessWidget {
             child: dialogChild,
             clipBehavior: Clip.antiAlias,
             elevation: style.elevation,
-            color: style.backgroundColor ?? theme.dialogBackgroundColor,
+            color: style.backgroundColor ?? theme.dialogTheme.backgroundColor,
             shape: style.borderRadius != null
                 ? RoundedRectangleBorder(
                     borderRadius:
