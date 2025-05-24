@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the ProgressDialog class from the ndialog library, for the Dart programming language.">
+  <title>ProgressDialog class - ndialog library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../static-assets/styles.css?v1">
+  <link rel="icon" href="../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ndialog</a></li>
+    <li><a href="../ndialog/">ndialog.dart</a></li>
+    <li class="self-crumb">ProgressDialog class</li>
+  </ol>
+  <div class="self-name">ProgressDialog</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="ndialog&#47;ndialog-library-sidebar.html"
+    data-below-sidebar="ndialog&#47;ProgressDialog-class-sidebar.html">
+    <div>
+<h1><span class="kind-class">ProgressDialog</span> class 
+ 
+</h1></div>
+
+    
+<section class="desc markdown">
+  <p>Simple progress dialog with blur background and popup animations, use DialogStyle to custom it
+inspired by ProgressDialog from Android Native, and it very simple to use</p>
+</section>
+
+
+
+    
+  <section class="summary offset-anchor" id="constructors">
+    <h2>Constructors</h2>
+    <dl class="constructor-summary-list">
+        <dt id="ProgressDialog.new" class="callable">
+          <span class="name"><a href="../ndialog/ProgressDialog/ProgressDialog.html">ProgressDialog.new</a></span><span class="signature">(<span class="parameter" id="-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, {</span><span class="parameter" id="-param-dialogTransitionType"><span class="type-annotation"><a href="../ndialog/DialogTransitionType.html">DialogTransitionType</a>?</span> <span class="parameter-name">dialogTransitionType</span>, </span><span class="parameter" id="-param-backgroundColor"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a>?</span> <span class="parameter-name">backgroundColor</span>, </span><span class="parameter" id="-param-defaultLoadingWidget"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">defaultLoadingWidget</span>, </span><span class="parameter" id="-param-blur"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">blur</span>, </span><span class="parameter" id="-param-cancelButtonWidget"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span> <span class="parameter-name">cancelButtonWidget</span>(<span class="parameter" id="param-onDismissed"><span class="type-annotation">dynamic</span> <span class="parameter-name">onDismissed</span>()</span>)?, </span><span class="parameter" id="-param-dismissable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">dismissable</span>, </span><span class="parameter" id="-param-onDismiss"><span class="type-annotation">dynamic</span> <span class="parameter-name">onDismiss</span>()?, </span><span class="parameter" id="-param-title"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">title</span>, </span><span class="parameter" id="-param-message"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">message</span>, </span><span class="parameter" id="-param-dialogStyle"><span class="type-annotation"><a href="../ndialog/DialogStyle-class.html">DialogStyle</a>?</span> <span class="parameter-name">dialogStyle</span>, </span><span class="parameter" id="-param-transitionDuration"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a>?</span> <span class="parameter-name">transitionDuration</span></span>})</span>
+        </dt>
+        <dd>
+          
+        </dd>
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-properties">
+    <h2>Properties</h2>
+    <dl class="properties">
+        <dt id="backgroundColor" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/backgroundColor.html">backgroundColor</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a>?</span>
+  
+
+</dt>
+<dd>
+  Dialog Barrier background color
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="blur" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/blur.html">blur</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span>
+  
+
+</dt>
+<dd>
+  Blur on background
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="cancelButtonWidget" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/cancelButtonWidget.html">cancelButtonWidget</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a> Function<span class="signature">(<span class="parameter" id="param-onDismissed"><span class="type-annotation">dynamic</span> <span class="parameter-name">onDismissed</span>()</span>)</span>?</span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="context" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/context.html">context</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span>
+  
+
+</dt>
+<dd>
+  The context
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="defaultLoadingWidget" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/defaultLoadingWidget.html">defaultLoadingWidget</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span>
+  
+
+</dt>
+<dd>
+  The (optional) default progress widget that are displayed before message of the dialog,
+it will replaced when you use setLoadingWidget, and it will restored if you <code>setLoadingWidget(null)</code>.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="dialogStyle" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/dialogStyle.html">dialogStyle</a></span>
+  <span class="signature">&#8594; <a href="../ndialog/DialogStyle-class.html">DialogStyle</a>?</span>
+  
+
+</dt>
+<dd>
+  Custom dialog style
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="dialogTransitionType" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/dialogTransitionType.html">dialogTransitionType</a></span>
+  <span class="signature">&#8594; <a href="../ndialog/DialogTransitionType.html">DialogTransitionType</a>?</span>
+  
+
+</dt>
+<dd>
+  Dialog Transition Type
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="dismissable" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/dismissable.html">dismissable</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span>
+  
+
+</dt>
+<dd>
+  Is your dialog dismissable?, because its warp by BlurDialogBackground,
+you have to declare here instead on showDialog
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="hashCode" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  The hash code for this object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="isShowed" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/isShowed.html">isShowed</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  
+
+</dt>
+<dd>
+  
+  <div class="features"><span class="feature">no setter</span></div>
+
+</dd>
+
+        <dt id="message" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/message.html">message</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span>
+  
+
+</dt>
+<dd>
+  The (optional) message of the progress dialog is displayed in the center of the dialog in a lighter font.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="onDismiss" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/onDismiss.html">onDismiss</a></span>
+  <span class="signature">&#8594; dynamic Function<span class="signature">()</span>?</span>
+  
+
+</dt>
+<dd>
+  Action on dialog dismissing
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="runtimeType" class="property inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Type-class.html">Type</a></span>
+  
+
+</dt>
+<dd class="inherited">
+  A representation of the runtime type of the object.
+  <div class="features"><span class="feature">no setter</span><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="title" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/title.html">title</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span>
+  
+
+</dt>
+<dd>
+  The (optional) title of the progress dialog is displayed in a large font at the top of the dialog.
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+        <dt id="transitionDuration" class="property">
+  <span class="name"><a href="../ndialog/ProgressDialog/transitionDuration.html">transitionDuration</a></span>
+  <span class="signature">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a>?</span>
+  
+
+</dt>
+<dd>
+  Dialog Transition Duration
+  <div class="features"><span class="feature">final</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+
+    
+  <section
+      class="summary offset-anchor"
+      id="instance-methods">
+    <h2>Methods</h2>
+    <dl class="callables">
+        <dt id="dismiss" class="callable">
+  <span class="name"><a href="../ndialog/ProgressDialog/dismiss.html">dismiss</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Dissmiss progress dialog
+  
+
+</dd>
+
+        <dt id="noSuchMethod" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></span><span class="signature">(<wbr><span class="parameter" id="noSuchMethod-param-invocation"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Invocation-class.html">Invocation</a></span> <span class="parameter-name">invocation</span></span>)
+    <span class="returntype parameter">&#8594; dynamic</span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  Invoked when a nonexistent method or property is accessed.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+        <dt id="setBackgroundColor" class="callable">
+  <span class="name"><a href="../ndialog/ProgressDialog/setBackgroundColor.html">setBackgroundColor</a></span><span class="signature">(<wbr><span class="parameter" id="setBackgroundColor-param-color"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a></span> <span class="parameter-name">color</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  You can set background / barrier color of dialog using this function,
+even the dialog already pop up.
+Set it Null to change it as default
+  
+
+</dd>
+
+        <dt id="setLoadingWidget" class="callable">
+  <span class="name"><a href="../ndialog/ProgressDialog/setLoadingWidget.html">setLoadingWidget</a></span><span class="signature">(<wbr><span class="parameter" id="setLoadingWidget-param-loadingWidget"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">loadingWidget</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  You can set loading widget of dialog using this function,
+even the dialog already pop up.
+Set it Null to change it as default CircularProgressIndicator or loadingWidget that already you set before
+  
+
+</dd>
+
+        <dt id="setMessage" class="callable">
+  <span class="name"><a href="../ndialog/ProgressDialog/setMessage.html">setMessage</a></span><span class="signature">(<wbr><span class="parameter" id="setMessage-param-message"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span> <span class="parameter-name">message</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  You can set message of dialog using this function,
+even the dialog already pop up
+  
+
+</dd>
+
+        <dt id="setTitle" class="callable">
+  <span class="name"><a href="../ndialog/ProgressDialog/setTitle.html">setTitle</a></span><span class="signature">(<wbr><span class="parameter" id="setTitle-param-title"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span> <span class="parameter-name">title</span></span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  You can set title of dialog using this function,
+even the dialog already pop up
+  
+
+</dd>
+
+        <dt id="show" class="callable">
+  <span class="name"><a href="../ndialog/ProgressDialog/show.html">show</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Show progress dialog
+  
+
+</dd>
+
+        <dt id="toString" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  A string representation of this object.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+  <section
+      class="summary offset-anchor inherited"
+      id="operators">
+    <h2>Operators</h2>
+    <dl class="callables">
+        <dt id="operator ==" class="callable inherited">
+  <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></span><span class="signature">(<wbr><span class="parameter" id="==-param-other"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Object-class.html">Object</a></span> <span class="parameter-name">other</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span>
+  </span>
+  
+
+</dt>
+<dd class="inherited">
+  The equality operator.
+  <div class="features"><span class="feature">inherited</span></div>
+
+</dd>
+
+    </dl>
+  </section>
+    
+    
+  <section class="summary offset-anchor" id="static-methods">
+    <h2>Static Methods</h2>
+    <dl class="callables">
+        <dt id="future" class="callable">
+  <span class="name"><a href="../ndialog/ProgressDialog/future.html">future</a></span><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span><span class="signature">(<wbr><span class="parameter" id="future-param-context"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/BuildContext-class.html">BuildContext</a></span> <span class="parameter-name">context</span>, {</span><span class="parameter" id="future-param-future"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">T</span>&gt;</span>?</span> <span class="parameter-name">future</span>, </span><span class="parameter" id="future-param-dialogStyle"><span class="type-annotation"><a href="../ndialog/DialogStyle-class.html">DialogStyle</a>?</span> <span class="parameter-name">dialogStyle</span>, </span><span class="parameter" id="future-param-blur"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/double-class.html">double</a>?</span> <span class="parameter-name">blur</span>, </span><span class="parameter" id="future-param-backgroundColor"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a>?</span> <span class="parameter-name">backgroundColor</span>, </span><span class="parameter" id="future-param-onProgressError"><span class="type-annotation"><a class="deprecated" href="../ndialog/OnProgressError.html">OnProgressError</a>?</span> <span class="parameter-name">onProgressError</span>, </span><span class="parameter" id="future-param-onProgressFinish"><span class="type-annotation"><a class="deprecated" href="../ndialog/OnProgressFinish.html">OnProgressFinish</a>?</span> <span class="parameter-name">onProgressFinish</span>, </span><span class="parameter" id="future-param-onProgressCancel"><span class="type-annotation"><a class="deprecated" href="../ndialog/OnProgressCancel.html">OnProgressCancel</a>?</span> <span class="parameter-name">onProgressCancel</span>, </span><span class="parameter" id="future-param-cancelButton"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a></span> <span class="parameter-name">cancelButton</span>(<span class="parameter" id="param-onDismissed"><span class="type-annotation">dynamic</span> <span class="parameter-name">onDismissed</span>()</span>)?, </span><span class="parameter" id="future-param-onDismiss"><span class="type-annotation">dynamic</span> <span class="parameter-name">onDismiss</span>()?, </span><span class="parameter" id="future-param-dismissable"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">dismissable</span>, </span><span class="parameter" id="future-param-message"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">message</span>, </span><span class="parameter" id="future-param-title"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">title</span>, </span><span class="parameter" id="future-param-cancelText"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">cancelText</span>, </span><span class="parameter" id="future-param-progressWidget"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/widgets/Widget-class.html">Widget</a>?</span> <span class="parameter-name">progressWidget</span>, </span><span class="parameter" id="future-param-dialogTransitionType"><span class="type-annotation"><a href="../ndialog/DialogTransitionType.html">DialogTransitionType</a>?</span> <span class="parameter-name">dialogTransitionType</span>, </span><span class="parameter" id="future-param-transitionDuration"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Duration-class.html">Duration</a>?</span> <span class="parameter-name">transitionDuration</span></span>})
+    <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">T?</span>&gt;</span></span>
+  </span>
+  
+
+</dt>
+<dd>
+  future function let you show ProgressDialog until future (param)
+reach the end of its action
+  
+
+</dd>
+
+    </dl>
+  </section>
+    
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../index.html">ndialog</a></li>
+    <li><a href="../ndialog/">ndialog</a></li>
+    <li class="self-crumb">ProgressDialog class</li>
+</ol>
+
+    <h5>ndialog library</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    ndialog
+      4.5.0+1
+  </span>
+  
+</footer>
+
+
+<script src="../static-assets/highlight.pack.js?v1"></script>
+<script src="../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+

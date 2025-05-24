@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="ndialog API docs, for the Dart programming language.">
+  <title>ndialog - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="https://nizwar.github.io/ndialog/">ndialog package</a></li>
+  </ol>
+  <div class="self-name">ndialog</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="ndialog-4x">NDialog 4.x</h1>
+<p><a href="https://github.com/nizwar/ndialog/fork"><img src="https://img.shields.io/github/forks/nizwar/ndialog?style=social" alt="Fork"></a>&nbsp; <a href="https://github.com/nizwar/ndialog/star"><img src="https://img.shields.io/github/stars/nizwar/ndialog?style=social" alt="Star"></a>&nbsp; <a href="https://github.com/nizwar/ndialog/"><img src="https://img.shields.io/github/watchers/nizwar/ndialog?style=social" alt="Watches"></a></p>
+<p><a href="https://pub.dev/packages/ndialog"><img src="https://img.shields.io/badge/Get%20library-pub-blue" alt="Get the library"></a>&nbsp; <a href="https://pub.dev/packages/ndialog/example"><img src="https://img.shields.io/badge/Example-Code-blue" alt="Example"></a>&nbsp; <a href="https://nizwar.github.io/ndialog"><img src="https://img.shields.io/badge/Demo-WEB-blue" alt="Demo"></a>&nbsp; <a href="https://github.com/nizwar/ndialog/releases"><img src="https://img.shields.io/badge/Demo-APKs-blue" alt="Demo"></a></p>
+<p>Customize your dialog's style much easier with NDialog, animate the show transition, or show the progress dialog most simply.</p>
+<p>Wonders how the result looks like? <a href="https://nizwar.github.io/ndialog">Click here for web demo</a> or here for <a href="https://github.com/nizwar/ndialog/releases">Android APKs demo</a></p>
+<p>Anyway, not only helps you display a dialog with a blurred background, NDialog is here to help you do a lot of things. for example, with NDialog you can display <code>ProgressDialog</code> to the user once until it meets the end of <code>Future</code>!</p>
+<p>First of all, let's leave the old style with <code>showDialog(...)</code>, with NDialog I provide dialog extensions, you can simply call <code>.show(context)</code> at the end of all of your dialog and let the magic work!</p>
+<p>There are 2 types of dialogs, they are <code>Dialog</code> (popup dialog) and <code>ProgressDialog</code></p>
+<h2 id="dialog">Dialog</h2>
+<p>In Dialog, there are 3 types, they are <code>NDialog</code>, <code>NAlertDialog</code>, <code>ZoomDialog</code>.</p>
+<h3 id="ndialog">NDialog</h3>
+<p>Is a raw dialog where you can view them right away without anything else</p>
+<pre class="language-dart"><code class="language-dart">  NDialog(
+    dialogStyle: DialogStyle(titleDivider: true),
+    title: Text("NDialog"),
+    content: Text("This is NDialog's content"),
+    actions: &lt;Widget&gt;[
+      TextButton(child: Text("Okay"), onPressed: () =&gt; Navigator.pop(context)),
+      TextButton(child: Text("Close"), onPressed: () =&gt; Navigator.pop(context)),
+    ],
+  ).show(context);
+</code></pre>
+<h3 id="nalertdialog">NAlertDialog</h3>
+<p>Is a dialog where you can directly set the background attributes without be wrapped by <code>DialogBackground</code> and you can simply display them.</p>
+<pre class="language-dart"><code class="language-dart">  NAlertDialog(
+    dialogStyle: DialogStyle(titleDivider: true),
+    title: Text("NAlertDialog"),
+    content: Text("This is NAlertDialog's content"),
+    actions: &lt;Widget&gt;[
+      TextButton(child: Text("Okay"), onPressed: () =&gt; Navigator.pop(context)),
+      TextButton(child: Text("Close"), onPressed: () =&gt; Navigator.pop(context)),
+    ],
+  ).show(context);
+</code></pre>
+<h3 id="zoomdialog">ZoomDialog</h3>
+<p>Is a dialog that you can zoom on it, you can zoom all type of widget on this dialog, simplye write this code and boom, there you go!</p>
+<pre class="language-dart"><code class="language-dart">  ZoomDialog(
+    zoomScale: 5,
+    child: Container(
+      child: Text("Zoom me!"),
+      color: Colors.white,
+      padding: EdgeInsets.all(20),
+    ),
+  ).show(context);
+</code></pre>
+<h2 id="progress-dialog">Progress Dialog</h2>
+<p>In ProgressDialog, there are 2 types, they are <code>ProgressDialog</code> and <code>CustomProgressDialog</code>.</p>
+<h3 id="progressdialog">ProgressDialog</h3>
+<p>Will display the ProgressDialog with Android native style.</p>
+<pre class="language-dart"><code class="language-dart">  ProgressDialog progressDialog = ProgressDialog(
+    context,
+    blur: 10,
+    title: Text("Title of ProgressDialog"),
+    message: Text("Content of ProgressDialog"),
+    onDismiss: () =&gt; print("Do something onDismiss"),
+  );
+  progressDialog.show();
+
+  //Set loading with red circular progress indicator and change the title and message
+  await Future.delayed(Duration(seconds: 5));
+  progressDialog.setLoadingWidget(CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.red)));
+  progressDialog.setTitle(Text("ProgressDialog Title changed"));
+  progressDialog.setMessage(Text("It will change again after 5 seconds"));
+
+  //Show dialog
+  progressDialog.show();
+
+  //After 5 seconds, change the title, message and loading widget to null (default widget is CircularProgressIndicator)
+  await Future.delayed(Duration(seconds: 5));
+  progressDialog.setLoadingWidget(null);
+  progressDialog.setMessage(Text("ProgressDialog will dismiss after 5 seconds"));
+  progressDialog.setTitle(Text("Last changes"));
+
+  //After 5 seconds, dismiss the dialog
+  await Future.delayed(Duration(seconds: 5));
+  progressDialog.dismiss();
+</code></pre>
+<h3 id="customprogressdialog">CustomProgressDialog</h3>
+<p>Will display a progress dialog with customizable widgets</p>
+<pre class="language-dart"><code class="language-dart">  CustomProgressDialog progressDialog = CustomProgressDialog(
+    context,
+    blur: 10,
+    onDismiss: () =&gt; print("Do something onDismiss"),
+  );
+  //Set loading with red circular progress indicator
+  progressDialog.setLoadingWidget(CircularProgressIndicator(valueColor: AlwaysStoppedAnimation(Colors.red)));
+
+  //Show dialog
+  progressDialog.show();
+
+  //After 5 seconds, change the loading widget to null (default widget is CircularProgressIndicator)
+  await Future.delayed(Duration(seconds: 5));
+  progressDialog.setLoadingWidget(null);
+
+  //After 5 seconds, dismiss the dialog
+  await Future.delayed(Duration(seconds: 5));
+  progressDialog.dismiss();
+</code></pre>
+<h3 id="show-progress-dialog-once-with-future">Show Progress Dialog Once with .future()</h3>
+<p>This is what I'm talking about, Each Progress Dialog has a <code>.future(context)</code> static function, which will help you display the progress dialog once until <code>Future</code> is completed!</p>
+<pre class="language-dart"><code class="language-dart">  ///ProgressDialog
+  ProgressDialog.future(
+    context,
+    title: Text("ProgressDialog.future()"),
+    message: Text("This will finis after 5 seconds"),
+    future: Future.delayed(Duration(seconds: 5), () =&gt; "The end of future (5 seconds)"),
+    onProgressError: (error) =&gt; print("Do something onProgressError"),
+    onProgressFinish: (data) =&gt; print("Do something onProgressFinish"),
+    onDismiss: () =&gt; print("Dismissed"),
+  ).then((value) =&gt; print(value));
+
+  ///CustomProgressDialog
+  CustomProgressDialog.future(
+    context,
+    future: Future.delayed(Duration(seconds: 5), () =&gt; "The end of future (5 seconds)"),
+    onProgressError: (error) =&gt; print("Do something onProgressError"),
+    onProgressFinish: (data) =&gt; print("Do something onProgressFinish"),
+    onDismiss: () =&gt; print("Dismissed"),
+  ).then((value) =&gt; print(value));
+
+</code></pre>
+<h2 id="future-extensions">Future Extensions</h2>
+<p>Now you can show a dialog on every futures by simply add a single code.</p>
+<pre class="language-dart"><code class="language-dart">  //Make sure you import ndialog to call extensions function
+  import 'package:ndialog/ndialog.dart';
+
+  ...
+  Future.delayed(Duration(seconds: 3)).showProgressDialog(
+    context,
+    title: Text("Title of ProgressDialog"),
+    message: Text("This dialog will be close after 3 seconds"),
+  );
+  //or
+  Future.delayed(Duration(seconds:3)).showCustomProgressDialog(context);
+</code></pre>
+<h2 id="dialog-extensions">Dialog Extensions!</h2>
+<p>You can simply call <code>show(context)</code> at the end of Flutter's built-in dialogs.</p>
+<pre class="language-dart"><code class="language-dart">  //Make sure you import ndialog to call extensions function
+  import 'package:ndialog/ndialog.dart';
+
+  ...
+
+  AlertDialog( ... ).show(context);
+  SimpleDialog( ... ).show(context);
+  Dialog( ... ).show(context);
+  CupertinoAlertDialog( ... ).show(context);
+</code></pre>
+<h2 id="dialogbackground">DialogBackground</h2>
+<p>You can use DialogBackground to create your own custom dialog and display them easily, you can also change the barrierColor / background color and add little bit blur effects there.</p>
+<p>Note : BlurDialogBackground is depreceted, use <code>DialogBackground</code> instead!</p>
+<pre class="language-dart"><code class="language-dart">  DialogBackground(
+    blur: 5,
+    dialog: AlertDialog(
+      title: Text("NAlert Dialog"),
+      content: Text("NAlertDialog with Blur background"),
+      actions: &lt;Widget&gt;[
+        TextButton(child: Text("Okay"), onPressed: () =&gt; Navigator.pop(context)),
+        TextButton(child: Text("Close"), onPressed: () =&gt; Navigator.pop(context)),
+      ],
+    ),
+  ).show(context);
+</code></pre>
+<h2 id="dialog-transition">Dialog Transition</h2>
+<p>Now you can show Dialog(Flutter native dialog included) with animated transition, by simply write</p>
+<pre class="language-dart"><code class="language-dart">yourDialog.show(context, transitionType: DialogTransitionType.Bubble);
+</code></pre>
+<p>Choose your customized transition and show them right away!</p>
+<h2 id="screenshot">Screenshot</h2>
+<p><img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgCTCVLSyHqmw_Q75c4y6Aai2dXFe7RQU-qWzCKTEKxUsbCyIah54dLQCaEQk3aZ1LnLG3tzcgs1AAxOQ-98WY87iyMc0tHA-04ofQ0y2f2nsZNDRkOmuvIpuvsAicObJySC0BgOBsLdAlvexj-9jRIZ-ynunRpWchf3RAx77GUZUxe12GMlYiZDqcd/s728/ndialog_preview.gif" alt="Example"></p>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="ndialog">
+  <span class="name"><a href="ndialog/">ndialog</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="https://nizwar.github.io/ndialog/">ndialog package</a></li>
+</ol>
+
+    <h5 class="hidden-xs"><span class="package-name">ndialog</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="ndialog/">ndialog</a></li>
+</ol>
+
+  </div>
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+</main>
+<footer>
+  <span class="no-break">
+    ndialog
+      4.5.0+1
+  </span>
+  
+</footer>
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
