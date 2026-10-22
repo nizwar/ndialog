@@ -271,7 +271,7 @@ class _ProgressDialogWidgetState extends State<_ProgressDialogWidget>
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final DialogThemeData dialogTheme = DialogTheme.of(context);
+    final dialogTheme = DialogTheme.of(context);
 
     Widget? title = _title ?? widget.title;
     Widget message = _message ?? (widget.message ?? SizedBox.shrink());
