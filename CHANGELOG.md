@@ -1,3 +1,8 @@
+## [4.5.1]
+
+- Compiles again with Flutter 3.24 to 3.26 (`DialogThemeData` and `Color.withValues` errors, [#18](https://github.com/nizwar/ndialog/issues/18), thanks to [Rajuavs](https://github.com/Rajuavs))
+- Declare the minimum Flutter version (3.24) in the pubspec
+
 ## [4.5.0+1]
 
 - Latest Flutter adjustments
